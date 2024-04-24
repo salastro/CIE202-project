@@ -4,9 +4,8 @@
 
 ////////////////////////////////////////////////////  class Rect  ///////////////////////////////////////
 
-Rect::Rect(game* r_pGame, point ref, int r_hght, int r_wdth):shape(r_pGame,ref)
+Rect::Rect(game* r_pGame, point ref, int r_hght, int r_wdth) :shape(r_pGame, ref)
 {
-	pGame = r_pGame;
 	hght = r_hght;
 	wdth = r_wdth;
 }
@@ -26,13 +25,12 @@ void Rect::draw() const
 }
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
-//TODO: Add implementation for class circle here
-circle::circle(game* r_pGame, point ref, int r):shape(r_pGame,ref)
+Circle::Circle(game* r_pGame, point ref, int r) :shape(r_pGame, ref)
 {
 	rad = r;
 }
 
-void circle::draw() const
+void Circle::draw() const
 {
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(borderColor, config.penWidth);
@@ -42,6 +40,48 @@ void circle::draw() const
 
 
 
-////////////////////////////////////////////////////  class triangle  ///////////////////////////////////////
-//TODO: Add implementation for class triangle here
+////////////////////////////////////////////////////  class equilateral triangle  ///////////////////////////////////////
+EquilateralTriangle::EquilateralTriangle(game* r_pGame, point ref, int s) :shape(r_pGame, ref)
+{
+	pGame = r_pGame;
+	side = s;
+}
 
+void EquilateralTriangle::draw() const
+{
+	window* pW = pGame->getWind();	//get interface window
+	pW->SetPen(borderColor, config.penWidth);
+	pW->SetBrush(fillColor);
+	point p1, p2, p3;
+	p1.x = RefPoint.x;
+	p1.y = RefPoint.y - side / 2;
+	p2.x = RefPoint.x - side / 2;
+	p2.y = RefPoint.y + side / 2;
+	p3.x = RefPoint.x + side / 2;
+	p3.y = RefPoint.y + side / 2;
+	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
+}
+
+////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
+
+RightTriangle::RightTriangle(game* r_pGame, point ref, int h, int b) :shape(r_pGame, ref)
+{
+	pGame = r_pGame;
+	height = h;
+	base = b;
+}
+
+void RightTriangle::draw() const
+{
+	window* pW = pGame->getWind();	//get interface window
+	pW->SetPen(borderColor, config.penWidth);
+	pW->SetBrush(fillColor);
+	point p1, p2, p3;
+	p1.x = RefPoint.x + base / 2;
+	p1.y = RefPoint.x - height / 2;
+	p2.x = RefPoint.x - base / 2;
+	p2.y = RefPoint.x + height / 2;
+	p3.x = RefPoint.x + base / 2;
+	p3.y = RefPoint.x + height / 2;
+	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
+}
