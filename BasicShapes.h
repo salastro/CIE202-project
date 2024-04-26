@@ -53,6 +53,7 @@ class EquilateralTriangle :public shape
 {
 	//Add data memebrs for class triangle
 	int side;
+	point p1, p2, p3;
 public:
 	EquilateralTriangle(game* r_pGame, point ref, int s);
 	virtual void draw() const;
@@ -74,6 +75,7 @@ class RightTriangle :public shape
 {
 	//Add data memebrs for class triangle
 	int height, base;
+	point p1, p2, p3;
 public:
 	RightTriangle(game* r_pGame, point ref, int h, int b);
 	virtual void draw() const;

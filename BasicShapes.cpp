@@ -26,13 +26,10 @@ void Rect::draw() const
 
 void Rect::rotate()
 {
-	int temp = wdth;
+	int tmp = wdth;
 	wdth = hght;
-	hght = temp;
+	hght = tmp;
 	draw();
-
-
-
 }
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
@@ -60,6 +57,12 @@ EquilateralTriangle::EquilateralTriangle(game* r_pGame, point ref, int s) :shape
 {
 	pGame = r_pGame;
 	side = s;
+	p1.x = RefPoint.x;
+	p1.y = RefPoint.y - side / 2;
+	p2.x = RefPoint.x - side / 2;
+	p2.y = RefPoint.y + side / 2;
+	p3.x = RefPoint.x + side / 2;
+	p3.y = RefPoint.y + side / 2;
 }
 
 void EquilateralTriangle::draw() const
@@ -67,30 +70,23 @@ void EquilateralTriangle::draw() const
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(borderColor, config.penWidth);
 	pW->SetBrush(fillColor);
-	point p1, p2, p3;
-	p1.x = RefPoint.x;
-	p1.y = RefPoint.y - side / 2;
-	p2.x = RefPoint.x - side / 2;
-	p2.y = RefPoint.y + side / 2;
-	p3.x = RefPoint.x + side / 2;
-	p3.y = RefPoint.y + side / 2;
 	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
 }
 
 void EquilateralTriangle::rotate()
 {
-	window* pW = pGame->getWind();	//get interface window
-	pW->SetPen(borderColor, config.penWidth);
-	pW->SetBrush(fillColor);
-	point p1, p2, p3;
-	p1.x = (RefPoint.x)*cos(90);
-	p1.y = (RefPoint.y - side / 2)*sin(90);
-	p2.x = RefPoint.x - side / 2;
-	p2.y = RefPoint.y + side / 2;
-	p3.x = RefPoint.x + side / 2;
-	p3.y = RefPoint.y + side / 2;
-	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
-
+	point p1tmp = p1, p2tmp = p2, p3tmp = p3;
+	// p -> p'
+	// p'.x = p.y-r.y+r.x
+	// p'.y = -p.x+r.x+r.y
+	// https://www.khanacademy.org/math/geometry/hs-geo-transformations/hs-geo-rotations/a/rotating-shapes
+	p1.x = p1tmp.y - RefPoint.y + RefPoint.x;
+	p1.y = -p1tmp.x + RefPoint.x + RefPoint.y;
+	p2.x = p2tmp.y - RefPoint.y + RefPoint.x;
+	p2.y = -p2tmp.x + RefPoint.x + RefPoint.y;
+	p3.x = p3tmp.y - RefPoint.y + RefPoint.x;
+	p3.y = -p3tmp.x + RefPoint.x + RefPoint.y;
+	draw();
 }
 
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
@@ -100,6 +96,12 @@ RightTriangle::RightTriangle(game* r_pGame, point ref, int h, int b) :shape(r_pG
 	pGame = r_pGame;
 	height = h;
 	base = b;
+	p1.x = RefPoint.x + base / 2;
+	p1.y = RefPoint.x - height / 2;
+	p2.x = RefPoint.x - base / 2;
+	p2.y = RefPoint.x + height / 2;
+	p3.x = RefPoint.x + base / 2;
+	p3.y = RefPoint.x + height / 2;
 }
 
 void RightTriangle::draw() const
@@ -107,16 +109,21 @@ void RightTriangle::draw() const
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(borderColor, config.penWidth);
 	pW->SetBrush(fillColor);
-	point p1, p2, p3;
-	p1.x = RefPoint.x + base / 2;
-	p1.y = RefPoint.x - height / 2;
-	p2.x = RefPoint.x - base / 2;
-	p2.y = RefPoint.x + height / 2;
-	p3.x = RefPoint.x + base / 2;
-	p3.y = RefPoint.x + height / 2;
 	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
 }
 
 void RightTriangle::rotate()
 {
+	point p1tmp = p1, p2tmp = p2, p3tmp = p3;
+	// p -> p'
+	// p'.x = p.y-r.y+r.x
+	// p'.y = -p.x+r.x+r.y
+	// https://www.khanacademy.org/math/geometry/hs-geo-transformations/hs-geo-rotations/a/rotating-shapes
+	p1.x = p1tmp.y - RefPoint.y + RefPoint.x;
+	p1.y = -p1tmp.x + RefPoint.x + RefPoint.y;
+	p2.x = p2tmp.y - RefPoint.y + RefPoint.x;
+	p2.y = -p2tmp.x + RefPoint.x + RefPoint.y;
+	p3.x = p3tmp.y - RefPoint.y + RefPoint.x;
+	p3.y = -p3tmp.x + RefPoint.x + RefPoint.y;
+	draw();
 }
