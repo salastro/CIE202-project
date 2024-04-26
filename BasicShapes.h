@@ -19,7 +19,7 @@ class Rect :public shape
 public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
 	virtual void draw() const;
-	void rotate()override;
+	virtual void rotate();
 
 };
 
@@ -33,7 +33,7 @@ class Circle :public shape
 public:
 	Circle(game* r_pGame, point ref, int r);
 	virtual void draw() const;
-	void rotate()override;
+	virtual void rotate();
 };
 
 
@@ -53,11 +53,10 @@ class EquilateralTriangle :public shape
 {
 	//Add data memebrs for class triangle
 	int side;
-	point p1, p2, p3;
 public:
 	EquilateralTriangle(game* r_pGame, point ref, int s);
 	virtual void draw() const;
-	void rotate()override;
+	virtual void rotate();
 };
 
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
@@ -75,21 +74,8 @@ class RightTriangle :public shape
 {
 	//Add data memebrs for class triangle
 	int height, base;
-	point p1, p2, p3;
 public:
 	RightTriangle(game* r_pGame, point ref, int h, int b);
 	virtual void draw() const;
-	void rotate()override;
-};
-
-////////////////////////////////////////////////////  class line  ///////////////////////////////////////
-//Reference point of the line is its starting point
-class line :public shape
-{
-	//Add data memebrs for class line
-	point end;
-public:
-	line(game* r_pGame, point ref, point end);
-	virtual void draw() const;
-	void rotate()override;
+	virtual void rotate();
 };

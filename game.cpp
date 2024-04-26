@@ -28,7 +28,7 @@ game::~game()
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
-void game::createWind(int w, int h, int x, int y) 
+void game::createWind(int w, int h, int x, int y)
 {
 	pWind = new window(w, h, x, y);
 	pWind->SetBrush(config.bkGrndColor);
@@ -52,7 +52,7 @@ void game::createToolBar()
 }
 
 void game::createGrid()
-{	
+{
 	//calc some grid parameters
 	point gridUpperLeftPoint = { 0, config.toolBarHeight };
 	int gridHeight = config.windHeight - config.toolBarHeight - config.statusBarHeight;
@@ -88,7 +88,6 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("YOU PRESSED HINT");
 		op = new operHint(this);
 		break;
-
 	case ITM_Delete:
 		printMessage("YOU PRESSED DELETE");
 		op = new operDelete(this);
@@ -105,15 +104,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("YOU PRESSED Load");
 		op = new operLoad(this);
 		break;
-
-
-
 	}
 	return op;
 }
-
-}
-
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -168,7 +161,7 @@ grid* game::getGrid() const
 
 
 ////////////////////////////////////////////////////////////////////////
-void game::run() 
+void game::run()
 {
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
@@ -176,7 +169,7 @@ void game::run()
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
-	toolbarItem clickedItem=ITM_CNT;
+	toolbarItem clickedItem = ITM_CNT;
 	do
 	{
 		//printMessage("Ready...");
@@ -187,7 +180,7 @@ void game::run()
 		//If user clicks on the Toolbar, ask toolbar which item is clicked
 		if (y >= 0 && y < config.toolBarHeight)
 		{
-			clickedItem=gameToolbar->getItemClicked(x);
+			clickedItem = gameToolbar->getItemClicked(x);
 
 			//3-create the approp operation accordin to item clicked by the user
 			operation* op = createRequiredOperation(clickedItem);
@@ -197,7 +190,7 @@ void game::run()
 			//4-Redraw the grid after each action
 			shapesGrid->draw();
 
-		}	
+		}
 
-	} while (clickedItem!=ITM_EXIT);
+	} while (clickedItem != ITM_EXIT);
 }

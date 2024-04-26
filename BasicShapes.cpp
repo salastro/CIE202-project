@@ -67,6 +67,7 @@ void EquilateralTriangle::draw() const
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(borderColor, config.penWidth);
 	pW->SetBrush(fillColor);
+	point p1, p2, p3;
 	p1.x = RefPoint.x;
 	p1.y = RefPoint.y - side / 2;
 	p2.x = RefPoint.x - side / 2;
@@ -81,6 +82,7 @@ void EquilateralTriangle::rotate()
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(borderColor, config.penWidth);
 	pW->SetBrush(fillColor);
+	point p1, p2, p3;
 	p1.x = (RefPoint.x)*cos(90);
 	p1.y = (RefPoint.y - side / 2)*sin(90);
 	p2.x = RefPoint.x - side / 2;
@@ -105,7 +107,7 @@ void RightTriangle::draw() const
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(borderColor, config.penWidth);
 	pW->SetBrush(fillColor);
-
+	point p1, p2, p3;
 	p1.x = RefPoint.x + base / 2;
 	p1.y = RefPoint.x - height / 2;
 	p2.x = RefPoint.x - base / 2;
@@ -115,23 +117,6 @@ void RightTriangle::draw() const
 	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
 }
 
-line::line(game* r_pGame, point ref, point end)
+void RightTriangle::rotate()
 {
-	pGame = r_pGame;
-
-	
-}
-
-void line::draw() const
-{
-	
-
-}
-
-void line::rotate()
-{
-	int temp = RefPoint.x;
-	RefPoint.x = RefPoint.y;
-	RefPoint.y = temp;
-	draw();
 }

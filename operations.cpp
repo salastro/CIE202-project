@@ -44,9 +44,9 @@ operRotate::operRotate(game* r_pGame) :operation(r_pGame)
 void operRotate::Act()
 {
 	grid* pGrid = pGame->getGrid();
-	shape* psh = pGrid->getActiveShape();
-	psh->rotate();
-	pGrid->setActiveShape(psh);
+	// shape* psh = pGrid->getActiveShape();
+	// psh->rotate();
+	// pGrid->setActiveShape(psh);
 
 }
 
