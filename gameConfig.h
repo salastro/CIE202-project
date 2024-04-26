@@ -50,7 +50,15 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 	//Note: Items are ordered here as they appear in the toolbar
 	//If you want to change the toolbar items order, just change the order here
 	ITM_SIGN,		//Sign shape item
-
+	ITM_Rotate,
+	ITM_Plus,
+	ITM_Minus,
+	ITM_Refresh,
+	ITM_Hint,
+	ITM_Delete,
+	ITM_GameLevel,
+	ITM_Save,
+	ITM_Load,
 	ITM_EXIT,		//Exit item
 	//TODO: Add more items names here
 

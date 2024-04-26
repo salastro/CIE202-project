@@ -19,7 +19,7 @@ class Rect :public shape
 public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
 	virtual void draw() const;
-
+	void rotate()override;
 
 };
 
@@ -33,6 +33,7 @@ class Circle :public shape
 public:
 	Circle(game* r_pGame, point ref, int r);
 	virtual void draw() const;
+	void rotate()override;
 };
 
 
@@ -55,6 +56,7 @@ class EquilateralTriangle :public shape
 public:
 	EquilateralTriangle(game* r_pGame, point ref, int s);
 	virtual void draw() const;
+	void rotate()override;
 };
 
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
@@ -75,6 +77,7 @@ class RightTriangle :public shape
 public:
 	RightTriangle(game* r_pGame, point ref, int h, int b);
 	virtual void draw() const;
+	void rotate()override;
 };
 
 ////////////////////////////////////////////////////  class line  ///////////////////////////////////////
@@ -86,4 +89,5 @@ class line :public shape
 public:
 	line(game* r_pGame, point ref, point end);
 	virtual void draw() const;
+	void rotate()override;
 };

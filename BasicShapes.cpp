@@ -24,6 +24,17 @@ void Rect::draw() const
 	pW->DrawRectangle(upperLeft.x, upperLeft.y, lowerBottom.x, lowerBottom.y, FILLED);
 }
 
+void Rect::rotate()
+{
+	int temp = wdth;
+	wdth = hght;
+	hght = temp;
+	draw();
+
+
+
+}
+
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 Circle::Circle(game* r_pGame, point ref, int r) :shape(r_pGame, ref)
 {
@@ -36,6 +47,10 @@ void Circle::draw() const
 	pW->SetPen(borderColor, config.penWidth);
 	pW->SetBrush(fillColor);
 	pW->DrawCircle(RefPoint.x, RefPoint.y, rad, FILLED);
+}
+
+void Circle::rotate()
+{
 }
 
 
@@ -62,6 +77,11 @@ void EquilateralTriangle::draw() const
 	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
 }
 
+void EquilateralTriangle::rotate()
+{
+
+}
+
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
 
 RightTriangle::RightTriangle(game* r_pGame, point ref, int h, int b) :shape(r_pGame, ref)
@@ -84,4 +104,25 @@ void RightTriangle::draw() const
 	p3.x = RefPoint.x + base / 2;
 	p3.y = RefPoint.x + height / 2;
 	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
+}
+
+line::line(game* r_pGame, point ref, point end)
+{
+	pGame = r_pGame;
+
+	
+}
+
+void line::draw() const
+{
+	
+
+}
+
+void line::rotate()
+{
+	int temp = RefPoint.x;
+	RefPoint.x = RefPoint.y;
+	RefPoint.y = temp;
+	draw();
 }

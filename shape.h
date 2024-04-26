@@ -41,7 +41,7 @@ public:
 	//-- It should be overridden by each inherited shape
 	//-- Decide the parameters that you should pass to each function	
 
-	//virtual void rotate() = 0;	//Rotate the shape
+	virtual void rotate() = 0;	//Rotate the shape
 	//virtual void resize() = 0;	//Resize the shape
 	//virtual void move() = 0;		//Move the shape
 	//virtual void save(ofstream &OutFile) = 0;	//Save the shape parameters to the file

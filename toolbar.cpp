@@ -15,14 +15,28 @@ toolbar::toolbar(game* pG)
 
 	//First prepare List of images for each toolbar item
 	toolbarItemImages[ITM_SIGN] = "images\\toolbarItems\\toolbar_sign.jpg";
+	toolbarItemImages[ITM_Rotate] = "images\\toolbarItems\\toolbar_Rotate.jpg";
+	toolbarItemImages[ITM_Plus] = "images\\toolbarItems\\toolbar_plus.jpg";
+	toolbarItemImages[ITM_Minus] = "images\\toolbarItems\\toolbar_Minus.jpg";
+	toolbarItemImages[ITM_Refresh] = "images\\toolbarItems\\toolbar_Refresh.jpeg";
+	toolbarItemImages[ITM_Hint] = "images\\toolbarItems\\toolbar_Hint.jpg";
+	toolbarItemImages[ITM_Delete] = "images\\toolbarItems\\toolbar_Delete.jpg";
+	toolbarItemImages[ITM_GameLevel] = "images\\toolbarItems\\toolbar_Level.jpg";
+	toolbarItemImages[ITM_Save] = "images\\toolbarItems\\toolbar_Save.jpg";
+	toolbarItemImages[ITM_Load] = "images\\toolbarItems\\toolbar_Load.jpg";
 	toolbarItemImages[ITM_EXIT] = "images\\toolbarItems\\toolbar_Exit.jpg";
+
 
 	//TODO: Prepare image for each toolbar item and add it to the list
 
 	//Draw toolbar item one image at a time
 	for (int i = 0; i < ITM_CNT; i++)
 		pWind->DrawImage(toolbarItemImages[i], i * config.toolbarItemWidth, 0, config.toolbarItemWidth, height);
-
+	pWind->SetPen(config.penColor, 50);
+	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+	pWind->DrawString(config.windWidth - 350, config.statusBarHeight / 2, "Lives: " + to_string(lives));
+	pWind->DrawString(config.windWidth - 250, config.statusBarHeight / 2, "time: " + to_string(level));
+	pWind->DrawString(config.windWidth - 150, config.statusBarHeight / 2, "score: " + to_string(score));
 
 	//Draw a line under the toolbar
 	pWind->SetPen(DARKBLUE, 3);
@@ -46,5 +60,21 @@ toolbarItem toolbar::getItemClicked(int x)
 
 	return (toolbarItem)(x / config.toolbarItemWidth);
 
+}
+
+void toolbar::set_level()
+{
+	level = 0;
+}
+
+void toolbar::set_lives()
+{
+	lives = 0;
+
+}
+
+void toolbar::set_score()
+{
+	score = 0;
 }
 
