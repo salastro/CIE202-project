@@ -19,10 +19,78 @@ public:
 //Responsible for 
 //1- collectign data about a new Sign shape to add
 //2- Adding the new shape to the list of shapes (throgh the grid class)
-class operAddSign:public operation
+class operAddSign :public operation
 {
 public:
 	operAddSign(game* r_pGame);
 	virtual void Act();
 };
+
+class operRotate :public operation
+{
+public:
+	operRotate(game* r_pGame);
+	virtual void Act();
+};
+
+class operPlus :public operation
+{
+public:
+	operPlus(game* r_pGame);
+	virtual void Act();
+};
+
+class operMinus :public operation
+{
+public:
+	operMinus(game* r_pGame);
+	virtual void Act();
+};
+
+class operDelete : public operation
+{
+public:
+	operDelete(game* r_pGame);
+	virtual void Act();
+
+};
+
+class operHint : public operation
+{
+public:
+	operHint(game* r_pGame);
+	virtual void Act();
+
+};
+
+class operGameLevel : public operation
+{
+public:
+	operGameLevel(game* r_pGame);
+	virtual void Act();
+
+};
+class operSave : public operation
+{
+public:
+	operSave(game* r_pGame);
+	virtual void Act();
+
+};
+class operLoad : public operation
+{
+public:
+	operLoad(game* r_pGame);
+	virtual void Act();
+
+};
+
+class operRefresh : public operation
+{
+public:
+	operRefresh(game* r_pGame);
+	virtual void Act();
+
+};
+
 

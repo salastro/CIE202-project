@@ -62,14 +62,56 @@ void game::createGrid()
 
 operation* game::createRequiredOperation(toolbarItem clickedItem)
 {
-	operation* op=nullptr;
+	operation* op = nullptr;
 	switch (clickedItem)
 	{
 	case ITM_SIGN:
 		op = new operAddSign(this);
 		break;
+	case ITM_Rotate:
+		printMessage("YOU PRESSED ROTATE ");
+		op = new operRotate(this);
+		break;
+	case ITM_Plus:
+		printMessage("YOU PRESSED PLUS");
+		op = new operPlus(this);
+		break;
+	case ITM_Minus:
+		printMessage("YOU PRESSED MINUS");
+		op = new operRotate(this);
+		break;
+	case ITM_Refresh:
+		printMessage("YOU PRESSED REFRESH");
+		op = new operRefresh(this);
+		break;
+	case ITM_Hint:
+		printMessage("YOU PRESSED HINT");
+		op = new operHint(this);
+		break;
+
+	case ITM_Delete:
+		printMessage("YOU PRESSED DELETE");
+		op = new operDelete(this);
+		break;
+	case ITM_GameLevel:
+		printMessage("YOU PRESSED Level");
+		op = new operGameLevel(this);
+		break;
+	case ITM_Save:
+		printMessage("YOU PRESSED SAVE");
+		op = new operSave(this);
+		break;
+	case ITM_Load:
+		printMessage("YOU PRESSED Load");
+		op = new operLoad(this);
+		break;
+
+
+
 	}
 	return op;
+}
+
 }
 
 

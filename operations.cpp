@@ -36,3 +36,80 @@ void operAddSign::Act()
 	pGrid->setActiveShape(psh);
 
 }
+
+operRotate::operRotate(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operRotate::Act()
+{
+	grid* pGrid = pGame->getGrid();
+	shape* psh = pGrid->getActiveShape();
+	psh->rotate();
+	pGrid->setActiveShape(psh);
+
+}
+
+operPlus::operPlus(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operPlus::Act()
+{
+}
+
+operMinus::operMinus(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operMinus::Act()
+{
+}
+
+operDelete::operDelete(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operDelete::Act()
+{
+}
+
+operHint::operHint(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operHint::Act()
+{
+}
+
+operGameLevel::operGameLevel(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operGameLevel::Act()
+{
+}
+
+operSave::operSave(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operSave::Act()
+{
+}
+
+operLoad::operLoad(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operLoad::Act()
+{
+}
+
+operRefresh::operRefresh(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operRefresh::Act()
+{
+}
