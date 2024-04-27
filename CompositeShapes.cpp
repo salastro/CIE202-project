@@ -17,6 +17,11 @@ void Sign::draw() const
 	top->draw();
 }
 
+void Sign::rotate() {};
+void Sign::resizeUp() {};
+void Sign::resizeDown() {};
+void Sign::flip() {};
+
 
 //--------------------------------- class Cloud -----------------------------------//
 

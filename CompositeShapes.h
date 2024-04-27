@@ -28,10 +28,10 @@ class Sign :public shape
 public:
 	Sign(game* r_pGame, point ref);
 	void draw() const override;
-	void rotate() override = 0;
-	void resizeUp() override = 0;
-	void resizeDown() override = 0;
-	void flip() override = 0;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
 
 
