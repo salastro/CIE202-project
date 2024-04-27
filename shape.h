@@ -44,8 +44,8 @@ void setRefPoint(point p);
 virtual void rotate() = 0; //Rotate the shape
 virtual void resizeUp() = 0; //Resize the shape
 virtual void resizeDown() = 0; //Resize the shape
+virtual void flip() = 0; //Flip the shape
 //virtual void move() = 0; //Move the shape
-//virtual void flip() = 0; //Flip the shape
 
 
 //virtual void save(ofstream &OutFile) = 0; //Save the shape parameters to the file
