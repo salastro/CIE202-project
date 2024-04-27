@@ -22,7 +22,6 @@ void Sign::resizeUp() {};
 void Sign::resizeDown() {};
 void Sign::flip() {};
 
-
 //--------------------------------- class Cloud -----------------------------------//
 
 	Cloud::Cloud(game* r_pGame, point ref) : shape(r_pGame, ref), rad(config.cloudShape.radius) {
