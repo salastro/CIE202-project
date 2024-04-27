@@ -52,13 +52,13 @@ struct
 	}houseShape;
 
 	struct {
-		int trunkHeight = 130, trunkWidth = 26;
-		int crownRad = 50;
+		int trunkHeight = 100, trunkWidth = 20;
+		int crownRad = 35;
 	}treeShape;
 
 	struct {
-		int scoopRad = 50;
-		int coneHeight = 150;
+		int scoopRad = 25;
+		int coneHeight = 100;
 	}icecreamShape;
 
 	struct {

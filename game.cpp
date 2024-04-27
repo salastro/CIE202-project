@@ -221,32 +221,7 @@ void game::run()
 
 void game::test()
 {
-	//This function reads the position where the user clicks to determine the desired operation
-	int x, y;
-	bool isExit = false;
-
-	//Change the title
-	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
-	toolbarItem clickedItem = ITM_CNT;
-	do
-	{
-		pWind->GetMouseClick(x, y);
-
-		//2-Explain the user click
-		//If user clicks on the Toolbar, ask toolbar which item is clicked
-		if (y >= 0 && y < config.toolBarHeight)
-		{
-			clickedItem = gameToolbar->getItemClicked(x);
-
-			//3-create the approp operation accordin to item clicked by the user
-			operation* op = createRequiredOperation(clickedItem);
-			if (op)
-				op->Act();
-
-			//4-Redraw the grid after each action
-			shapesGrid->draw();
-		}
-
+	while (true) {
 		// // Circle
 		// Circle* C = new Circle(this, { 600, 300 }, 100);
 		// C->draw();
@@ -268,39 +243,28 @@ void game::test()
 
 		//////////////////////// Composite Shapes ////////////////////////
 
-		// // Cloud
-		// Cloud* Cl = new Cloud(this, { 600, 300 });
-		// Cl->rotate();
-		// Cl->draw();
-		 //// Cloud
-		 //Cloud* Cl = new Cloud(this, { 600, 300 });
-		 //Cl->resizeDown();
-		 //Cl->draw();
+		// Cloud
+		Cloud* Cl = new Cloud(this, { 1050, 400 });
+		Cl->draw();
 
-		// // House
-		// House* H = new House(this, { 600, 300 });
-		// H->draw();
+		// House
+		House* H = new House(this, { 200, 300 });
+		H->draw();
 
-		// // Tree
-		// Tree* T = new Tree(this, { 600, 300 });
-		// T->rotate();
-		// T->draw();
+		// Tree
+		Tree* T = new Tree(this, { 900, 300 });
+		T->draw();
 
-		// // Icecream
-		// Icecream* I = new Icecream(this, { 600, 300 });
-		// I->rotate();
-		// I->draw();
+		// Icecream
+		Icecream* I = new Icecream(this, { 750, 300 });
+		I->draw();
 
-		// // Plane
-		// Plane* P = new Plane(this, { 600, 300 });
-		// P->rotate();
-		// P->draw();
+		// Plane
+		Plane* P = new Plane(this, { 400, 300 });
+		P->draw();
 
 		// Car
 		Car* Ca = new Car(this, { 600,300 });
-		Ca->rotate();
-		Ca->rotate();
 		Ca->draw();
-
-	} while (clickedItem != ITM_EXIT);
+	}
 }
