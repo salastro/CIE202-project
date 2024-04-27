@@ -29,27 +29,22 @@ void Rect::rotate()
 	int tmp = wdth;
 	wdth = hght;
 	hght = tmp;
-	this->draw();
 }
 
 void Rect::resizeUp()
 {
 	hght *= 2;
 	wdth *= 2;
-	this->draw();
 }
 
 void Rect::resizeDown()
 {
 	hght *= 2;
 	wdth *= 2;
-	this->draw();
 }
 
-void Rect::flip() {
-	// Rectangle symmetric, no need to flip
-	this->draw();
-}
+// Rectangle symmetric, no need to flip
+void Rect::flip() {}
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 
@@ -66,28 +61,21 @@ void Circle::draw() const
 	pW->DrawCircle(RefPoint.x, RefPoint.y, rad, FILLED);
 }
 
-void Circle::rotate()
-{
-	// Circles are perfectly symetric, they don't rotate around their center.
-	this->draw();
-}
+// Circles are perfectly symetric, they don't rotate around their center.
+void Circle::rotate() {}
 
 void Circle::resizeUp()
 {
 	rad *= 2;
-	this->draw();
 }
 
 void Circle::resizeDown()
 {
 	rad /= 2;
-	this->draw();
 }
 
-void Circle::flip() {
-	// Circle symmetric, no need to flip
-	this->draw();
-}
+// Circle symmetric, no need to flip
+void Circle::flip() {}
 
 ////////////////////////////////////////////////////  class equilateral triangle  ///////////////////////////////////////
 
@@ -115,39 +103,32 @@ void EquilateralTriangle::rotate()
 {
 	window* pW = pGame->getWind();
 
-	// Save old points for future calculation
-	point p1tmp = p1, p2tmp = p2, p3tmp = p3;
+	// point p1tmp = p1, p2tmp = p2, p3tmp = p3;
+	// p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
+	// p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
+	// p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
+	// p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
+	// p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
+	// p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
 
-	// Rotation around point formula
-	// x' = -(y-ry)+rx
-	// y' =  (x-rx)+ry
-	p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
-	p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
-	p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
-	p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
-	p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
-	p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
-
-	this->draw();
+	rotateAroundPoint(p1, RefPoint);
+	rotateAroundPoint(p2, RefPoint);
+	rotateAroundPoint(p3, RefPoint);
 }
 
 void EquilateralTriangle::resizeUp()
 {
 	side *= 2;
-	this->draw();
 }
 
 void EquilateralTriangle::resizeDown()
 {
 	side /= 2;
-	this->draw();
 }
 
-void EquilateralTriangle::flip()
-{
-	// Equilateral triangle symmetric, no need to flip
-	this->draw();
-}
+// Equilateral triangle symmetric, no need to flip
+void EquilateralTriangle::flip() {}
+
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
 
 RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base) :shape(r_pGame, ref)
@@ -175,38 +156,31 @@ void RightTriangle::rotate()
 {
 	window* pW = pGame->getWind();
 
-	// Save old points for future calculation
-	point p1tmp = p1, p2tmp = p2, p3tmp = p3;
+	// p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
+	// p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
+	// p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
+	// p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
+	// p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
+	// p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
 
-	// Rotation around point formula
-	// x' = -(y-ry)+rx
-	// y' =  (x-rx)+ry
-	p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
-	p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
-	p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
-	p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
-	p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
-	p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
-
-	this->draw();
+	rotateAroundPoint(p1, RefPoint);
+	rotateAroundPoint(p2, RefPoint);
+	rotateAroundPoint(p3, RefPoint);
 }
 
 void RightTriangle::resizeUp()
 {
 	height *= 2;
 	base *= 2;
-	this->draw();
 }
 
 void RightTriangle::resizeDown()
 {
 	height /= 2;
 	base /= 2;
-	this->draw();
 }
 
 void RightTriangle::flip()
 {
 	base *= -1;
-	this->draw();
 }

@@ -14,3 +14,17 @@ void shape::setRefPoint(point p)
 {
 	RefPoint = p;
 }
+
+point shape::getRefPoint() const { return RefPoint; }
+
+void rotateAroundPoint(point& p, const point& pivot)
+{
+	// Save old points for future calculation
+	point ptmp = p;
+
+	// Rotation around point formula
+	// x' = -(y-ry)+rx
+	// y' =  (x-rx)+ry
+	p.x = -(ptmp.y - pivot.y) + pivot.x;
+	p.y = ptmp.x - pivot.x + pivot.y;
+}
