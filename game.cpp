@@ -194,3 +194,50 @@ void game::run()
 
 	} while (clickedItem != ITM_EXIT);
 }
+
+void game::test()
+{
+	//This function reads the position where the user clicks to determine the desired operation
+	int x, y;
+	bool isExit = false;
+
+	//Change the title
+	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
+	toolbarItem clickedItem = ITM_CNT;
+	do
+	{
+		pWind->GetMouseClick(x, y);
+
+		//2-Explain the user click
+		//If user clicks on the Toolbar, ask toolbar which item is clicked
+		if (y >= 0 && y < config.toolBarHeight)
+		{
+			clickedItem = gameToolbar->getItemClicked(x);
+
+			//3-create the approp operation accordin to item clicked by the user
+			operation* op = createRequiredOperation(clickedItem);
+			if (op)
+				op->Act();
+
+			//4-Redraw the grid after each action
+			shapesGrid->draw();
+		}
+
+		// // Circle
+		// Circle* C = new Circle(this, { 600, 300 }, 100);
+		// C->draw();
+
+		// // Rectangle
+		// Rect* R = new Rect(this, { 500, 300 }, 100, 50);
+		// R->draw();
+
+		// // Eq Tri
+		// EquilateralTriangle* EqTri = new EquilateralTriangle(this, { 600, 300 }, 50);
+		// EqTri->rotate();
+
+		// Ri Tri
+		RightTriangle* RiTri = new RightTriangle(this, { 200, 200 }, 100, 100);
+		RiTri->rotate();
+
+	} while (clickedItem != ITM_EXIT);
+}

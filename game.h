@@ -38,5 +38,7 @@ public:
 
 	void run();	//start the game
 
+	void test(); // Test modules
+
 };
 
