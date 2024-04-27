@@ -88,19 +88,27 @@ void Sign::flip() {};
 // Cloud is symmetric, no need to flip
 void Cloud::flip() {}
 
-
 //--------------------------------- class House -----------------------------------//
 
-
-House::House(game* r_pGame, point ref, int baseWidth, int baseHeight, int roofSide) : shape(r_pGame, ref)
+House::House(game* r_pGame, point ref) : shape(r_pGame, ref),
+baseHeight(config.houseShape.baseHeight), baseWidth(config.houseShape.baseWidth),
+roofHeight(config.houseShape.roofHeight), roofWidth(config.houseShape.roofWidth)
 {
+
 	// Calculate positions for base and roof
-	point baseRef = { ref.x - baseWidth / 2, ref.y };
-	point roofRef = { ref.x, ref.y - roofSide / 2 };
+	baseRef = { ref.x, ref.y + baseHeight / 2 };
+	roofRef = { ref.x, ref.y - roofHeight / 2 };
 
 	// Create base rectangle and roof triangle
-	base = new Rect(r_pGame, baseRef, baseHeight, baseWidth);
-	roof = new EquilateralTriangle(r_pGame, roofRef, roofSide);
+	base = new Rect(pGame, baseRef, baseHeight, baseWidth);
+	roof = new IsoscelesTriangle(pGame, roofRef, roofHeight, roofWidth);
+}
+
+void House::updateHouse() {
+	delete base, roof;
+
+	base = new Rect(pGame, baseRef, baseHeight, baseWidth);
+	roof = new IsoscelesTriangle(pGame, roofRef, roofHeight, roofWidth);
 }
 
 void House::draw() const
@@ -112,29 +120,48 @@ void House::draw() const
 
 void House::rotate()
 {
-	// Rotate the roof
+	rotateAroundPoint(baseRef, RefPoint);
+	rotateAroundPoint(roofRef, RefPoint);
+	updateHouse();
+	base->rotate();
 	roof->rotate();
 }
 
 void House::resizeUp()
 {
-	// Double the size of the base and roof
-	base->resizeUp();
-	roof->resizeUp();
+	// Scale
+	baseHeight *= 2;
+	baseWidth *= 2;
+	roofHeight *= 2;
+	roofWidth *= 2;
+	// Points
+	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
+	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
+	updateHouse();
 }
 
 void House::resizeDown()
 {
-	// half the size of the base and roof
-	base->resizeDown();
-	roof->resizeDown();
+	// Scale
+	baseHeight /= 2;
+	baseWidth /= 2;
+	roofHeight /= 2;
+	roofWidth /= 2;
+	// Points
+	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
+	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
+	updateHouse();
 }
 
+// House is symmetric, no need to flip
+void House::flip() {};
 
 //--------------------------------- class Tree -----------------------------------//
 
 
 Tree::Tree(game* r_pGame, point ref) : shape(r_pGame, ref), crownRad(config.treeShape.crownRad), trunkHeight(config.treeShape.trunkHeight)
+	: shape(r_pGame, trunkRef)
+	: shape(r_pGame, trunkRef)
 {
 	// Calculate positions for trunk and crown
 	trunkRef = { ref.x, ref.y + crownRad};
@@ -185,8 +212,6 @@ void Tree::resizeDown()
 {
 	updateTree();
 	// half the size of the trunk and crown
-	trunk->resizeDown();
-	crown->resizeDown();
 }
 
 void Tree::flip()
@@ -199,3 +224,4 @@ void Tree::flip()
 
 //--------------------------------- class Icecream -----------------------------------//
 
+}}

@@ -72,17 +72,31 @@ public:
 class House : public shape
 {
 private:
+	// Objects
 	Rect* base;
-	EquilateralTriangle* roof;
+	IsoscelesTriangle* roof;
+
+	// Points
+	point baseRef;
+	point roofRef;
+
+	// Variables
+	int baseWidth;
+	int baseHeight;
+	int roofWidth;
+	int roofHeight;
 
 
 public:
-	House(game* r_pGame, point ref, int baseWidth, int baseHeight, int roofSide);
+	House(game* r_pGame, point ref);
+
+	void updateHouse();
+
 	void draw() const override;
 	void rotate() override;
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override = 0;
+	void flip() override;
 };
 
 ////////////////////////////////////////////////////  class Tree  ///////////////////////////////////////

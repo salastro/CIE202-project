@@ -240,9 +240,14 @@ void game::test()
 		// // Ri Tri
 		// RightTriangle* RiTri = new RightTriangle(this, { 200, 200 }, 100, 100);
 		// RiTri->rotate();
+		// RiTri->draw();
 
 		//////////////////////// Composite Shapes ////////////////////////
 
+		// // Cloud
+		// Cloud* Cl = new Cloud(this, { 600, 300 });
+		// Cl->rotate();
+		// Cl->draw();
 		 //// Cloud
 		 //Cloud* Cl = new Cloud(this, { 600, 300 });
 		 //Cl->resizeDown();
@@ -260,6 +265,13 @@ void game::test()
 		 
 
 
+
+		// House
+		House* H1 = new House(this, { 400, 300 });
+		H1->resizeUp();
+		H1->draw();
+		// House* H2 = new House(this, { 800, 300 });
+		// H2->draw();
 
 	} while (clickedItem != ITM_EXIT);
 }
