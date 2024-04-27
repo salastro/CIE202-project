@@ -195,14 +195,14 @@ void RightTriangle::resizeUp()
 {
 	height *= 2;
 	base *= 2;
-	draw();
+	this->draw();
 }
 
 void RightTriangle::resizeDown()
 {
 	height /= 2;
 	base /= 2;
-	draw();
+	this->draw();
 }
 
 void RightTriangle::flip()
