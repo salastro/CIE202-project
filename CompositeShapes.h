@@ -58,7 +58,6 @@ private:
 public:
 	Cloud(game* r_pGame, point ref);
 
-	void initializeCircles(point ref);
 	void updateCircles();
 	void updateCirclesRef();
 	void draw() const override;
