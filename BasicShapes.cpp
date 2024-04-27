@@ -77,6 +77,58 @@ void Circle::resizeDown()
 // Circle symmetric, no need to flip
 void Circle::flip() {}
 
+////////////////////////////////////////////////////  class isoceles triangle  ///////////////////////////////////////
+
+IsoscelesTriangle::IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth): shape(r_pGame, ref), height(r_hght), width(r_wdth)
+{
+	p1.x = RefPoint.x;
+	p1.y = RefPoint.y - height / 2;
+	p2.x = RefPoint.x - width / 2;
+	p2.y = RefPoint.y + height / 2;
+	p3.x = RefPoint.x + width / 2;
+	p3.y = RefPoint.y + height / 2;
+}
+
+void IsoscelesTriangle::draw() const
+{
+	window* pW = pGame->getWind();
+	pW->SetPen(borderColor, config.penWidth);
+	pW->SetBrush(fillColor);
+	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
+}
+
+void IsoscelesTriangle::rotate()
+{
+	window* pW = pGame->getWind();
+
+	// point p1tmp = p1, p2tmp = p2, p3tmp = p3;
+	// p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
+	// p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
+	// p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
+	// p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
+	// p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
+	// p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
+
+	rotateAroundPoint(p1, RefPoint);
+	rotateAroundPoint(p2, RefPoint);
+	rotateAroundPoint(p3, RefPoint);
+}
+
+void IsoscelesTriangle::resizeUp()
+{
+	height *= 2;
+	width *= 2;
+}
+
+void IsoscelesTriangle::resizeDown()
+{
+	height /= 2;
+	width /= 2;
+}
+
+// Isosceles triangle symmetric, no need to flip
+void IsoscelesTriangle::flip() {}
+
 ////////////////////////////////////////////////////  class equilateral triangle  ///////////////////////////////////////
 
 EquilateralTriangle::EquilateralTriangle(game* r_pGame, point ref, int r_side) :shape(r_pGame, ref)

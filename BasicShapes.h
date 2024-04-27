@@ -38,6 +38,32 @@ public:
 	void flip() override;
 };
 
+// Isosceles Triangle
+/*
+		 p1
+		 ^
+		/ \
+	   /   \
+	s /  x  \ s
+	 /       \
+	/_________\
+	p2	 s	  p3
+*/
+class IsoscelesTriangle :public shape
+{
+	int width;
+	int height;
+	point p1, p2, p3;
+public:
+	IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth);
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
+};
+
+
 // Equilateral Triangle
 /*
 		 p1
