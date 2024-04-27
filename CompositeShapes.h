@@ -28,10 +28,10 @@ class Sign :public shape
 public:
 	Sign(game* r_pGame, point ref);
 	void draw() const override;
-	void rotate() override;
-	void resizeUp() override;
-	void resizeDown() override;
-	void flip() override;
+	// void rotate() override;
+	// void resizeUp() override;
+	// void resizeDown() override;
+	// void flip() override;
 };
 
 
@@ -39,20 +39,18 @@ public:
 class Cloud : public shape
 {
 private:
-	Circle* base;
-	Circle* topLeft;
-	Circle* topRight;
+	Circle* top;
 	Circle* bottomLeft;
 	Circle* bottomRight;
 
 public:
-	Cloud(game* r_pGame, point ref, int radius);
+	Cloud(game* r_pGame, point ref);
 
 	void draw() const override;
 	void rotate() override;
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override;
+	// void flip() override;
 };
 
 
@@ -70,7 +68,7 @@ public:
 	void rotate() override;
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override;
+	// void flip() override;
 };
 
 ////////////////////////////////////////////////////  class Tree  ///////////////////////////////////////
@@ -88,5 +86,5 @@ public:
 	void rotate() override;
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override;
+	// void flip() override;
 };
