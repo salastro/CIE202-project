@@ -233,7 +233,9 @@ void game::test()
 
 		// // Eq Tri
 		// EquilateralTriangle* EqTri = new EquilateralTriangle(this, { 600, 300 }, 50);
+		// EqTri->draw();
 		// EqTri->rotate();
+		// EqTri->draw();
 
 		// // Ri Tri
 		// RightTriangle* RiTri = new RightTriangle(this, { 200, 200 }, 100, 100);
@@ -241,10 +243,23 @@ void game::test()
 
 		//////////////////////// Composite Shapes ////////////////////////
 
-		// // Cloud
-		// Cloud* Cl = new Cloud(this, { 600, 300 });
-		// Cl->resizeUp();
-		// Cl->draw();
+		 //// Cloud
+		 //Cloud* Cl = new Cloud(this, { 600, 300 });
+		 //Cl->resizeDown();
+		 //Cl->draw();
+
+		// // House
+		// House* H = new House(this, { 600, 300 });
+		// H->draw();
+
+		 // Tree
+		 Tree* T = new Tree(this, { 600, 300 });
+		 T->rotate();
+		 T->draw();
+
+		 
+
+
 
 	} while (clickedItem != ITM_EXIT);
 }

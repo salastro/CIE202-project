@@ -60,7 +60,7 @@ public:
 
 	void initializeCircles(point ref);
 	void updateCircles();
-
+	void updateCirclesRef();
 	void draw() const override;
 	void rotate() override;
 	void resizeUp() override;
@@ -76,9 +76,9 @@ private:
 	Rect* base;
 	EquilateralTriangle* roof;
 
+
 public:
 	House(game* r_pGame, point ref, int baseWidth, int baseHeight, int roofSide);
-
 	void draw() const override;
 	void rotate() override;
 	void resizeUp() override;
@@ -91,15 +91,23 @@ public:
 class Tree : public shape
 {
 private:
+	// Objects
 	Rect* trunk;
-	Circle* crown;
+	Cloud* crown;
+	// Reference points
+	point trunkRef;
+	point crownRef;
+	// Variables
+	int trunkHeight;
+	int crownRad;
 
 public:
-	Tree(game* r_pGame, point trunkRef, int trunkWidth, int trunkHeight, point crownRef, int crownRadius);
-
+	Tree(game* r_pGame, point ref);
 	void draw() const override;
+	void updateTree();
 	void rotate() override;
+	void updateTreeRefRotate();
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override = 0;
+	void flip() override ;
 };

@@ -49,6 +49,10 @@ struct
 	struct {
 		int size = 50;
 	}houseShape;
+	struct {
+		int trunkHeight = 130;
+		int crownRad = 50;
+	}treeShape;
 
 }config;
 

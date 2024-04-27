@@ -39,8 +39,8 @@ void Rect::resizeUp()
 
 void Rect::resizeDown()
 {
-	hght *= 2;
-	wdth *= 2;
+	hght /= 2;
+	wdth /= 2;
 }
 
 // Rectangle symmetric, no need to flip
