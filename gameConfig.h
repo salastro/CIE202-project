@@ -47,8 +47,8 @@ struct
 	}cloudShape;
 
 	struct {
-		int radius = 50;
-	}cloudShape;
+		int size = 50;
+	}houseShape;
 
 }config;
 

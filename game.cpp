@@ -241,10 +241,10 @@ void game::test()
 
 		//////////////////////// Composite Shapes ////////////////////////
 
-		// Cloud
-		Cloud* Cl = new Cloud(this, { 600, 300 });
-		Cl->resizeUp();
-		Cl->draw();
+		// // Cloud
+		// Cloud* Cl = new Cloud(this, { 600, 300 });
+		// Cl->resizeUp();
+		// Cl->draw();
 
 	} while (clickedItem != ITM_EXIT);
 }
