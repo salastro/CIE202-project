@@ -46,6 +46,11 @@ void Rect::resizeDown()
 	this->draw();
 }
 
+void Rect::flip() {
+	// Rectangle symmetric, no need to flip
+	this->draw();
+}
+
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 
 Circle::Circle(game* r_pGame, point ref, int r) :shape(r_pGame, ref)
@@ -76,6 +81,11 @@ void Circle::resizeUp()
 void Circle::resizeDown()
 {
 	rad /= 2;
+	this->draw();
+}
+
+void Circle::flip() {
+	// Circle symmetric, no need to flip
 	this->draw();
 }
 
@@ -133,6 +143,11 @@ void EquilateralTriangle::resizeDown()
 	this->draw();
 }
 
+void EquilateralTriangle::flip()
+{
+	// Equilateral triangle symmetric, no need to flip
+	this->draw();
+}
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
 
 RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base) :shape(r_pGame, ref)
@@ -188,4 +203,10 @@ void RightTriangle::resizeDown()
 	height /= 2;
 	base /= 2;
 	draw();
+}
+
+void RightTriangle::flip()
+{
+	base *= -1;
+	this->draw();
 }

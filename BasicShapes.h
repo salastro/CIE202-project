@@ -20,6 +20,7 @@ public:
 	virtual void rotate();
 	virtual void resizeUp();
 	virtual void resizeDown();
+	virtual void flip();
 };
 
 
@@ -34,6 +35,7 @@ public:
 	virtual void rotate();
 	virtual void resizeUp();
 	virtual void resizeDown();
+	virtual void flip();
 };
 
 // Equilateral Triangle
@@ -57,6 +59,7 @@ public:
 	virtual void rotate();
 	virtual void resizeUp();
 	virtual void resizeDown();
+	virtual void flip();
 };
 
 // Right Triangle
@@ -80,4 +83,5 @@ public:
 	virtual void rotate();
 	virtual void resizeUp();
 	virtual void resizeDown();
+	virtual void flip();
 };
