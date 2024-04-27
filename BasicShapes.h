@@ -16,11 +16,11 @@ class Rect :public shape
 	int hght, wdth;
 public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
-	virtual void draw() const;
-	virtual void rotate();
-	virtual void resizeUp();
-	virtual void resizeDown();
-	virtual void flip();
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
 
 
@@ -31,11 +31,11 @@ class Circle :public shape
 	int rad;
 public:
 	Circle(game* r_pGame, point ref, int r);
-	virtual void draw() const;
-	virtual void rotate();
-	virtual void resizeUp();
-	virtual void resizeDown();
-	virtual void flip();
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
 
 // Equilateral Triangle
@@ -55,11 +55,11 @@ class EquilateralTriangle :public shape
 	point p1, p2, p3;
 public:
 	EquilateralTriangle(game* r_pGame, point ref, int s);
-	virtual void draw() const;
-	virtual void rotate();
-	virtual void resizeUp();
-	virtual void resizeDown();
-	virtual void flip();
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
 
 // Right Triangle
@@ -79,9 +79,9 @@ class RightTriangle :public shape
 	point p1, p2, p3;
 public:
 	RightTriangle(game* r_pGame, point ref, int h, int b);
-	virtual void draw() const;
-	virtual void rotate();
-	virtual void resizeUp();
-	virtual void resizeDown();
-	virtual void flip();
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };

@@ -27,9 +27,11 @@ class Sign :public shape
 	Rect* top;
 public:
 	Sign(game* r_pGame, point ref);
-	virtual void draw() const;
-
-
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
 
 
@@ -46,10 +48,11 @@ private:
 public:
 	Cloud(game* r_pGame, point ref, int radius);
 
-	virtual void draw() const override;
-	virtual void rotate() override;
-	virtual void resizeUp() override;
-	virtual void resizeDown() override;
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
 
 
@@ -63,10 +66,11 @@ private:
 public:
 	House(game* r_pGame, point ref, int baseWidth, int baseHeight, int roofSide);
 
-	virtual void draw() const override;
-	virtual void rotate() override;
-	virtual void resizeUp() override;
-	virtual void resizeDown() override;
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
 
 ////////////////////////////////////////////////////  class Tree  ///////////////////////////////////////
@@ -80,8 +84,9 @@ private:
 public:
 	Tree(game* r_pGame, point trunkRef, int trunkWidth, int trunkHeight, point crownRef, int crownRadius);
 
-	virtual void draw() const override;
-	virtual void rotate() override;
-	virtual void resizeUp() override;
-	virtual void resizeDown() override;
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
 };
