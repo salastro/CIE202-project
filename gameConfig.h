@@ -42,6 +42,14 @@ struct
 		int topWdth = 100, topHeight = 50;
 	}sighShape;
 
+	struct {
+		int radius = 50;
+	}cloudShape;
+
+	struct {
+		int radius = 50;
+	}cloudShape;
+
 }config;
 
 

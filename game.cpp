@@ -235,9 +235,16 @@ void game::test()
 		// EquilateralTriangle* EqTri = new EquilateralTriangle(this, { 600, 300 }, 50);
 		// EqTri->rotate();
 
-		// Ri Tri
-		RightTriangle* RiTri = new RightTriangle(this, { 200, 200 }, 100, 100);
-		RiTri->rotate();
+		// // Ri Tri
+		// RightTriangle* RiTri = new RightTriangle(this, { 200, 200 }, 100, 100);
+		// RiTri->rotate();
+
+		//////////////////////// Composite Shapes ////////////////////////
+
+		// Cloud
+		Cloud* Cl = new Cloud(this, { 600, 300 });
+		Cl->resizeUp();
+		Cl->draw();
 
 	} while (clickedItem != ITM_EXIT);
 }
