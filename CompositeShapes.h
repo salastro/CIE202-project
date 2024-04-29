@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
 //This class reprsents the composite shape "sign"
 //The sign is composed of 2 Recatngles
-/*				
+/*
 
 					 ------------------
 					|				   |
@@ -60,6 +60,7 @@ public:
 
 	void updateCircles();
 	void updateCirclesRef();
+
 	void draw() const override;
 	void rotate() override;
 	void resizeUp() override;
@@ -122,5 +123,5 @@ public:
 	void updateTreeRefRotate();
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override ;
+	void flip() override;
 };

@@ -24,66 +24,62 @@ void Sign::flip() {};
 
 //--------------------------------- class Cloud -----------------------------------//
 
-	Cloud::Cloud(game* r_pGame, point ref) : shape(r_pGame, ref), rad(config.cloudShape.radius) {
-		pGame = r_pGame;
-		initializeCircles(ref);
-	}
+Cloud::Cloud(game* r_pGame, point ref) : shape(r_pGame, ref), rad(config.cloudShape.radius) {
+	pGame = r_pGame;
+	topRef = { ref.x, ref.y - rad / 2 };
+	centerRef = { ref.x, ref.y };
+	bottomLeftRef = { ref.x - rad, ref.y };
+	bottomRightRef = { ref.x + rad, ref.y };
 
-	void Cloud::initializeCircles(point ref) {
-		topRef = { ref.x, ref.y - rad / 2 };
-		centerRef = { ref.x, ref.y };
-		bottomLeftRef = { ref.x - rad, ref.y };
-		bottomRightRef = { ref.x + rad, ref.y };
+	top = new Circle(pGame, topRef, rad);
+	center = new Circle(pGame, centerRef, rad);
+	bottomLeft = new Circle(pGame, bottomLeftRef, rad);
+	bottomRight = new Circle(pGame, bottomRightRef, rad);
+}
 
-		top = new Circle(pGame, topRef, rad);
-		center = new Circle(pGame, centerRef, rad);
-		bottomLeft = new Circle(pGame, bottomLeftRef, rad);
-		bottomRight = new Circle(pGame, bottomRightRef, rad);
-	}
+void Cloud::updateCircles() {
+	delete top, center, bottomLeft, bottomRight;
+	top = new Circle(pGame, topRef, rad);
+	center = new Circle(pGame, centerRef, rad);
+	bottomLeft = new Circle(pGame, bottomLeftRef, rad);
+	bottomRight = new Circle(pGame, bottomRightRef, rad);
+}
 
-	void Cloud::updateCircles() {
-		delete top, center, bottomLeft, bottomRight;
-		top = new Circle(pGame, topRef, rad);
-		center = new Circle(pGame, centerRef, rad);
-		bottomLeft = new Circle(pGame, bottomLeftRef, rad);
-		bottomRight = new Circle(pGame, bottomRightRef, rad);
-	}
+void Cloud::updateCirclesRef() {
+	topRef = { RefPoint.x, RefPoint.y - rad / 2 };
+	centerRef = { RefPoint.x, RefPoint.y };
+	bottomLeftRef = { RefPoint.x - rad, RefPoint.y };
+	bottomRightRef = { RefPoint.x + rad, RefPoint.y };
+}
 
-	void Cloud::updateCirclesRef() {
-		topRef = { RefPoint.x, RefPoint.y - rad / 2 };
-		centerRef = { RefPoint.x, RefPoint.y };
-		bottomLeftRef = { RefPoint.x - rad, RefPoint.y };
-		bottomRightRef = { RefPoint.x + rad, RefPoint.y };
-	}
+void Cloud::draw() const {
+	top->draw();
+	center->draw();
+	bottomLeft->draw();
+	bottomRight->draw();
+}
 
-	void Cloud::draw() const {
-		top->draw();
-		center->draw();
-		bottomLeft->draw();
-		bottomRight->draw();
-	}
+void Cloud::rotate() {
+	rotateAroundPoint(topRef, RefPoint);
+	rotateAroundPoint(centerRef, RefPoint);
+	rotateAroundPoint(bottomLeftRef, RefPoint);
+	rotateAroundPoint(bottomRightRef, RefPoint);
+	updateCircles();
+}
 
-	void Cloud::rotate() {
-		rotateAroundPoint(topRef, RefPoint);
-		rotateAroundPoint(centerRef, RefPoint);
-		rotateAroundPoint(bottomLeftRef, RefPoint);
-		rotateAroundPoint(bottomRightRef, RefPoint);
-		updateCircles();
-	}
+void Cloud::resizeUp() {
+	rad *= 2;
+	updateCirclesRef();
+	updateCircles();
 
-	void Cloud::resizeUp() {
-		rad *= 2;
-		updateCirclesRef();
-		updateCircles();
-		
-	}
+}
 
-	void Cloud::resizeDown() {
-		rad /= 2;
-		updateCirclesRef();
-		updateCircles();
-		
-	}
+void Cloud::resizeDown() {
+	rad /= 2;
+	updateCirclesRef();
+	updateCircles();
+
+}
 
 // Cloud is symmetric, no need to flip
 void Cloud::flip() {}
@@ -112,7 +108,7 @@ void House::updateHouse() {
 }
 
 void House::draw() const
-{	
+{
 	// Draw base and roof
 	base->draw();
 	roof->draw();
@@ -160,12 +156,10 @@ void House::flip() {};
 
 
 Tree::Tree(game* r_pGame, point ref) : shape(r_pGame, ref), crownRad(config.treeShape.crownRad), trunkHeight(config.treeShape.trunkHeight)
-	: shape(r_pGame, trunkRef)
-	: shape(r_pGame, trunkRef)
 {
 	// Calculate positions for trunk and crown
-	trunkRef = { ref.x, ref.y + crownRad};
-	crownRef = { ref.x, ref.y };
+	trunkRef = { ref.x, ref.y + crownRad };
+	crownRef = { ref.x, ref.y - trunkHeight };
 
 	// Create trunk rectangle and crown circle
 	trunk = new Rect(r_pGame, trunkRef, trunkHeight, trunkHeight / 5);
@@ -173,7 +167,7 @@ Tree::Tree(game* r_pGame, point ref) : shape(r_pGame, ref), crownRad(config.tree
 };
 
 void Tree::updateTree() {
-	trunkRef = { RefPoint.x, RefPoint.y + crownRad};
+	trunkRef = { RefPoint.x, RefPoint.y + crownRad };
 	crownRef = { RefPoint.x, RefPoint.y };
 	delete trunk, crown;
 	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkHeight / 5);
@@ -192,12 +186,15 @@ void Tree::updateTreeRefRotate() {
 }
 void Tree::rotate()
 {
-	
-	// Rotate the crown
+	// Rotate the points
+	rotateAroundPoint(crownRef, RefPoint);
+	rotateAroundPoint(trunkRef, RefPoint);
+
+	updateTree();
+
+	// Rotate shapes
 	crown->rotate();
 	trunk->rotate();
-	// Update the tree
-	updateTreeRefRotate();
 }
 
 void Tree::resizeUp()
@@ -221,7 +218,3 @@ void Tree::flip()
 	crown->flip();
 	trunk->flip();
 }
-
-//--------------------------------- class Icecream -----------------------------------//
-
-}}
