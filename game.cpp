@@ -257,21 +257,14 @@ void game::test()
 		// House* H = new House(this, { 600, 300 });
 		// H->draw();
 
-		 // Tree
-		 Tree* T = new Tree(this, { 600, 300 });
-		 T->rotate();
-		 T->draw();
+		 // // Tree
+		 // Tree* T = new Tree(this, { 600, 300 });
+		 // T->rotate();
+		 // T->draw();
 
-		 
-
-
-
-		// House
-		House* H1 = new House(this, { 400, 300 });
-		H1->resizeUp();
-		H1->draw();
-		// House* H2 = new House(this, { 800, 300 });
-		// H2->draw();
+		// Icecream
+		Icecream* I = new Icecream(this, { 600, 300 });
+		I->draw();
 
 	} while (clickedItem != ITM_EXIT);
 }

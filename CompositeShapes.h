@@ -127,3 +127,30 @@ public:
 	void resizeDown() override;
 	void flip() override;
 };
+
+////////////////////////////////////////////////////  Class Icecream  ///////////////////////////////////////	
+class Icecream : public shape
+{
+private:
+	// Objects
+	Circle* scoop;
+	IsoscelesTriangle* cone;
+	// Reference points
+	point scoopRef;
+	point coneRef;
+	// Variables
+	int scoopRad;
+	int coneHeight;
+
+public:
+	Icecream(game* r_pGame, point ref);
+
+	void update();
+
+	void draw() const override;
+	void rotate() override;
+	void updateRef();
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
+};

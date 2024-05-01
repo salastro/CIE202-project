@@ -210,3 +210,62 @@ void Tree::resizeDown()
 
 // Tree is symmetric, no need to flip
 void Tree::flip() {}
+
+//--------------------------------- Class Icecream -----------------------------------//
+
+Icecream::Icecream(game* r_pGame, point ref) : shape(r_pGame, ref),
+scoopRad(config.icecreamShape.scoopRad),
+coneHeight(config.icecreamShape.coneHeight)
+{
+	// Calculate positions for trunk and crown
+	scoopRef = { RefPoint.x, RefPoint.y + scoopRad / 2 };
+	coneRef = { RefPoint.x, RefPoint.y - coneHeight / 2 };
+
+	// Create trunk rectangle and crown circle
+	scoop = new Circle(pGame, scoopRef, scoopRad);
+	cone = new IsoscelesTriangle(pGame, coneRef, coneHeight, 2 * scoopRad);
+};
+
+void Icecream::update() {
+	delete scoop, cone;
+	scoop = new Circle(pGame, scoopRef, scoopRad);
+	cone = new IsoscelesTriangle(pGame, coneRef, coneHeight, 2 * scoopRad);
+}
+
+void Icecream::draw() const
+{
+	scoop->draw();
+	cone->draw();
+}
+
+void Icecream::updateRef()
+{
+	scoopRef = { RefPoint.x, RefPoint.y + scoopRad / 2 };
+	coneRef = { RefPoint.x, RefPoint.y - coneHeight / 2 };
+}
+
+void Icecream::rotate()
+{
+	rotateAroundPoint(scoopRef, RefPoint);
+	rotateAroundPoint(coneRef, RefPoint);
+	update();
+}
+
+void Icecream::resizeUp()
+{
+	scoopRad *= 2;
+	coneHeight *= 2;
+	updateRef();
+	update();
+}
+
+void Icecream::resizeDown()
+{
+	scoopRad /= 2;
+	coneHeight /= 2;
+	updateRef();
+	update();
+}
+
+// Icecream is symmetric, no need to flip
+void Icecream::flip() {}
