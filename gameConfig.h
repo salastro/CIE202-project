@@ -47,10 +47,8 @@ struct
 	}cloudShape;
 
 	struct {
-		int baseWidth = 100;
-		int baseHeight = 50;
-		int roofWidth = 100;
-		int roofHeight = 50;
+		int baseWidth = 100, baseHeight = 50;
+		int roofWidth = 100, roofHeight = 50;
 	}houseShape;
 	struct {
 		int trunkHeight = 130, trunkWidth = 26;
