@@ -183,17 +183,16 @@ void EquilateralTriangle::flip() {}
 
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
 
-RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base) :shape(r_pGame, ref)
+RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base) : shape(r_pGame, ref)
 {
-	pGame = r_pGame;
 	height = r_height;
 	base = r_base;
 	p1.x = RefPoint.x - base / 2;
-	p1.y = RefPoint.x - height / 2;
-	p2.x = RefPoint.x - base / 2;
-	p2.y = RefPoint.x + height / 2;
-	p3.x = RefPoint.x + base / 2;
-	p3.y = RefPoint.x + height / 2;
+    p1.y = RefPoint.y - height / 2;
+    p2.x = RefPoint.x + base / 2;
+    p2.y = RefPoint.y + height / 2;
+    p3.x = RefPoint.x - base / 2;
+    p3.y = RefPoint.y + height / 2;
 }
 
 void RightTriangle::draw() const
