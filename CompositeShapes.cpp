@@ -157,8 +157,8 @@ trunkWidth(config.treeShape.trunkWidth),
 trunkHeight(config.treeShape.trunkHeight), crownRad(config.treeShape.crownRad)
 {
 	// Calculate positions for trunk and crown
-	trunkRef = { RefPoint.x, RefPoint.y + crownRad };
-	crownRef = { RefPoint.x, RefPoint.y - trunkHeight };
+	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
+	crownRef = { RefPoint.x, RefPoint.y - crownRad / 2 };
 
 	// Create trunk rectangle and crown circle
 	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkWidth);
@@ -179,11 +179,10 @@ void Tree::draw() const
 }
 void Tree::updateRef() {
 	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
-	crownRef = { RefPoint.x, RefPoint.y };
+	crownRef = { RefPoint.x, RefPoint.y - crownRad / 2 };
 }
 void Tree::rotate()
 {
-	// Rotate the points
 	rotateAroundPoint(crownRef, RefPoint);
 	rotateAroundPoint(trunkRef, RefPoint);
 	update();
@@ -193,22 +192,21 @@ void Tree::rotate()
 
 void Tree::resizeUp()
 {
-	updateTree();
-	// Double the size of the trunk and crown
-	trunk->resizeUp();
-	crown->resizeUp();
+	trunkHeight *= 2;
+	trunkWidth *= 2;
+	crownRad *= 2;
+	updateRef();
+	update();
 }
 
 void Tree::resizeDown()
 {
+	trunkHeight /= 2;
+	trunkWidth /= 2;
+	crownRad /= 2;
+	updateRef();
 	update();
-	// half the size of the trunk and crown
 }
 
-void Tree::flip()
-{
-	update();
-	// Flip the crown
-	crown->flip();
-	trunk->flip();
-}
+// Tree is symmetric, no need to flip
+void Tree::flip() {}
