@@ -37,7 +37,7 @@ Cloud::Cloud(game* r_pGame, point ref) : shape(r_pGame, ref), rad(config.cloudSh
 	bottomRight = new Circle(pGame, bottomRightRef, rad);
 }
 
-void Cloud::updateCircles() {
+void Cloud::update() {
 	delete top, center, bottomLeft, bottomRight;
 	top = new Circle(pGame, topRef, rad);
 	center = new Circle(pGame, centerRef, rad);
@@ -45,7 +45,7 @@ void Cloud::updateCircles() {
 	bottomRight = new Circle(pGame, bottomRightRef, rad);
 }
 
-void Cloud::updateCirclesRef() {
+void Cloud::updateRef() {
 	topRef = { RefPoint.x, RefPoint.y - rad / 2 };
 	centerRef = { RefPoint.x, RefPoint.y };
 	bottomLeftRef = { RefPoint.x - rad, RefPoint.y };
@@ -64,21 +64,20 @@ void Cloud::rotate() {
 	rotateAroundPoint(centerRef, RefPoint);
 	rotateAroundPoint(bottomLeftRef, RefPoint);
 	rotateAroundPoint(bottomRightRef, RefPoint);
-	updateCircles();
+	update();
 }
 
 void Cloud::resizeUp() {
 	rad *= 2;
-	updateCirclesRef();
-	updateCircles();
+	updateRef();
+	update();
 
 }
 
 void Cloud::resizeDown() {
 	rad /= 2;
-	updateCirclesRef();
-	updateCircles();
-
+	updateRef();
+	update();
 }
 
 // Cloud is symmetric, no need to flip
@@ -100,7 +99,7 @@ roofHeight(config.houseShape.roofHeight), roofWidth(config.houseShape.roofWidth)
 	roof = new IsoscelesTriangle(pGame, roofRef, roofHeight, roofWidth);
 }
 
-void House::updateHouse() {
+void House::update() {
 	delete base, roof;
 
 	base = new Rect(pGame, baseRef, baseHeight, baseWidth);
@@ -133,7 +132,7 @@ void House::resizeUp()
 	// Points
 	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
 	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
-	updateHouse();
+	update();
 }
 
 void House::resizeDown()
@@ -146,7 +145,7 @@ void House::resizeDown()
 	// Points
 	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
 	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
-	updateHouse();
+	update();
 }
 
 // House is symmetric, no need to flip
@@ -168,9 +167,7 @@ trunkHeight(config.treeShape.trunkHeight), crownRad(config.treeShape.crownRad)
 	crown = new Cloud(pGame, crownRef);
 };
 
-void Tree::updateTree() {
-	trunkRef = { RefPoint.x, RefPoint.y + crownRad };
-	crownRef = { RefPoint.x, RefPoint.y - trunkHeight };
+void Tree::update() {
 	delete trunk, crown;
 	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkWidth);
 	crown = new Cloud(pGame, crownRef);
@@ -182,7 +179,7 @@ void Tree::draw() const
 	trunk->draw();
 	crown->draw();
 }
-void Tree::updateTreeRefRotate() {
+void Tree::updateRef() {
 	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
 	crownRef = { RefPoint.x, RefPoint.y };
 }
@@ -191,12 +188,9 @@ void Tree::rotate()
 	// Rotate the points
 	rotateAroundPoint(crownRef, RefPoint);
 	rotateAroundPoint(trunkRef, RefPoint);
-
-	updateTree();
-
-	// Rotate shapes
-	crown->rotate();
+	update();
 	trunk->rotate();
+	crown->rotate();
 }
 
 void Tree::resizeUp()
@@ -209,13 +203,13 @@ void Tree::resizeUp()
 
 void Tree::resizeDown()
 {
-	updateTree();
+	update();
 	// half the size of the trunk and crown
 }
 
 void Tree::flip()
 {
-	updateTree();
+	update();
 	// Flip the crown
 	crown->flip();
 	trunk->flip();
