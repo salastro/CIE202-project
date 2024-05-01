@@ -269,3 +269,105 @@ void Icecream::resizeDown()
 
 // Icecream is symmetric, no need to flip
 void Icecream::flip() {}
+
+//--------------------------------- Class Plane -----------------------------------//
+
+Plane::Plane(game* r_pGame, point ref) :shape(r_pGame, ref),
+bodyHeight(config.planeShape.bodyHeight),
+bodyWidth(config.planeShape.bodyWidth),
+wingHeight(config.planeShape.wingHeight),
+wingWidth(config.planeShape.wingWidth),
+tailHeight(config.planeShape.tailHeight),
+tailWidth(config.planeShape.tailWidth)
+{
+	// Ref Points
+	bodyRef = RefPoint;
+	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - bodyWidth / 2 };
+	leftWingRef = { RefPoint.x - bodyWidth / 2 - wingWidth / 2, RefPoint.y - wingHeight / 2 };
+	rightWingRef = { RefPoint.x + bodyWidth / 2 + wingWidth / 2, RefPoint.y - wingHeight / 2 };
+	leftTailRef = { RefPoint.x - bodyWidth / 2 - tailWidth / 2, RefPoint.y + bodyHeight / 2 - tailHeight * 2 / 3 };
+	rightTailRef = { RefPoint.x + bodyWidth / 2 + tailWidth / 2, RefPoint.y + bodyHeight / 2 - tailHeight * 2 / 3 };
+
+	// Objects
+	body = new Rect(pGame, bodyRef, bodyHeight, bodyWidth);
+	head = new EquilateralTriangle(pGame, headRef, bodyWidth);
+	leftWing = new RightTriangle(pGame, leftWingRef, wingHeight, -wingWidth);
+	rightWing = new RightTriangle(pGame, rightWingRef, wingHeight, wingWidth);
+	leftTail = new RightTriangle(pGame, leftTailRef, tailHeight, -tailWidth);
+	rightTail = new RightTriangle(pGame, rightTailRef, tailHeight, tailWidth);
+};
+
+void Plane::update()
+{
+	delete body, head, leftWing, rightWing, leftTail, rightTail;
+	body = new Rect(pGame, bodyRef, bodyHeight, bodyWidth);
+	head = new EquilateralTriangle(pGame, headRef, bodyWidth);
+	leftWing = new RightTriangle(pGame, leftWingRef, wingHeight, -wingWidth);
+	rightWing = new RightTriangle(pGame, rightWingRef, wingHeight, wingWidth);
+	leftTail = new RightTriangle(pGame, leftTailRef, tailHeight, -tailWidth);
+	rightTail = new RightTriangle(pGame, rightTailRef, tailHeight, tailWidth);
+}
+
+void Plane::updateRef()
+{
+	bodyRef = RefPoint;
+	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - bodyWidth / 2 };
+	leftWingRef = { RefPoint.x - bodyWidth / 2 - wingWidth / 2, RefPoint.y - wingHeight / 2 };
+	rightWingRef = { RefPoint.x + bodyWidth / 2 + wingWidth / 2, RefPoint.y - wingHeight / 2 };
+	leftTailRef = { RefPoint.x - bodyWidth / 2 - tailWidth / 2, RefPoint.y + bodyHeight / 2 - tailHeight * 2 / 3 };
+	rightTailRef = { RefPoint.x + bodyWidth / 2 + tailWidth / 2, RefPoint.y + bodyHeight / 2 - tailHeight * 2 / 3 };
+}
+
+void Plane::draw() const
+{
+	body->draw();
+	head->draw();
+	leftWing->draw();
+	rightWing->draw();
+	leftTail->draw();
+	rightTail->draw();
+}
+
+void Plane::rotate()
+{
+	rotateAroundPoint(bodyRef, RefPoint);
+	rotateAroundPoint(headRef, RefPoint);
+	rotateAroundPoint(leftWingRef, RefPoint);
+	rotateAroundPoint(rightWingRef, RefPoint);
+	rotateAroundPoint(leftTailRef, RefPoint);
+	rotateAroundPoint(rightTailRef, RefPoint);
+	update();
+	body->rotate();
+	head->rotate();
+	leftWing->rotate();
+	rightWing->rotate();
+	leftTail->rotate();
+	rightTail->rotate();
+}
+
+void Plane::resizeUp()
+{
+	bodyHeight *= 2;
+	bodyWidth *= 2;
+	wingHeight *= 2;
+	wingWidth *= 2;
+	tailHeight *= 2;
+	tailWidth *= 2;
+	updateRef();
+	update();
+}
+
+void Plane::resizeDown()
+{
+	bodyHeight /= 2;
+	bodyWidth /= 2;
+	wingHeight /= 2;
+	wingWidth /= 2;
+	tailHeight /= 2;
+	tailWidth /= 2;
+	updateRef();
+	update();
+}
+
+// Plane is symmetric, no need to flip
+void Plane::flip() {}

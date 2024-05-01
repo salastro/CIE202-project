@@ -61,6 +61,12 @@ struct
 		int coneHeight = 100;
 	}icecreamShape;
 
+	struct {
+		int bodyHeight = 150, bodyWidth = 30;
+		int wingHeight = 40, wingWidth = 100;
+		int tailHeight = 12, tailWidth = 12;
+	}planeShape;
+
 }config;
 
 

@@ -154,3 +154,39 @@ public:
 	void resizeDown() override;
 	void flip() override;
 };
+
+////////////////////////////////////////////////////  Class Plane  ///////////////////////////////////////	
+class Plane : public shape
+{
+private:
+	// Objects
+	Rect* body;
+	EquilateralTriangle* head;
+	RightTriangle* leftWing;
+	RightTriangle* rightWing;
+	RightTriangle* leftTail;
+	RightTriangle* rightTail;
+	// Reference points
+	point bodyRef;
+	point headRef;
+	point leftWingRef;
+	point rightWingRef;
+	point leftTailRef;
+	point rightTailRef;
+	// Variables
+	int bodyHeight, bodyWidth;
+	int wingHeight, wingWidth;
+	int tailHeight, tailWidth;
+
+public:
+	Plane(game* r_pGame, point ref);
+
+	void update();
+	void updateRef();
+
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
+};
