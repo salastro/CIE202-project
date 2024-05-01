@@ -155,22 +155,24 @@ void House::flip() {};
 //--------------------------------- class Tree -----------------------------------//
 
 
-Tree::Tree(game* r_pGame, point ref) : shape(r_pGame, ref), crownRad(config.treeShape.crownRad), trunkHeight(config.treeShape.trunkHeight)
+Tree::Tree(game* r_pGame, point ref) : shape(r_pGame, ref),
+trunkWidth(config.treeShape.trunkWidth),
+trunkHeight(config.treeShape.trunkHeight), crownRad(config.treeShape.crownRad)
 {
 	// Calculate positions for trunk and crown
-	trunkRef = { ref.x, ref.y + crownRad };
-	crownRef = { ref.x, ref.y - trunkHeight };
+	trunkRef = { RefPoint.x, RefPoint.y + crownRad };
+	crownRef = { RefPoint.x, RefPoint.y - trunkHeight };
 
 	// Create trunk rectangle and crown circle
-	trunk = new Rect(r_pGame, trunkRef, trunkHeight, trunkHeight / 5);
-	crown = new Cloud(r_pGame, crownRef);
+	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkWidth);
+	crown = new Cloud(pGame, crownRef);
 };
 
 void Tree::updateTree() {
 	trunkRef = { RefPoint.x, RefPoint.y + crownRad };
-	crownRef = { RefPoint.x, RefPoint.y };
+	crownRef = { RefPoint.x, RefPoint.y - trunkHeight };
 	delete trunk, crown;
-	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkHeight / 5);
+	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkWidth);
 	crown = new Cloud(pGame, crownRef);
 }
 

@@ -113,6 +113,7 @@ private:
 	point crownRef;
 	// Variables
 	int trunkHeight;
+	int trunkWidth;
 	int crownRad;
 
 public:

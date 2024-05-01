@@ -53,7 +53,7 @@ struct
 		int roofHeight = 50;
 	}houseShape;
 	struct {
-		int trunkHeight = 130;
+		int trunkHeight = 130, trunkWidth = 26;
 		int crownRad = 50;
 	}treeShape;
 
