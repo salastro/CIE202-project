@@ -266,10 +266,15 @@ void game::test()
 		// Icecream* I = new Icecream(this, { 600, 300 });
 		// I->draw();
 
-		// Plane
-		Plane* P = new Plane(this, { 600, 300 });
-		P->rotate();
-		P->draw();
+		// // Plane
+		// Plane* P = new Plane(this, { 600, 300 });
+		// P->rotate();
+		// P->draw();
+
+		// Car
+		Car* Ca = new Car(this, { 600,300 });
+		Ca->rotate();
+		Ca->draw();
 
 	} while (clickedItem != ITM_EXIT);
 }

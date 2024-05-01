@@ -371,3 +371,106 @@ void Plane::resizeDown()
 
 // Plane is symmetric, no need to flip
 void Plane::flip() {}
+
+//--------------------------------- Class Plane -----------------------------------//
+
+Car::Car(game* r_pGame, point ref) :shape(r_pGame, ref),
+bodyHeight(50), bodyWidth(100),
+headHeight(25), headWidth(50),
+wheelRad(15)
+{
+	// Variables
+	topWidth = (bodyWidth - headWidth) / 2;
+
+	// Ref points
+	bodyRef = RefPoint;
+	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
+	topLeftRef = { RefPoint.x - bodyWidth / 2 + topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
+	topRightRef = { RefPoint.x + bodyWidth / 2 - topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
+	leftWheelRef = { RefPoint.x - bodyWidth / 2, RefPoint.y + bodyHeight / 2};
+	rightWheelRef = { RefPoint.x + bodyWidth / 2, RefPoint.y + bodyHeight / 2};
+
+	// Objects
+	body = new Rect(pGame, bodyRef, bodyHeight, bodyWidth);
+	head = new Rect(pGame, headRef, headHeight, headWidth);
+	topLeft = new RightTriangle(pGame, topLeftRef, headHeight, -topWidth);
+	topRight = new RightTriangle(pGame, topRightRef, headHeight, topWidth);
+	leftWheel = new Circle(pGame, leftWheelRef, wheelRad);
+	rightWheel = new Circle(pGame, rightWheelRef, wheelRad);
+};
+
+void Car::update()
+{
+	delete body, head, topLeft, topRight, leftWheel, rightWheel;
+	body = new Rect(pGame, bodyRef, bodyHeight, bodyWidth);
+	head = new Rect(pGame, headRef, headHeight, headWidth);
+	topLeft = new RightTriangle(pGame, topLeftRef, headHeight, -topWidth);
+	topRight = new RightTriangle(pGame, topRightRef, headHeight, topWidth);
+	leftWheel = new Circle(pGame, leftWheelRef, wheelRad);
+	rightWheel = new Circle(pGame, rightWheelRef, wheelRad);
+}
+
+void Car::updateRef()
+{
+	topWidth = (bodyWidth - headWidth) / 2;
+	bodyRef = RefPoint;
+	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
+	topLeftRef = { RefPoint.x - bodyWidth / 2 + topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
+	topRightRef = { RefPoint.x + bodyWidth / 2 - topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
+	leftWheelRef = { RefPoint.x - bodyWidth / 2, RefPoint.y + bodyHeight / 2};
+	rightWheelRef = { RefPoint.x + bodyWidth / 2, RefPoint.y + bodyHeight / 2};
+}
+
+void Car::draw() const
+{
+	body->draw();
+	head->draw();
+	topLeft->draw();
+	topRight->draw();
+	leftWheel->draw();
+	rightWheel->draw();
+}
+
+void Car::rotate()
+{
+	rotateAroundPoint(bodyRef, RefPoint);
+	rotateAroundPoint(headRef, RefPoint);
+	rotateAroundPoint(topLeftRef, RefPoint);
+	rotateAroundPoint(topRightRef, RefPoint);
+	rotateAroundPoint(leftWheelRef, RefPoint);
+	rotateAroundPoint(rightWheelRef, RefPoint);
+	update();
+	body->rotate();
+	head->rotate();
+	topLeft->rotate();
+	topRight->rotate();
+	leftWheel->rotate();
+	rightWheel->rotate();
+}
+
+void Car::resizeUp()
+{
+	bodyHeight *= 2;
+	bodyWidth *= 2;
+	headHeight *= 2;
+	headWidth *= 2;
+	topWidth *= 2;
+	wheelRad *= 2;
+	updateRef();
+	update();
+}
+
+void Car::resizeDown()
+{
+	bodyHeight /= 2;
+	bodyWidth /= 2;
+	headHeight /= 2;
+	headWidth /= 2;
+	topWidth /= 2;
+	wheelRad /= 2;
+	updateRef();
+	update();
+}
+
+// Car is symmetric, no need to flip
+void Car::flip() {}

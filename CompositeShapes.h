@@ -190,3 +190,40 @@ public:
 	void resizeDown() override;
 	void flip() override;
 };
+
+////////////////////////////////////////////////////  Class Car  ///////////////////////////////////////	
+class Car : public shape
+{
+private:
+	// Objects
+	Rect* body;
+	Rect* head;
+	RightTriangle* topLeft;
+	RightTriangle* topRight;
+	Circle* leftWheel;
+	Circle* rightWheel;
+	// Reference points
+	point bodyRef;
+	point headRef;
+	point topLeftRef;
+	point topRightRef;
+	point leftWheelRef;
+	point rightWheelRef;
+	// Variables
+	int bodyHeight, bodyWidth;
+	int headHeight, headWidth; // headWidth < bodyWidth
+	int topWidth;
+	int wheelRad;
+
+public:
+	Car(game* r_pGame, point ref);
+
+	void update();
+	void updateRef();
+
+	void draw() const override;
+	void rotate() override;
+	void resizeUp() override;
+	void resizeDown() override;
+	void flip() override;
+};
