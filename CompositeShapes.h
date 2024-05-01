@@ -58,8 +58,8 @@ private:
 public:
 	Cloud(game* r_pGame, point ref);
 
-	void updateCircles();
-	void updateCirclesRef();
+	void update();
+	void updateRef();
 
 	void draw() const override;
 	void rotate() override;
@@ -91,7 +91,8 @@ private:
 public:
 	House(game* r_pGame, point ref);
 
-	void updateHouse();
+	void update();
+	void updateRef();
 
 	void draw() const override;
 	void rotate() override;
@@ -119,9 +120,9 @@ private:
 public:
 	Tree(game* r_pGame, point ref);
 	void draw() const override;
-	void updateTree();
+	void update();
 	void rotate() override;
-	void updateTreeRefRotate();
+	void updateRef();
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;

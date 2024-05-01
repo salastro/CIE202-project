@@ -101,9 +101,13 @@ roofHeight(config.houseShape.roofHeight), roofWidth(config.houseShape.roofWidth)
 
 void House::update() {
 	delete base, roof;
-
 	base = new Rect(pGame, baseRef, baseHeight, baseWidth);
 	roof = new IsoscelesTriangle(pGame, roofRef, roofHeight, roofWidth);
+}
+
+void House::updateRef() {
+	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
+	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
 }
 
 void House::draw() const
@@ -117,34 +121,28 @@ void House::rotate()
 {
 	rotateAroundPoint(baseRef, RefPoint);
 	rotateAroundPoint(roofRef, RefPoint);
-	updateHouse();
+	update();
 	base->rotate();
 	roof->rotate();
 }
 
 void House::resizeUp()
 {
-	// Scale
 	baseHeight *= 2;
 	baseWidth *= 2;
 	roofHeight *= 2;
 	roofWidth *= 2;
-	// Points
-	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
-	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
+	updateRef();
 	update();
 }
 
 void House::resizeDown()
 {
-	// Scale
 	baseHeight /= 2;
 	baseWidth /= 2;
 	roofHeight /= 2;
 	roofWidth /= 2;
-	// Points
-	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
-	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
+	updateRef();
 	update();
 }
 
