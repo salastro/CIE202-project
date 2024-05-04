@@ -15,10 +15,18 @@ enum ShapeType
 	//Basic shapes
 	RCT, //rectangle
 	CRC, //circle
-	TRI, //triangle
+	EQTRI, //equilateral triangle
+	RITRI, //right angle triangle
+	ISTRI, //isoceles triangle
 
 	//Composite shapes
 	SIGN, //a street sign
+	TREE,
+	CLOUD,
+	HOUSE,
+	CAR,
+	ICECREAM,
+	PLANE,
 
 	//TODO: Add more types
 };
@@ -31,6 +39,7 @@ protected:
 	game* pGame;        //pointer to game object
 	color fillColor; //shape fill color
 	color borderColor; //shape border color
+	int orientation;
 public:
 	shape(game* r_pGame, point ref);
 	virtual void draw() const = 0;//for a shape to draw itself on the screen

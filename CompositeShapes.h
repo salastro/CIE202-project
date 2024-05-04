@@ -108,10 +108,14 @@ class Tree : public shape
 private:
 	// Objects
 	Rect* trunk;
-	Cloud* crown;
+	Circle* crownTop;
+	Circle* crownLeft;
+	Circle* crownRight;
 	// Reference points
 	point trunkRef;
-	point crownRef;
+	point crownTopRef;
+	point crownLeftRef;
+	point crownRightRef;
 	// Variables
 	int trunkHeight;
 	int trunkWidth;

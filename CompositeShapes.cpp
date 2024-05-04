@@ -89,7 +89,6 @@ House::House(game* r_pGame, point ref) : shape(r_pGame, ref),
 baseHeight(config.houseShape.baseHeight), baseWidth(config.houseShape.baseWidth),
 roofHeight(config.houseShape.roofHeight), roofWidth(config.houseShape.roofWidth)
 {
-
 	// Calculate positions for base and roof
 	baseRef = { ref.x, ref.y + baseHeight / 2 };
 	roofRef = { ref.x, ref.y - roofHeight / 2 };
@@ -119,11 +118,15 @@ void House::draw() const
 
 void House::rotate()
 {
+	orientation += 1;
 	rotateAroundPoint(baseRef, RefPoint);
 	rotateAroundPoint(roofRef, RefPoint);
 	update();
-	base->rotate();
-	roof->rotate();
+	for (int i = 0; i < orientation; i++)
+	{
+		base->rotate();
+		roof->rotate();
+	}
 }
 
 void House::resizeUp()
@@ -158,36 +161,56 @@ trunkHeight(config.treeShape.trunkHeight), crownRad(config.treeShape.crownRad)
 {
 	// Calculate positions for trunk and crown
 	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
-	crownRef = { RefPoint.x, RefPoint.y - crownRad / 2 };
+	crownTopRef = { RefPoint.x, RefPoint.y - crownRad };
+	crownLeftRef = { RefPoint.x - crownRad, RefPoint.y - crownRad / 2 };
+	crownRightRef = { RefPoint.x + crownRad, RefPoint.y - crownRad / 2 };
 
 	// Create trunk rectangle and crown circle
 	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkWidth);
-	crown = new Cloud(pGame, crownRef);
+	crownTop = new Circle(pGame, crownTopRef, crownRad);
+	crownLeft = new Circle(pGame, crownLeftRef, crownRad);
+	crownRight = new Circle(pGame, crownRightRef, crownRad);
 };
 
 void Tree::update() {
-	delete trunk, crown;
+	delete trunk, crownTop, crownLeft, crownRight;
 	trunk = new Rect(pGame, trunkRef, trunkHeight, trunkWidth);
-	crown = new Cloud(pGame, crownRef);
+	crownTop = new Circle(pGame, crownTopRef, crownRad);
+	crownLeft = new Circle(pGame, crownLeftRef, crownRad);
+	crownRight = new Circle(pGame, crownRightRef, crownRad);
+}
+
+void Tree::updateRef() {
+	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
+	crownTopRef = { RefPoint.x, RefPoint.y - crownRad };
+	crownLeftRef = { RefPoint.x - crownRad, RefPoint.y - crownRad / 2 };
+	crownRightRef = { RefPoint.x + crownRad, RefPoint.y - crownRad / 2 };
+	crownTop = new Circle(pGame, crownTopRef, crownRad);
+	crownLeft = new Circle(pGame, crownLeftRef, crownRad);
+	crownRight = new Circle(pGame, crownRightRef, crownRad);
 }
 
 void Tree::draw() const
 {
 	// Draw trunk and crown
 	trunk->draw();
-	crown->draw();
+	crownTop->draw();
+	crownLeft->draw();
+	crownRight->draw();
 }
-void Tree::updateRef() {
-	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
-	crownRef = { RefPoint.x, RefPoint.y - crownRad / 2 };
-}
+
 void Tree::rotate()
 {
-	rotateAroundPoint(crownRef, RefPoint);
+	orientation += 1;
+	rotateAroundPoint(crownTopRef, RefPoint);
+	rotateAroundPoint(crownLeftRef, RefPoint);
+	rotateAroundPoint(crownRightRef, RefPoint);
 	rotateAroundPoint(trunkRef, RefPoint);
 	update();
-	trunk->rotate();
-	crown->rotate();
+	for (int i = 0; i < orientation; i++)
+	{
+		trunk->rotate();
+	}
 }
 
 void Tree::resizeUp()
@@ -218,12 +241,12 @@ scoopRad(config.icecreamShape.scoopRad),
 coneHeight(config.icecreamShape.coneHeight)
 {
 	// Calculate positions for trunk and crown
-	scoopRef = { RefPoint.x, RefPoint.y + scoopRad / 2 };
-	coneRef = { RefPoint.x, RefPoint.y - coneHeight / 2 };
+	scoopRef = { RefPoint.x, RefPoint.y - scoopRad / 2 };
+	coneRef = { RefPoint.x, RefPoint.y + coneHeight / 2 };
 
 	// Create trunk rectangle and crown circle
 	scoop = new Circle(pGame, scoopRef, scoopRad);
-	cone = new IsoscelesTriangle(pGame, coneRef, coneHeight, 2 * scoopRad);
+	cone = new IsoscelesTriangle(pGame, coneRef, -coneHeight, 2 * scoopRad);
 };
 
 void Icecream::update() {
@@ -249,6 +272,13 @@ void Icecream::rotate()
 	rotateAroundPoint(scoopRef, RefPoint);
 	rotateAroundPoint(coneRef, RefPoint);
 	update();
+	orientation += 1;
+	for (int i = 0; i < orientation; i++)
+	{
+		cone->rotate();
+		cone->rotate();
+		cone->rotate();
+	}
 }
 
 void Icecream::resizeUp()
@@ -337,12 +367,16 @@ void Plane::rotate()
 	rotateAroundPoint(leftTailRef, RefPoint);
 	rotateAroundPoint(rightTailRef, RefPoint);
 	update();
-	body->rotate();
-	head->rotate();
-	leftWing->rotate();
-	rightWing->rotate();
-	leftTail->rotate();
-	rightTail->rotate();
+	orientation += 1;
+	for (int i = 0; i < orientation; i++)
+	{
+		body->rotate();
+		head->rotate();
+		leftWing->rotate();
+		rightWing->rotate();
+		leftTail->rotate();
+		rightTail->rotate();
+	}
 }
 
 void Plane::resizeUp()
@@ -387,8 +421,8 @@ wheelRad(15)
 	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
 	topLeftRef = { RefPoint.x - bodyWidth / 2 + topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
 	topRightRef = { RefPoint.x + bodyWidth / 2 - topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
-	leftWheelRef = { RefPoint.x - bodyWidth / 2, RefPoint.y + bodyHeight / 2};
-	rightWheelRef = { RefPoint.x + bodyWidth / 2, RefPoint.y + bodyHeight / 2};
+	leftWheelRef = { RefPoint.x - bodyWidth / 2, RefPoint.y + bodyHeight / 2 };
+	rightWheelRef = { RefPoint.x + bodyWidth / 2, RefPoint.y + bodyHeight / 2 };
 
 	// Objects
 	body = new Rect(pGame, bodyRef, bodyHeight, bodyWidth);
@@ -417,8 +451,8 @@ void Car::updateRef()
 	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
 	topLeftRef = { RefPoint.x - bodyWidth / 2 + topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
 	topRightRef = { RefPoint.x + bodyWidth / 2 - topWidth / 2, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
-	leftWheelRef = { RefPoint.x - bodyWidth / 2, RefPoint.y + bodyHeight / 2};
-	rightWheelRef = { RefPoint.x + bodyWidth / 2, RefPoint.y + bodyHeight / 2};
+	leftWheelRef = { RefPoint.x - bodyWidth / 2, RefPoint.y + bodyHeight / 2 };
+	rightWheelRef = { RefPoint.x + bodyWidth / 2, RefPoint.y + bodyHeight / 2 };
 }
 
 void Car::draw() const
@@ -440,12 +474,16 @@ void Car::rotate()
 	rotateAroundPoint(leftWheelRef, RefPoint);
 	rotateAroundPoint(rightWheelRef, RefPoint);
 	update();
-	body->rotate();
-	head->rotate();
-	topLeft->rotate();
-	topRight->rotate();
-	leftWheel->rotate();
-	rightWheel->rotate();
+	orientation += 1;
+	for (int i = 0; i < orientation; i++)
+	{
+		body->rotate();
+		head->rotate();
+		topLeft->rotate();
+		topRight->rotate();
+		leftWheel->rotate();
+		rightWheel->rotate();
+	}
 }
 
 void Car::resizeUp()

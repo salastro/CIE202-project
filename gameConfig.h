@@ -57,8 +57,8 @@ struct
 	}treeShape;
 
 	struct {
-		int scoopRad = 100;
-		int coneHeight = 100;
+		int scoopRad = 50;
+		int coneHeight = 150;
 	}icecreamShape;
 
 	struct {

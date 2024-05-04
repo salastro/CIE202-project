@@ -257,13 +257,14 @@ void game::test()
 		// House* H = new House(this, { 600, 300 });
 		// H->draw();
 
-		 // // Tree
-		 // Tree* T = new Tree(this, { 600, 300 });
-		 // T->rotate();
-		 // T->draw();
+		// // Tree
+		// Tree* T = new Tree(this, { 600, 300 });
+		// T->rotate();
+		// T->draw();
 
 		// // Icecream
 		// Icecream* I = new Icecream(this, { 600, 300 });
+		// I->rotate();
 		// I->draw();
 
 		// // Plane
@@ -273,6 +274,7 @@ void game::test()
 
 		// Car
 		Car* Ca = new Car(this, { 600,300 });
+		Ca->rotate();
 		Ca->rotate();
 		Ca->draw();
 
