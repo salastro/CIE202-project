@@ -67,6 +67,12 @@ struct
 		int tailHeight = 12, tailWidth = 12;
 	}planeShape;
 
+	struct {
+		int bodyHeight = 50, bodyWidth = 100;
+		int headHeight = 25, headWidth = 50;
+		int wheelRad = 15;
+	}carShape;
+
 }config;
 
 

@@ -409,9 +409,9 @@ void Plane::flip() {}
 //--------------------------------- Class Plane -----------------------------------//
 
 Car::Car(game* r_pGame, point ref) :shape(r_pGame, ref),
-bodyHeight(50), bodyWidth(100),
-headHeight(25), headWidth(50),
-wheelRad(15)
+bodyHeight(config.carShape.bodyHeight), bodyWidth(config.carShape.bodyWidth),
+headHeight(config.carShape.headHeight), headWidth(config.carShape.headWidth),
+wheelRad(config.carShape.wheelRad)
 {
 	// Variables
 	topWidth = (bodyWidth - headWidth) / 2;
