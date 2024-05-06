@@ -68,6 +68,8 @@ void operMinus::Act()
 
 operDelete::operDelete(game* r_pGame) :operation(r_pGame)
 {
+	grid* pGrid = pGame->getGrid();
+	pGrid->deleteShape();
 }
 
 void operDelete::Act()
