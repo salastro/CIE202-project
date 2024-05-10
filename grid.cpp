@@ -71,6 +71,11 @@ bool grid::addShape(shape* newShape)
 	return true;
 }
 
+shape* grid::getActiveShape() const
+{
+	return activeShape;
+}
+
 void grid::setActiveShape(shape* actShape)
 {
 	activeShape = actShape;

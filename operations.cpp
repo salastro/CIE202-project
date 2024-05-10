@@ -44,9 +44,9 @@ operRotate::operRotate(game* r_pGame) :operation(r_pGame)
 void operRotate::Act()
 {
 	grid* pGrid = pGame->getGrid();
-	// shape* psh = pGrid->getActiveShape();
-	// psh->rotate();
-	// pGrid->setActiveShape(psh);
+	shape* psh = pGrid->getActiveShape();
+	 psh->rotate();
+	 pGrid->setActiveShape(psh);
 
 }
 
@@ -68,12 +68,13 @@ void operMinus::Act()
 
 operDelete::operDelete(game* r_pGame) :operation(r_pGame)
 {
-	grid* pGrid = pGame->getGrid();
-	pGrid->deleteShape();
+	
 }
 
 void operDelete::Act()
 {
+	grid* pGrid = pGame->getGrid();
+	pGrid->deleteShape();
 }
 
 operHint::operHint(game* r_pGame) :operation(r_pGame)
