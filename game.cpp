@@ -65,8 +65,32 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	operation* op = nullptr;
 	switch (clickedItem)
 	{
-	case ITM_SIGN:
+	/*case ITM_SIGN:
 		op = new operAddSign(this);
+		break;*/
+	case ITM_Car:
+		printMessage("YOU PRESSED CAR");
+		op = new operCar(this);
+		break;
+	case ITM_House:
+		printMessage("YOU PRESSED HOUSE");
+		op = new operHouse(this);
+		break;
+	case ITM_Tree:
+		printMessage("YOU PRESSED TREE");
+		op = new operTree(this);
+		break;
+	case ITM_Airplane:
+		printMessage("YOU PRESSED AIRPLANE");
+		op = new operAirplane(this);
+		break;
+	case ITM_Icecream:
+		printMessage("YOU PRESSED Icecream");
+		op = new operIcecream(this);
+		break;
+	case ITM_Cloud:
+		printMessage("YOU PRESSED Cloud ");
+		op = new operCloud(this);
 		break;
 	case ITM_Rotate:
 		printMessage("YOU PRESSED ROTATE ");

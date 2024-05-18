@@ -14,7 +14,13 @@ toolbar::toolbar(game* pG)
 	//You can draw the tool bar icons in any way you want.
 
 	//First prepare List of images for each toolbar item
-	toolbarItemImages[ITM_SIGN] = "images\\toolbarItems\\toolbar_sign.jpg";
+	//toolbarItemImages[ITM_SIGN] = "images\\toolbarItems\\toolbar_sign.jpg";
+	toolbarItemImages[ITM_Car] = "images\\toolbarItems\\car.jpg";
+	toolbarItemImages[ITM_House] = "images\\toolbarItems\\house.jpg";
+	toolbarItemImages[ITM_Tree] = "images\\toolbarItems\\tree.jpg";
+	toolbarItemImages[ITM_Airplane] = "images\\toolbarItems\\airplane.jpg";
+	toolbarItemImages[ITM_Icecream] = "images\\toolbarItems\\icecream.jpg";
+	toolbarItemImages[ITM_Cloud] = "images\\toolbarItems\\cloud.jpg";
 	toolbarItemImages[ITM_Rotate] = "images\\toolbarItems\\toolbar_Rotate.jpg";
 	toolbarItemImages[ITM_Plus] = "images\\toolbarItems\\toolbar_plus.jpg";
 	toolbarItemImages[ITM_Minus] = "images\\toolbarItems\\toolbar_Minus.jpg";
