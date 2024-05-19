@@ -268,3 +268,44 @@ void game::test()
 		Ca->draw();
 	}
 }
+
+void game::setStartClock(time_t duration)
+{
+	startClock = clock();
+	countdownDuration = duration; // Set the countdown duration
+
+}
+
+time_t game::getStartClock()
+{
+	return startClock;
+
+}
+
+void game::updateTime()
+{
+	// Calculate elapsed time
+	time_t elapsedTime = (clock() - getStartClock()) / CLOCKS_PER_SEC;
+	time_t remainingTime = countdownDuration - elapsedTime;
+
+	// Calculate minutes and seconds from remainingTime
+	time_t min = remainingTime / 60;
+	time_t sec = remainingTime % 60;
+
+	// If time is up, set remainingTime to 0
+	if (remainingTime <= 0) {
+		min = 0;
+		sec = 0;
+
+}
+
+	// Update the display
+	pWind->SetPen(LAVENDER);
+	pWind->SetBrush(LAVENDER);
+	pWind->DrawRectangle(780, 0, 780 + 65, 35);
+
+	pWind->SetPen(BLACK);
+	pWind->SetFont(15, BOLD, BY_NAME, "Arial");
+	pWind->DrawString(780, 5, "Timer: " + std::to_string(min) + ":" + std::to_string(sec));
+}
+

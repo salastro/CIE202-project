@@ -3,6 +3,9 @@
 #include "toolbar.h"
 #include "operations.h"
 #include "grid.h"
+#include <ctime>
+#include<chrono>
+#include <thread>
 
 
 
@@ -16,6 +19,10 @@ class game
 	
 	window* pWind;	//Pointer to the CMU graphics window
 	grid* shapesGrid;
+
+	clock_t startClock;
+	time_t countdownDuration; // in seconds
+
 
 public:
 	game();
@@ -39,6 +46,15 @@ public:
 	void run();	//start the game
 
 	void test(); // Test modules
+
+	void setStartClock(time_t duration); // Initialize startClock and countdown duration
+	time_t getStartClock();
+	void updateTime(); // Function to update and display the countdown timer
+	// Other members and functions of the game class...
+
+	// Assuming pWind is a pointer to a window or drawing object
+	//YourWindowType* pWind;
+
 
 };
 
