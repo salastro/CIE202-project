@@ -142,6 +142,13 @@ operCar::operCar(game* r_pGame):operation(r_pGame)
 
 void operCar::Act()
 {
+	window* pw = pGame->getWind();
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+	point carShapeRef = { xGrid,yGrid };
+	shape* psh = new Car(pGame, carShapeRef);
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
 	
 }
 
@@ -151,6 +158,13 @@ operHouse::operHouse(game* r_pGame) :operation(r_pGame)
 
 void operHouse::Act()
 {
+	window* pw = pGame->getWind();
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+	point houseShapeRef = { xGrid,yGrid };
+	shape* psh = new House(pGame, houseShapeRef);
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
 }
 
 operTree::operTree(game* r_pGame) :operation(r_pGame)
@@ -159,6 +173,13 @@ operTree::operTree(game* r_pGame) :operation(r_pGame)
 
 void operTree::Act()
 {
+	window* pw = pGame->getWind();
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+	point treeShapeRef = { xGrid,yGrid };
+	shape* psh = new Tree(pGame, treeShapeRef);
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
 }
 
 operAirplane::operAirplane(game* r_pGame) :operation(r_pGame)
@@ -167,6 +188,13 @@ operAirplane::operAirplane(game* r_pGame) :operation(r_pGame)
 
 void operAirplane::Act()
 {
+	window* pw = pGame->getWind();
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+	point planeShapeRef = { xGrid,yGrid };
+	shape* psh = new Plane(pGame, planeShapeRef);
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
 }
 
 operIcecream::operIcecream(game* r_pGame) :operation(r_pGame)
@@ -201,22 +229,11 @@ operCloud::operCloud(game* r_pGame) :operation(r_pGame)
 
 void operCloud::Act()
 {
-//	window* pw = pGame->getWind();
-//
-//	//TODO:
-//	// Don't allow adding new shape if there is alreday an active shape
-//
-//	//align reference point to the nearest grid point
-//	int xGrid = config.RefX - config.RefX % config.gridSpacing;
-//	int yGrid = config.RefY - config.RefX % config.gridSpacing;
-//
-//	//take the aligned point as the sign shape ref point
-//	point signShapeRef = { xGrid,yGrid };
-//
-//	//create a sign shape
-//	shape* psh = new Cloud(pGame, signShapeRef);
-//
-//	//Add the shape to the grid
-//	grid* pGrid = pGame->getGrid();
-//	pGrid->setActiveShape(psh);
-//}
+	window* pw = pGame->getWind();
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+	point cloudShapeRef = { xGrid,yGrid };
+	shape* psh = new Cloud(pGame, cloudShapeRef);
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
+}
