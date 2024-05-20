@@ -46,6 +46,7 @@ void Cloud::update() {
 }
 
 void Cloud::updateRef() {
+	orientation = 0;
 	topRef = { RefPoint.x, RefPoint.y - rad / 2 };
 	centerRef = { RefPoint.x, RefPoint.y };
 	bottomLeftRef = { RefPoint.x - rad, RefPoint.y };
@@ -113,6 +114,7 @@ void House::update() {
 }
 
 void House::updateRef() {
+	orientation = 0;
 	baseRef = { RefPoint.x, RefPoint.y + baseHeight / 2 };
 	roofRef = { RefPoint.x, RefPoint.y - roofHeight / 2 };
 }
@@ -196,6 +198,7 @@ void Tree::update() {
 }
 
 void Tree::updateRef() {
+	orientation = 0;
 	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
 	crownTopRef = { RefPoint.x, RefPoint.y - crownRad };
 	crownLeftRef = { RefPoint.x - crownRad, RefPoint.y - crownRad / 2 };
@@ -287,6 +290,7 @@ void Icecream::draw() const
 
 void Icecream::updateRef()
 {
+	orientation = 0;
 	scoopRef = { RefPoint.x, RefPoint.y + scoopRad / 2 };
 	coneRef = { RefPoint.x, RefPoint.y - coneHeight / 2 };
 }
@@ -371,6 +375,7 @@ void Plane::update()
 
 void Plane::updateRef()
 {
+	orientation = 0;
 	bodyRef = RefPoint;
 	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - bodyWidth / 2 };
 	leftWingRef = { RefPoint.x - bodyWidth / 2 - wingWidth / 2, RefPoint.y - wingHeight / 2 };
@@ -488,6 +493,7 @@ void Car::update()
 
 void Car::updateRef()
 {
+	orientation = 0;
 	topWidth = (bodyWidth - headWidth) / 2;
 	bodyRef = RefPoint;
 	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - headHeight / 2 };
