@@ -187,6 +187,8 @@ grid* game::getGrid() const
 ////////////////////////////////////////////////////////////////////////
 void game::run()
 {
+	gameToolbar->setLevel(3);
+	generateRandomShapes();
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
@@ -360,41 +362,50 @@ void game::generateRandomShapes() {
 	for (int i = 0; i < shapesCount; i++)
 	{
 		// Randomize the shape type
-		ShapeType randomShape = (ShapeType)(rand() % CAR);
+		ShapeType randomShape = ShapeType((rand() % 6) + 5);
 		shape* newShape = nullptr;
 
-		// Randomize the shape size
-		int size = rand() % 100 + 50;
+		// Randomize shape
+		int size = rand() % 2 - 1;
+		int orientation = rand() % 3;
+		int moveX = rand() % 34 - 17;
+		int moveY = rand() % 10 - 5;
 
 		// Randomize the shape position
-		int x = rand() % (config.windWidth - size) + size / 2;
-		int y = rand() % (config.gridHeight - config.toolBarHeight) + config.toolBarHeight + size / 2;
-
-		// Randomize orientation
-		int orientation = rand() % 4;
+		int x = config.RefX;
+		int y = config.RefY;
 
 		// Choose shape
 		switch (randomShape)
 		{
-		case RCT:
-			newShape = new Rect(this, { x, y }, size, size);
+		case CAR:
+			newShape = new Car(this, { x, y });
 			break;
-		case CRC:
-			newShape = new Circle(this, { x, y }, size);
+		case CLOUD:
+			newShape = new Cloud(this, { x, y });
 			break;
-		case EQTRI:
-			newShape = new EquilateralTriangle(this, { x, y }, size);
+		case HOUSE:
+			newShape = new House(this, { x, y });
 			break;
-		case RITRI:
-			newShape = new RightTriangle(this, { x, y }, size, size);
+		case ICECREAM:
+			newShape = new Icecream(this, { x, y });
 			break;
-		case ISTRI:
-			newShape = new IsoscelesTriangle(this, { x, y }, size, size);
+		case PLANE:
+			newShape = new Plane(this, { x, y });
+			break;
+		case TREE:
+			newShape = new Tree(this, { x, y });
 			break;
 		default:
 			break;
 		}
 		for (int i = 0; i < orientation; i++) newShape->rotate();
+		for (int i = 0; i < size; i++) newShape->resizeUp();
+		for (int i = 0; i > size; i--) newShape->resizeDown();
+		for (int i = 0; i < moveX; i++) newShape->move(RIGHT);
+		for (int i = 0; i > moveX; i--) newShape->move(LEFT);
+		for (int i = 0; i < moveY; i++) newShape->move(UP);
+		for (int i = 0; i > moveY; i--) newShape->move(DOWN);
 		shapesGrid->addShape(newShape);
 	}
 	shapesGrid->draw();

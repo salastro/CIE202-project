@@ -32,8 +32,8 @@ struct
 
 	////// Configuration for the composite shapes //////
 	// default Ref Point for any newly created shape 
-	int RefX = windWidth * (2.0 / 3);
-	int RefY = windHeight * (0.5);
+	int RefX = windWidth / 2;
+	int RefY = windHeight / 2;
 
 	////-----  Sign Shape Confoguration ---------////
 	// For the Sign shape, define width and height of both rectangles
