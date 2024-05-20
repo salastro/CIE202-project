@@ -21,6 +21,7 @@ void Sign::rotate() {};
 void Sign::resizeUp() {};
 void Sign::resizeDown() {};
 void Sign::flip() {};
+void Sign::move(Direction direction) {};
 
 //--------------------------------- class Cloud -----------------------------------//
 
@@ -82,6 +83,12 @@ void Cloud::resizeDown() {
 
 // Cloud is symmetric, no need to flip
 void Cloud::flip() {}
+
+void Cloud::move(Direction direction) {
+	center->move(direction);
+	bottomLeft->move(direction);
+	bottomRight->move(direction);
+}
 
 //--------------------------------- class House -----------------------------------//
 
@@ -151,6 +158,11 @@ void House::resizeDown()
 
 // House is symmetric, no need to flip
 void House::flip() {};
+
+void House::move(Direction direction) {
+	base->move(direction);
+	roof->move(direction);
+}
 
 //--------------------------------- class Tree -----------------------------------//
 
@@ -234,6 +246,13 @@ void Tree::resizeDown()
 // Tree is symmetric, no need to flip
 void Tree::flip() {}
 
+void Tree::move(Direction direction) {
+	trunk->move(direction);
+	crownTop->move(direction);
+	crownLeft->move(direction);
+	crownRight->move(direction);
+}
+
 //--------------------------------- Class Icecream -----------------------------------//
 
 Icecream::Icecream(game* r_pGame, point ref) : shape(r_pGame, ref),
@@ -299,6 +318,11 @@ void Icecream::resizeDown()
 
 // Icecream is symmetric, no need to flip
 void Icecream::flip() {}
+
+void Icecream::move(Direction direction) {
+	scoop->move(direction);
+	cone->move(direction);
+}
 
 //--------------------------------- Class Plane -----------------------------------//
 
@@ -406,6 +430,15 @@ void Plane::resizeDown()
 // Plane is symmetric, no need to flip
 void Plane::flip() {}
 
+void Plane::move(Direction direction) {
+	body->move(direction);
+	head->move(direction);
+	leftWing->move(direction);
+	rightWing->move(direction);
+	leftTail->move(direction);
+	rightTail->move(direction);
+}
+
 //--------------------------------- Class Plane -----------------------------------//
 
 Car::Car(game* r_pGame, point ref) :shape(r_pGame, ref),
@@ -512,3 +545,12 @@ void Car::resizeDown()
 
 // Car is symmetric, no need to flip
 void Car::flip() {}
+
+void Car::move(Direction direction) {
+	body->move(direction);
+	head->move(direction);
+	topLeft->move(direction);
+	topRight->move(direction);
+	leftWheel->move(direction);
+	rightWheel->move(direction);
+}

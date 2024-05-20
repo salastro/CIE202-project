@@ -79,7 +79,7 @@ void Circle::flip() {}
 
 ////////////////////////////////////////////////////  class isoceles triangle  ///////////////////////////////////////
 
-IsoscelesTriangle::IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth): shape(r_pGame, ref), height(r_hght), width(r_wdth)
+IsoscelesTriangle::IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth) : shape(r_pGame, ref), height(r_hght), width(r_wdth)
 {
 	p1.x = RefPoint.x;
 	p1.y = RefPoint.y - height / 2;
@@ -188,11 +188,11 @@ RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base)
 	height = r_height;
 	base = r_base;
 	p1.x = RefPoint.x - base / 2;
-    p1.y = RefPoint.y - height / 2;
-    p2.x = RefPoint.x + base / 2;
-    p2.y = RefPoint.y + height / 2;
-    p3.x = RefPoint.x - base / 2;
-    p3.y = RefPoint.y + height / 2;
+	p1.y = RefPoint.y - height / 2;
+	p2.x = RefPoint.x + base / 2;
+	p2.y = RefPoint.y + height / 2;
+	p3.x = RefPoint.x - base / 2;
+	p3.y = RefPoint.y + height / 2;
 }
 
 void RightTriangle::draw() const

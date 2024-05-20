@@ -35,6 +35,9 @@ struct
 	int RefX = windWidth * (2.0 / 3);
 	int RefY = windHeight * (0.5);
 
+	// Move step
+	int moveStep = 25;
+
 	////-----  Sign Shape Confoguration ---------////
 	// For the Sign shape, define width and height of both rectangles
 	struct {

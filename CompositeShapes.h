@@ -32,6 +32,7 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void move(Direction direction) override;
 };
 
 
@@ -66,6 +67,7 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void move(Direction direction) override;
 };
 
 
@@ -99,6 +101,7 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void move(Direction direction) override;
 };
 
 ////////////////////////////////////////////////////  class Tree  ///////////////////////////////////////
@@ -130,6 +133,7 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void move(Direction direction) override;
 };
 
 ////////////////////////////////////////////////////  Class Icecream  ///////////////////////////////////////	
@@ -157,6 +161,7 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void move(Direction direction) override;
 };
 
 ////////////////////////////////////////////////////  Class Plane  ///////////////////////////////////////	
@@ -193,6 +198,7 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void move(Direction direction) override;
 };
 
 ////////////////////////////////////////////////////  Class Car  ///////////////////////////////////////	
@@ -230,4 +236,5 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void move(Direction direction) override;
 };

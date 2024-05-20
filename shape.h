@@ -20,15 +20,19 @@ enum ShapeType
 	ISTRI, //isoceles triangle
 
 	//Composite shapes
-	SIGN, //a street sign
-	TREE,
+	CAR,
 	CLOUD,
 	HOUSE,
-	CAR,
 	ICECREAM,
 	PLANE,
+	TREE,
+};
 
-	//TODO: Add more types
+enum Direction {
+	UP = 0,
+	RIGHT,
+	DOWN,
+	LEFT,
 };
 
 //Base class for all shapes including Basic shapes, Composite shapes
@@ -55,7 +59,7 @@ public:
 	virtual void resizeUp() = 0; //Resize the shape
 	virtual void resizeDown() = 0; //Resize the shape
 	virtual void flip() = 0; //Flip the shape
-	//virtual void move() = 0; //Move the shape
+	virtual void move(Direction direction); //Move the shape
 
 
 	//virtual void save(ofstream &OutFile) = 0; //Save the shape parameters to the file

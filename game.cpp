@@ -222,12 +222,21 @@ void game::run()
 void game::test()
 {
 	while (true) {
+
+		//////////////////////// Basic Shapes ///////////////////////////
+
 		// // Circle
 		// Circle* C = new Circle(this, { 600, 300 }, 100);
 		// C->draw();
 
 		// // Rectangle
 		// Rect* R = new Rect(this, { 500, 300 }, 100, 50);
+		// R->draw();
+		// for (size_t i = 0; i < 10; i++)
+		// {
+		// R->move(UP);
+		// R->move(RIGHT);
+		// }
 		// R->draw();
 
 		// // Eq Tri
@@ -243,29 +252,29 @@ void game::test()
 
 		//////////////////////// Composite Shapes ////////////////////////
 
-		// Cloud
-		Cloud* Cl = new Cloud(this, { 1050, 400 });
-		Cl->draw();
+		// // Cloud
+		// Cloud* Cl = new Cloud(this, { 1050, 400 });
+		// Cl->draw();
 
-		// House
-		House* H = new House(this, { 200, 300 });
-		H->draw();
+		// // House
+		// House* H = new House(this, { 200, 300 });
+		// H->draw();
 
-		// Tree
-		Tree* T = new Tree(this, { 900, 300 });
-		T->draw();
+		// // Tree
+		// Tree* T = new Tree(this, { 900, 300 });
+		// T->draw();
 
-		// Icecream
-		Icecream* I = new Icecream(this, { 750, 300 });
-		I->draw();
+		// // Icecream
+		// Icecream* I = new Icecream(this, { 750, 300 });
+		// I->draw();
 
-		// Plane
-		Plane* P = new Plane(this, { 400, 300 });
-		P->draw();
+		// // Plane
+		// Plane* P = new Plane(this, { 400, 300 });
+		// P->draw();
 
-		// Car
-		Car* Ca = new Car(this, { 600,300 });
-		Ca->draw();
+		// // Car
+		// Car* Ca = new Car(this, { 600,300 });
+		// Ca->draw();
 	}
 }
 

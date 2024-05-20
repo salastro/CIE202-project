@@ -18,6 +18,25 @@ void shape::setRefPoint(point p)
 
 point shape::getRefPoint() const { return RefPoint; }
 
+void shape::move(Direction direction)
+{
+	switch (direction)
+	{
+	case UP:
+		RefPoint.y -= config.moveStep;
+		break;
+	case RIGHT:
+		RefPoint.x += config.moveStep;
+		break;
+	case DOWN:
+		RefPoint.y += config.moveStep;
+		break;
+	case LEFT:
+		RefPoint.x -= config.moveStep;
+		break;
+	}
+}
+
 void rotateAroundPoint(point& p, const point& pivot)
 {
 	// Save old points for future calculation
