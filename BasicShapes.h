@@ -38,6 +38,18 @@ public:
 	void flip() override;
 };
 
+class Triangle :public shape
+{
+protected:
+	point p1, p2, p3;
+public:
+	Triangle(game* r_pGame, point ref);
+	void draw() const override;
+	void rotate() override;
+	virtual void flip() override;
+	void move(Direction direction) override;
+};
+
 // Isosceles Triangle
 /*
 		 p1
@@ -49,18 +61,14 @@ public:
 	/_________\
 	p2	 s	  p3
 */
-class IsoscelesTriangle :public shape
+class IsoscelesTriangle :public Triangle
 {
 	int width;
 	int height;
-	point p1, p2, p3;
 public:
 	IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth);
-	void draw() const override;
-	void rotate() override;
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override;
 };
 
 
@@ -75,17 +83,13 @@ public:
 	/_________\
 	p2	 s	  p3
 */
-class EquilateralTriangle :public shape
+class EquilateralTriangle :public Triangle
 {
 	int side;
-	point p1, p2, p3;
 public:
 	EquilateralTriangle(game* r_pGame, point ref, int s);
-	void draw() const override;
-	void rotate() override;
 	void resizeUp() override;
 	void resizeDown() override;
-	void flip() override;
 };
 
 // Right Triangle
@@ -99,14 +103,11 @@ public:
 	/____|
 	p2 b p3
 */
-class RightTriangle :public shape
+class RightTriangle :public Triangle
 {
 	int height, base;
-	point p1, p2, p3;
 public:
 	RightTriangle(game* r_pGame, point ref, int h, int b);
-	void draw() const override;
-	void rotate() override;
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;

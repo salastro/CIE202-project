@@ -1,6 +1,7 @@
 #include "game.h"
 #include "gameConfig.h"
 
+#include <iostream>
 
 
 game::game()
@@ -65,9 +66,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	operation* op = nullptr;
 	switch (clickedItem)
 	{
-	/*case ITM_SIGN:
-		op = new operAddSign(this);
-		break;*/
+		/*case ITM_SIGN:
+			op = new operAddSign(this);
+			break;*/
 	case ITM_CAR:
 		printMessage("YOU PRESSED CAR");
 		op = new operCar(this);
@@ -190,6 +191,12 @@ void game::run()
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
+	keytype keyboardInput;
+	char key;
+
+	// Flush Queue
+	pWind->FlushMouseQueue();
+	pWind->FlushKeyQueue();
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
@@ -198,7 +205,34 @@ void game::run()
 	{
 		//printMessage("Ready...");
 		//1- Get user click
-		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+		pWind->GetMouseClick(x, y);
+
+		keyboardInput = pWind->GetKeyPress(key);
+
+		if (keyboardInput == ARROW)
+		{
+			shape* activeShape = getGrid()->getActiveShape();
+			if (activeShape) {
+				switch (key)
+				{
+				case 8:
+					activeShape->move(UP);
+					break;
+				case 2:
+					activeShape->move(DOWN);
+					break;
+				case 6:
+					activeShape->move(RIGHT);
+					break;
+				case 4:
+					activeShape->move(LEFT);
+					break;
+				default:
+					break;
+				}
+				shapesGrid->draw();
+			}
+		}
 
 		//2-Explain the user click
 		//If user clicks on the Toolbar, ask toolbar which item is clicked
@@ -306,7 +340,7 @@ void game::updateTime()
 		min = 0;
 		sec = 0;
 
-}
+	}
 
 	// Update the display
 	pWind->SetPen(LAVENDER);

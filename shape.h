@@ -69,3 +69,6 @@ public:
 
 // Rotate by 90 degree
 void rotateAroundPoint(point& p, const point& pivot);
+
+// Move point in a direction
+void movePoint(Direction direction, point& RefPoint);

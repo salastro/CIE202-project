@@ -26,7 +26,6 @@ void Sign::move(Direction direction) {};
 //--------------------------------- class Cloud -----------------------------------//
 
 Cloud::Cloud(game* r_pGame, point ref) : shape(r_pGame, ref), rad(config.cloudShape.radius) {
-	pGame = r_pGame;
 	topRef = { ref.x, ref.y - rad / 2 };
 	centerRef = { ref.x, ref.y };
 	bottomLeftRef = { ref.x - rad, ref.y };
@@ -85,9 +84,11 @@ void Cloud::resizeDown() {
 void Cloud::flip() {}
 
 void Cloud::move(Direction direction) {
+	top->move(direction);
 	center->move(direction);
 	bottomLeft->move(direction);
 	bottomRight->move(direction);
+	movePoint(direction, RefPoint);
 }
 
 //--------------------------------- class House -----------------------------------//
@@ -162,6 +163,8 @@ void House::flip() {};
 void House::move(Direction direction) {
 	base->move(direction);
 	roof->move(direction);
+	movePoint(direction, RefPoint);
+	updateRef();
 }
 
 //--------------------------------- class Tree -----------------------------------//

@@ -77,19 +77,11 @@ void Circle::resizeDown()
 // Circle symmetric, no need to flip
 void Circle::flip() {}
 
-////////////////////////////////////////////////////  class isoceles triangle  ///////////////////////////////////////
+////////////////////////////////////////////////////  abstract class triangle  ///////////////////////////////////////
 
-IsoscelesTriangle::IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth) : shape(r_pGame, ref), height(r_hght), width(r_wdth)
-{
-	p1.x = RefPoint.x;
-	p1.y = RefPoint.y - height / 2;
-	p2.x = RefPoint.x - width / 2;
-	p2.y = RefPoint.y + height / 2;
-	p3.x = RefPoint.x + width / 2;
-	p3.y = RefPoint.y + height / 2;
-}
+Triangle::Triangle(game* r_pGame, point ref) : shape(r_pGame, ref) {}
 
-void IsoscelesTriangle::draw() const
+void Triangle::draw() const
 {
 	window* pW = pGame->getWind();
 	pW->SetPen(borderColor, config.penWidth);
@@ -97,21 +89,32 @@ void IsoscelesTriangle::draw() const
 	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
 }
 
-void IsoscelesTriangle::rotate()
+void Triangle::rotate()
 {
-	window* pW = pGame->getWind();
-
-	// point p1tmp = p1, p2tmp = p2, p3tmp = p3;
-	// p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
-	// p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
-	// p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
-	// p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
-	// p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
-	// p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
-
 	rotateAroundPoint(p1, RefPoint);
 	rotateAroundPoint(p2, RefPoint);
 	rotateAroundPoint(p3, RefPoint);
+}
+
+void Triangle::flip() {}
+
+void Triangle::move(Direction direction) {
+	movePoint(direction, RefPoint);
+	movePoint(direction, p1);
+	movePoint(direction, p2);
+	movePoint(direction, p3);
+}
+
+////////////////////////////////////////////////////  class isoceles triangle  ///////////////////////////////////////
+
+IsoscelesTriangle::IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth) : Triangle(r_pGame, ref), height(r_hght), width(r_wdth)
+{
+	p1.x = RefPoint.x;
+	p1.y = RefPoint.y - height / 2;
+	p2.x = RefPoint.x - width / 2;
+	p2.y = RefPoint.y + height / 2;
+	p3.x = RefPoint.x + width / 2;
+	p3.y = RefPoint.y + height / 2;
 }
 
 void IsoscelesTriangle::resizeUp()
@@ -126,12 +129,9 @@ void IsoscelesTriangle::resizeDown()
 	width /= 2;
 }
 
-// Isosceles triangle symmetric, no need to flip
-void IsoscelesTriangle::flip() {}
-
 ////////////////////////////////////////////////////  class equilateral triangle  ///////////////////////////////////////
 
-EquilateralTriangle::EquilateralTriangle(game* r_pGame, point ref, int r_side) :shape(r_pGame, ref)
+EquilateralTriangle::EquilateralTriangle(game* r_pGame, point ref, int r_side) :Triangle(r_pGame, ref)
 {
 	pGame = r_pGame;
 	side = r_side;
@@ -141,31 +141,6 @@ EquilateralTriangle::EquilateralTriangle(game* r_pGame, point ref, int r_side) :
 	p2.y = RefPoint.y + side / 2;
 	p3.x = RefPoint.x + side / 2;
 	p3.y = RefPoint.y + side / 2;
-}
-
-void EquilateralTriangle::draw() const
-{
-	window* pW = pGame->getWind();
-	pW->SetPen(borderColor, config.penWidth);
-	pW->SetBrush(fillColor);
-	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
-}
-
-void EquilateralTriangle::rotate()
-{
-	window* pW = pGame->getWind();
-
-	// point p1tmp = p1, p2tmp = p2, p3tmp = p3;
-	// p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
-	// p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
-	// p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
-	// p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
-	// p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
-	// p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
-
-	rotateAroundPoint(p1, RefPoint);
-	rotateAroundPoint(p2, RefPoint);
-	rotateAroundPoint(p3, RefPoint);
 }
 
 void EquilateralTriangle::resizeUp()
@@ -178,12 +153,9 @@ void EquilateralTriangle::resizeDown()
 	side /= 2;
 }
 
-// Equilateral triangle symmetric, no need to flip
-void EquilateralTriangle::flip() {}
-
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
 
-RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base) : shape(r_pGame, ref)
+RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base) : Triangle(r_pGame, ref)
 {
 	height = r_height;
 	base = r_base;
@@ -193,30 +165,6 @@ RightTriangle::RightTriangle(game* r_pGame, point ref, int r_height, int r_base)
 	p2.y = RefPoint.y + height / 2;
 	p3.x = RefPoint.x - base / 2;
 	p3.y = RefPoint.y + height / 2;
-}
-
-void RightTriangle::draw() const
-{
-	window* pW = pGame->getWind();	//get interface window
-	pW->SetPen(borderColor, config.penWidth);
-	pW->SetBrush(fillColor);
-	pW->DrawTriangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, FILLED);
-}
-
-void RightTriangle::rotate()
-{
-	window* pW = pGame->getWind();
-
-	// p1.x = -(p1tmp.y - RefPoint.y) + RefPoint.x;
-	// p1.y = p1tmp.x - RefPoint.x + RefPoint.y;
-	// p2.x = -(p2tmp.y - RefPoint.y) + RefPoint.x;
-	// p2.y = p2tmp.x - RefPoint.x + RefPoint.y;
-	// p3.x = -(p3tmp.y - RefPoint.y) + RefPoint.x;
-	// p3.y = p3tmp.x - RefPoint.x + RefPoint.y;
-
-	rotateAroundPoint(p1, RefPoint);
-	rotateAroundPoint(p2, RefPoint);
-	rotateAroundPoint(p3, RefPoint);
 }
 
 void RightTriangle::resizeUp()
