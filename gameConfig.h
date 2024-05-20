@@ -12,7 +12,7 @@ struct
 
 		//The window is divded into 3 areas: toolbar, Working area, and statusbar
 		toolBarHeight = 60,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
-		toolbarItemWidth = 70,			//Width of each icon in toolbar
+		toolbarItemWidth = 55,			//Width of each icon in toolbar
 		statusBarHeight = 50;	//Status Bar Height
 
 	int remainingHeight = windHeight - toolBarHeight - statusBarHeight;
@@ -80,14 +80,14 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 {
 	//Note: Items are ordered here as they appear in the toolbar
 	//If you want to change the toolbar items order, just change the order here
-	ITM_SIGN,		//Sign shape item
-	
-	ITM_Car,
-	ITM_House,
-	ITM_Tree,
-	ITM_Airplane,
-	ITM_Icecream,
-	ITM_Cloud,
+	// ITM_SIGN,		//Sign shape item
+	ITM_CAR,
+	ITM_HOUSE,
+	ITM_TREE,
+	ITM_PLANE,
+	ITM_ICECREAM,
+	ITM_CLOUD,
+
 	ITM_Rotate,
 	ITM_Plus,
 	ITM_Minus,
@@ -97,8 +97,7 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 	ITM_GameLevel,
 	ITM_Save,
 	ITM_Load,
-	ITM_EXIT,		//Exit item
-	//TODO: Add more items names here
+	ITM_EXIT,
 
 	ITM_CNT		//no. of toolbar items ==> This should be the last line in this enum
 

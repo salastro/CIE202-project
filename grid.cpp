@@ -17,7 +17,6 @@ grid::grid(point r_uprleft, int wdth, int hght, game* pG)
 		shapeList[i] = nullptr;
 
 	activeShape = nullptr;
-
 }
 
 grid::~grid()
@@ -85,7 +84,6 @@ void grid::deleteShape()
 {
 	delete activeShape;
 	activeShape = nullptr;
-	
 }
 
 

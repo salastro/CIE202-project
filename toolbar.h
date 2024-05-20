@@ -16,8 +16,8 @@ private:
 public:
 	toolbar(game* r_pGame);
 	toolbarItem getItemClicked(int x);
-	void set_level();
-	void set_lives();
-	void set_score();	//handles clicks on toolbar icons, returns the "enum" of the clicekd item
+	void set_level(int level);
+	void set_lives(int lives);
+	void set_score(int score);
 };
 

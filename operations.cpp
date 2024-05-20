@@ -10,7 +10,7 @@ operation::operation(game* r_pGame)
 
 /////////////////////////////////// class operAddSign  //////////////////
 
-operAddSign::operAddSign(game* r_pGame):operation(r_pGame)
+operAddSign::operAddSign(game* r_pGame) :operation(r_pGame)
 {
 }
 
@@ -45,9 +45,8 @@ void operRotate::Act()
 {
 	grid* pGrid = pGame->getGrid();
 	shape* psh = pGrid->getActiveShape();
-	 psh->rotate();
-	 pGrid->setActiveShape(psh);
-
+	if (psh)
+		psh->rotate();
 }
 
 operPlus::operPlus(game* r_pGame) :operation(r_pGame)
@@ -58,13 +57,8 @@ void operPlus::Act()
 {
 	grid* pGrid = pGame->getGrid();
 	shape* psh = pGrid->getActiveShape();
-	if (psh != nullptr)
-	{
+	if (psh)
 		psh->resizeUp();
-		pGrid->draw();
-		psh->draw();
-	}
-
 }
 
 operMinus::operMinus(game* r_pGame) :operation(r_pGame)
@@ -75,24 +69,19 @@ void operMinus::Act()
 {
 	grid* pGrid = pGame->getGrid();
 	shape* psh = pGrid->getActiveShape();
-	if (psh != nullptr)
-	{
+	if (psh)
 		psh->resizeDown();
-		pGrid->draw();
-		psh->draw();
-	}
 }
 
 operDelete::operDelete(game* r_pGame) :operation(r_pGame)
 {
-	
+
 }
 
 void operDelete::Act()
 {
 	grid* pGrid = pGame->getGrid();
 	pGrid->deleteShape();
-	
 }
 
 operHint::operHint(game* r_pGame) :operation(r_pGame)
@@ -135,7 +124,7 @@ void operRefresh::Act()
 {
 }
 
-operCar::operCar(game* r_pGame):operation(r_pGame)
+operCar::operCar(game* r_pGame) :operation(r_pGame)
 {
 
 }
@@ -149,7 +138,7 @@ void operCar::Act()
 	shape* psh = new Car(pGame, carShapeRef);
 	grid* pGrid = pGame->getGrid();
 	pGrid->setActiveShape(psh);
-	
+
 }
 
 operHouse::operHouse(game* r_pGame) :operation(r_pGame)
