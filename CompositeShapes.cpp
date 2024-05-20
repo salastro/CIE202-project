@@ -71,7 +71,6 @@ void Cloud::resizeUp() {
 	rad *= 2;
 	updateRef();
 	update();
-
 }
 
 void Cloud::resizeDown() {
@@ -89,6 +88,7 @@ void Cloud::move(Direction direction) {
 	bottomLeft->move(direction);
 	bottomRight->move(direction);
 	movePoint(direction, RefPoint);
+	updateRef();
 }
 
 //--------------------------------- class House -----------------------------------//
@@ -254,6 +254,8 @@ void Tree::move(Direction direction) {
 	crownTop->move(direction);
 	crownLeft->move(direction);
 	crownRight->move(direction);
+	movePoint(direction, RefPoint);
+	updateRef();
 }
 
 //--------------------------------- Class Icecream -----------------------------------//
@@ -325,6 +327,8 @@ void Icecream::flip() {}
 void Icecream::move(Direction direction) {
 	scoop->move(direction);
 	cone->move(direction);
+	movePoint(direction, RefPoint);
+	updateRef();
 }
 
 //--------------------------------- Class Plane -----------------------------------//
@@ -440,9 +444,11 @@ void Plane::move(Direction direction) {
 	rightWing->move(direction);
 	leftTail->move(direction);
 	rightTail->move(direction);
+	movePoint(direction, RefPoint);
+	updateRef();
 }
 
-//--------------------------------- Class Plane -----------------------------------//
+//--------------------------------- Class Car -----------------------------------//
 
 Car::Car(game* r_pGame, point ref) :shape(r_pGame, ref),
 bodyHeight(config.carShape.bodyHeight), bodyWidth(config.carShape.bodyWidth),
@@ -556,4 +562,6 @@ void Car::move(Direction direction) {
 	topRight->move(direction);
 	leftWheel->move(direction);
 	rightWheel->move(direction);
+	movePoint(direction, RefPoint);
+	updateRef();
 }
