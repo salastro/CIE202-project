@@ -19,5 +19,8 @@ public:
 	void setLevel(int level);
 	void setLives(int lives);
 	void setScore(int score);
+	int getLevel();
+	int getLives();
+	int getScore();
 };
 

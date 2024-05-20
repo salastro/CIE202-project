@@ -83,3 +83,15 @@ void toolbar::setScore(int score)
 	this->score = score;
 }
 
+int toolbar::getLevel()
+{
+	return level;
+}
+
+int toolbar::getLives() {
+	return lives;
+}
+
+int toolbar::getScore() {
+	return score;
+}
