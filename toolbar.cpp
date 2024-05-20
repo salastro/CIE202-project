@@ -68,17 +68,17 @@ toolbarItem toolbar::getItemClicked(int x)
 
 }
 
-void toolbar::set_level(int level)
+void toolbar::setLevel(int level)
 {
 	this->level = level;
 }
 
-void toolbar::set_lives(int lives)
+void toolbar::setLives(int lives)
 {
 	this->lives = lives;
 }
 
-void toolbar::set_score(int score)
+void toolbar::setScore(int score)
 {
 	this->score = score;
 }

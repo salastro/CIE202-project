@@ -16,8 +16,8 @@ private:
 public:
 	toolbar(game* r_pGame);
 	toolbarItem getItemClicked(int x);
-	void set_level(int level);
-	void set_lives(int lives);
-	void set_score(int score);
+	void setLevel(int level);
+	void setLives(int lives);
+	void setScore(int score);
 };
 
