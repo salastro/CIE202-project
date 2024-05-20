@@ -103,7 +103,7 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		break;
 	case ITM_Minus:
 		printMessage("YOU PRESSED MINUS");
-		op = new operRotate(this);
+		op = new operMinus(this);
 		break;
 	case ITM_Refresh:
 		printMessage("YOU PRESSED REFRESH");
