@@ -40,16 +40,16 @@ void movePoint(Direction direction, point& RefPoint)
 	switch (direction)
 	{
 	case UP:
-		RefPoint.y -= config.moveStep;
+		RefPoint.y -= config.gridSpacing;
 		break;
 	case RIGHT:
-		RefPoint.x += config.moveStep;
+		RefPoint.x += config.gridSpacing;
 		break;
 	case DOWN:
-		RefPoint.y += config.moveStep;
+		RefPoint.y += config.gridSpacing;
 		break;
 	case LEFT:
-		RefPoint.x -= config.moveStep;
+		RefPoint.x -= config.gridSpacing;
 		break;
 	}
 }

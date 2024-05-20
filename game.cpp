@@ -188,6 +188,8 @@ grid* game::getGrid() const
 ////////////////////////////////////////////////////////////////////////
 void game::run()
 {
+	gameToolbar->setLevel(3);
+	generateRandomShapes();
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
@@ -352,3 +354,53 @@ void game::updateTime()
 	pWind->DrawString(780, 5, "Timer: " + std::to_string(min) + ":" + std::to_string(sec));
 }
 
+void game::generateRandomShapes() {
+	srand(time(0));
+
+	int level = gameToolbar->getLevel();
+	int shapesCount = 2 * level - 1;
+
+	for (int i = 0; i < shapesCount; i++)
+	{
+		// Randomize the shape type
+		ShapeType randomShape = (ShapeType)(rand() % CAR);
+		shape* newShape; // Create shape pointer to be used later
+
+		// Randomize the shape position
+		int x = rand() % (config.windWidth) + 1;
+		int y = rand() % (config.gridHeight) + 1;
+		x -= x % config.gridSpacing;
+		y -= y % config.gridSpacing;
+
+		// Randomize the shape size
+		int size = rand() % 100 + 50;
+
+		// Randomize orientation
+		int orientation = rand() % 4;
+
+		// Choose shape
+		switch (randomShape)
+		{
+		case RCT:
+			newShape = new Rect(this, { x, y }, size, size);
+			break;
+		case CRC:
+			newShape = new Circle(this, { x, y }, size);
+			break;
+		case EQTRI:
+			newShape = new EquilateralTriangle(this, { x, y }, size);
+			break;
+		case RITRI:
+			newShape = new RightTriangle(this, { x, y }, size, size);
+			break;
+		case ISTRI:
+			newShape = new IsoscelesTriangle(this, { x, y }, size, size);
+			break;
+		default:
+			break;
+		}
+		for (int i = 0; i < orientation; i++) newShape->rotate();
+		shapesGrid->addShape(newShape);
+	}
+	shapesGrid->draw();
+}

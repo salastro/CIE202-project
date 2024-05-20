@@ -85,5 +85,3 @@ void grid::deleteShape()
 	delete activeShape;
 	activeShape = nullptr;
 }
-
-

@@ -56,5 +56,7 @@ public:
 	//YourWindowType* pWind;
 
 
+	void generateRandomShapes();
+
 };
 
