@@ -26,5 +26,8 @@ public:
 	bool addShape(shape* newShape);
 	void setActiveShape(shape* actShape);
 	void deleteShape();
+	int getShapeCount() const; 
+	shape** getShapeList(); 
 };
+
 

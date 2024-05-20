@@ -77,10 +77,20 @@ void grid::setActiveShape(shape* actShape)
 }
 
 void grid::deleteShape()
-{
-	delete activeShape;
-	activeShape = nullptr;
-	draw();
+{	
+	if (activeShape != nullptr)
+	{
+		delete activeShape;
+		activeShape = nullptr;
+	}
 }
 
+int grid::getShapeCount() const
+{
+	return shapeCount; 
+}
 
+shape** grid::getShapeList()
+{
+	return shapeList;
+}

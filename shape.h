@@ -45,7 +45,8 @@ public:
 	virtual void draw() const = 0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
 	point getRefPoint() const;
-
+	color getColor() const;
+	void setColor(color col); 
 
 	//-- The following functions should be supported by the shape class
 	//-- It should be overridden by each inherited shape

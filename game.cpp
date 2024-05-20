@@ -1,7 +1,6 @@
 #include "game.h"
 #include "gameConfig.h"
-
-
+#include <iostream>
 
 game::game()
 {
@@ -104,6 +103,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("YOU PRESSED Load");
 		op = new operLoad(this);
 		break;
+	case ITM_EXIT:
+		op = new operExit(this);
+		break;
 	}
 	return op;
 }
@@ -126,7 +128,7 @@ window* game::getWind() const		//returns a pointer to the graphics window
 	return pWind;
 }
 
-
+void game::setExitFlag(bool flag) { exitFlag = flag; }
 
 string game::getSrting() const
 {
@@ -156,6 +158,11 @@ grid* game::getGrid() const
 {
 	// TODO: Add your implementation code here.
 	return shapesGrid;
+}
+
+toolbar* game::getToolbar() const
+{
+	return gameToolbar;
 }
 
 
@@ -192,7 +199,7 @@ void game::run()
 
 		}
 
-	} while (clickedItem != ITM_EXIT);
+	} while (!exitFlag);
 }
 
 void game::test()
@@ -223,60 +230,9 @@ void game::test()
 			shapesGrid->draw();
 		}
 
-		// // Circle
-		// Circle* C = new Circle(this, { 600, 300 }, 100);
-		// C->draw();
 
-		// // Rectangle
-		// Rect* R = new Rect(this, { 500, 300 }, 100, 50);
-		// R->draw();
 
-		// // Eq Tri
-		// EquilateralTriangle* EqTri = new EquilateralTriangle(this, { 600, 300 }, 50);
-		// EqTri->draw();
-		// EqTri->rotate();
-		// EqTri->draw();
+		
 
-		// // Ri Tri
-		// RightTriangle* RiTri = new RightTriangle(this, { 200, 200 }, 100, 100);
-		// RiTri->rotate();
-		// RiTri->draw();
-
-		//////////////////////// Composite Shapes ////////////////////////
-
-		// // Cloud
-		// Cloud* Cl = new Cloud(this, { 600, 300 });
-		// Cl->rotate();
-		// Cl->draw();
-		 //// Cloud
-		 //Cloud* Cl = new Cloud(this, { 600, 300 });
-		 //Cl->resizeDown();
-		 //Cl->draw();
-
-		// // House
-		// House* H = new House(this, { 600, 300 });
-		// H->draw();
-
-		// // Tree
-		// Tree* T = new Tree(this, { 600, 300 });
-		// T->rotate();
-		// T->draw();
-
-		// // Icecream
-		// Icecream* I = new Icecream(this, { 600, 300 });
-		// I->rotate();
-		// I->draw();
-
-		// // Plane
-		// Plane* P = new Plane(this, { 600, 300 });
-		// P->rotate();
-		// P->draw();
-
-		// Car
-		Car* Ca = new Car(this, { 600,300 });
-		Ca->rotate();
-		Ca->rotate();
-		Ca->draw();
-
-	} while (clickedItem != ITM_EXIT);
+	} while (!exitFlag);
 }

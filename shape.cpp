@@ -18,6 +18,9 @@ void shape::setRefPoint(point p)
 
 point shape::getRefPoint() const { return RefPoint; }
 
+color shape::getColor() const{ return fillColor; }
+void shape::setColor(color col) { fillColor = col; }
+
 void rotateAroundPoint(point& p, const point& pivot)
 {
 	// Save old points for future calculation
