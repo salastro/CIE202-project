@@ -40,8 +40,8 @@ toolbar::toolbar(game* pG)
 		pWind->DrawImage(toolbarItemImages[i], i * config.toolbarItemWidth, 0, config.toolbarItemWidth, height);
 	pWind->SetPen(config.penColor, 50);
 	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-	pWind->DrawString(config.windWidth - 300, config.toolBarHeight / 4, "Lives: " + to_string(lives));
-	pWind->DrawString(config.windWidth - 200, config.toolBarHeight / 4, "Time: " + to_string(level));
+	pWind->DrawString(config.windWidth - 300, config.toolBarHeight / 4, "Level: " + to_string(level));
+	pWind->DrawString(config.windWidth - 200, config.toolBarHeight / 4, "Lives: " + to_string(lives));
 	pWind->DrawString(config.windWidth - 100, config.toolBarHeight / 4, "Score: " + to_string(score));
 
 	//Draw a line under the toolbar
