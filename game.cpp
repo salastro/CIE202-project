@@ -364,16 +364,14 @@ void game::generateRandomShapes() {
 	{
 		// Randomize the shape type
 		ShapeType randomShape = (ShapeType)(rand() % CAR);
-		shape* newShape; // Create shape pointer to be used later
-
-		// Randomize the shape position
-		int x = rand() % (config.windWidth) + 1;
-		int y = rand() % (config.gridHeight) + 1;
-		x -= x % config.gridSpacing;
-		y -= y % config.gridSpacing;
+		shape* newShape = nullptr;
 
 		// Randomize the shape size
 		int size = rand() % 100 + 50;
+
+		// Randomize the shape position
+		int x = rand() % (config.windWidth - size) + size / 2;
+		int y = rand() % (config.gridHeight - config.toolBarHeight) + config.toolBarHeight + size / 2;
 
 		// Randomize orientation
 		int orientation = rand() % 4;
