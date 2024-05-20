@@ -188,8 +188,6 @@ grid* game::getGrid() const
 ////////////////////////////////////////////////////////////////////////
 void game::run()
 {
-	gameToolbar->setLevel(3);
-	generateRandomShapes();
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
