@@ -32,9 +32,6 @@ toolbar::toolbar(game* pG)
 	toolbarItemImages[ITM_Load] = "images\\ToolbarItems\\toolbar_Load.jpg";
 	toolbarItemImages[ITM_EXIT] = "images\\ToolbarItems\\toolbar_Exit.jpg";
 
-
-	//TODO: Prepare image for each toolbar item and add it to the list
-
 	//Draw toolbar item one image at a time
 	for (int i = 0; i < ITM_CNT; i++)
 		pWind->DrawImage(toolbarItemImages[i], i * config.toolbarItemWidth, 0, config.toolbarItemWidth, height);

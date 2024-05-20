@@ -179,7 +179,6 @@ string game::getSrting() const
 
 grid* game::getGrid() const
 {
-	// TODO: Add your implementation code here.
 	return shapesGrid;
 }
 
