@@ -1,7 +1,8 @@
 #include "game.h"
 #include "gameConfig.h"
 #include <iostream>
-
+#include <string>
+#include <libxl.h>
 game::game()
 {
 
@@ -232,7 +233,12 @@ void game::test()
 
 
 
-		
+
+
+
+
+
+	
 
 	} while (!exitFlag);
 }

@@ -74,9 +74,9 @@ int toolbar::get_level()
 
 }
 
-void toolbar::set_lives()
+void toolbar::set_lives(int lives)
 {
-	lives = 0;
+	this->lives = lives;
 
 }
 
@@ -93,4 +93,12 @@ void toolbar::set_score(int s)
 int toolbar::get_score()
 {
 	return score;
+}
+int toolbar::get_time()
+{
+	return time;
+}
+void toolbar::set_time(int time)
+{
+	this->time = time;
 }

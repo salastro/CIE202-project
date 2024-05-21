@@ -32,6 +32,7 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+
 };
 
 
@@ -66,6 +67,8 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 
@@ -99,6 +102,8 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 ////////////////////////////////////////////////////  class Tree  ///////////////////////////////////////
@@ -130,6 +135,8 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 ////////////////////////////////////////////////////  Class Icecream  ///////////////////////////////////////	
@@ -157,6 +164,8 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 ////////////////////////////////////////////////////  Class Plane  ///////////////////////////////////////	
@@ -193,6 +202,8 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 ////////////////////////////////////////////////////  Class Car  ///////////////////////////////////////	
@@ -230,4 +241,6 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };

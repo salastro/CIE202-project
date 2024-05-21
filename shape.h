@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 using namespace std;
+#include "libxl.h"
 #include "CMUgraphicsLib\CMUgraphics.h"
+
 
 class game;     //forward declaration
 
@@ -55,7 +57,9 @@ public:
 	virtual void rotate() = 0; //Rotate the shape
 	virtual void resizeUp() = 0; //Resize the shape
 	virtual void resizeDown() = 0; //Resize the shape
-	virtual void flip() = 0; //Flip the shape
+	virtual void flip() = 0; //Resize the shape
+	virtual void save(libxl::Sheet* sheet, int row) = 0; //Save the shape
+	virtual void load(libxl::Sheet* sheet, int row) = 0; //Load the shape
 	//virtual void move() = 0; //Move the shape
 
 

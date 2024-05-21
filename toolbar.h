@@ -12,15 +12,18 @@ private:
 	int lives = 5;
 	int level = 5;
 	int score = 0;
+	int time = 0;
 
 public:
 	toolbar(game* r_pGame);
 	toolbarItem getItemClicked(int x);
 	void set_level(int lev);
 	int get_level(); 
-	void set_lives();
+	void set_lives(int lives);
 	int get_lives();
 	void set_score(int s);	//handles clicks on toolbar icons, returns the "enum" of the clicekd item
 	int get_score();
+	int get_time();
+	void set_time(int time);
 };
 
