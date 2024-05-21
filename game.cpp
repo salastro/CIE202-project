@@ -367,7 +367,7 @@ void game::generateRandomShapes() {
 
 		// Randomize shape
 		int size = rand() % 2 - 1;
-		int orientation = rand() % 3;
+		int orientation = rand() % 4;
 		int moveX = rand() % 34 - 17;
 		int moveY = rand() % 10 - 5;
 
