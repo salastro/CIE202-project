@@ -104,3 +104,8 @@ int toolbar::getLives() {
 int toolbar::getScore() {
 	return score;
 }
+
+void toolbar::setTime(int time)
+{
+	this->time = time;
+}

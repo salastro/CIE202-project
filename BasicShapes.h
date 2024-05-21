@@ -21,6 +21,8 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 
@@ -36,6 +38,8 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 class Triangle :public shape
@@ -111,4 +115,6 @@ public:
 	void resizeUp() override;
 	void resizeDown() override;
 	void flip() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };

@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 using namespace std;
+#include "libxl.h"
 #include "CMUgraphicsLib\CMUgraphics.h"
+
 
 class game;     //forward declaration
 
@@ -55,6 +57,8 @@ public:
 	ShapeType getType() const;
 	int getSize() const;
 
+	color getColor() const;
+	void setColor(color col); 
 
 	//-- The following functions should be supported by the shape class
 	//-- It should be overridden by each inherited shape
@@ -65,6 +69,8 @@ public:
 	virtual void resizeDown() = 0; //Resize the shape
 	virtual void flip() = 0; //Flip the shape
 	virtual void move(Direction direction); //Move the shape
+	virtual void save(libxl::Sheet* sheet, int row) = 0; //Save the shape
+	virtual void load(libxl::Sheet* sheet, int row) = 0; //Load the shape
 
 
 	//virtual void save(ofstream &OutFile) = 0; //Save the shape parameters to the file

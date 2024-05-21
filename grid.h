@@ -28,5 +28,8 @@ public:
 	void setActiveShape(shape* actShape);
 	bool matchShape();
 	void deleteShape();
+	int getShapeCount() const; 
+	shape** getShapeList(); 
 };
+
 

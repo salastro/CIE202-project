@@ -28,6 +28,8 @@ void shape::move(Direction direction)
 {
 	movePoint(direction, RefPoint);
 }
+color shape::getColor() const{ return fillColor; }
+void shape::setColor(color col) { fillColor = col; }
 
 void rotateAroundPoint(point& p, const point& pivot)
 {

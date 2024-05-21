@@ -29,6 +29,7 @@ void Rect::rotate()
 	int tmp = wdth;
 	wdth = hght;
 	hght = tmp;
+	orientation += 1;
 }
 
 void Rect::resizeUp()
@@ -45,6 +46,25 @@ void Rect::resizeDown()
 
 // Rectangle symmetric, no need to flip
 void Rect::flip() {}
+
+void Rect::save(libxl::Sheet* sheet, int row) 
+{
+	sheet->writeStr(row, 0, "Rectangle");
+	sheet->writeNum(row, 1, RefPoint.x); // Save x-coordinate to column 1
+	sheet->writeNum(row, 2, RefPoint.y); // Save y-coordinate to column 2
+	sheet->writeNum(row, 3, wdth);       // Save width to column 3
+	sheet->writeNum(row, 4, hght);
+	sheet->writeNum(row, 5, orientation);
+}
+
+void Rect::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	wdth = sheet->readNum(row, 3);
+	hght = sheet->readNum(row, 4);
+	orientation = sheet->readNum(row, 5);
+}
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 
@@ -77,6 +97,23 @@ void Circle::resizeDown()
 // Circle symmetric, no need to flip
 void Circle::flip() {}
 
+void Circle::save(libxl::Sheet* sheet, int row) 
+{
+	sheet->writeStr(row, 0, "Circle");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, rad);
+}
+
+void Circle::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	rad = sheet->readNum(row, 3);
+}
+
+
+////////////////////////////////////////////////////  class isoceles triangle  ///////////////////////////////////////
 ////////////////////////////////////////////////////  abstract class triangle  ///////////////////////////////////////
 
 Triangle::Triangle(game* r_pGame, point ref) : shape(r_pGame, ref) {}
@@ -129,6 +166,26 @@ void IsoscelesTriangle::resizeDown()
 	width /= 2;
 }
 
+void IsoscelesTriangle::save(libxl::Sheet* sheet, int row)
+{
+	sheet->writeStr(row, 0, "EquilateralTriangle");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, height);
+	sheet->writeNum(row, 4, base);
+	sheet->writeNum(row, 5, orientation);
+}
+
+void IsoscelesTriangle::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	height = sheet->readNum(row, 3);
+	base = sheet->readNum(row, 4);
+	orientation = sheet->readNum(row, 5);
+}
+
+
 ////////////////////////////////////////////////////  class equilateral triangle  ///////////////////////////////////////
 
 EquilateralTriangle::EquilateralTriangle(game* r_pGame, point ref, int r_side) :Triangle(r_pGame, ref)
@@ -151,6 +208,25 @@ void EquilateralTriangle::resizeUp()
 void EquilateralTriangle::resizeDown()
 {
 	side /= 2;
+}
+
+void EquilateralTriangle::save(libxl::Sheet* sheet, int row)
+{
+	sheet->writeStr(row, 0, "EquilateralTriangle");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, height);
+	sheet->writeNum(row, 4, base);
+	sheet->writeNum(row, 5, orientation);
+}
+
+void EquilateralTriangle::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	height = sheet->readNum(row, 3);
+	base = sheet->readNum(row, 4);
+	orientation = sheet->readNum(row, 5);
 }
 
 ////////////////////////////////////////////////////  class right angled triangle  ///////////////////////////////////////
@@ -182,4 +258,23 @@ void RightTriangle::resizeDown()
 void RightTriangle::flip()
 {
 	base *= -1;
+}
+
+void RightTriangle::save(libxl::Sheet* sheet, int row)
+{
+	sheet->writeStr(row, 0, "RightTriangle");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, height);
+	sheet->writeNum(row, 4, base);
+	sheet->writeNum(row, 5, orientation);
+}
+
+void RightTriangle::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	height = sheet->readNum(row, 3);
+	base = sheet->readNum(row, 4);
+	orientation = sheet->readNum(row, 5);
 }

@@ -2,7 +2,8 @@
 #include "gameConfig.h"
 
 #include <iostream>
-
+#include <string>
+#include <libxl.h>
 
 game::game()
 {
@@ -129,6 +130,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("YOU PRESSED Load");
 		op = new operLoad(this);
 		break;
+	case ITM_EXIT:
+		op = new operExit(this);
+		break;
 	}
 	return op;
 }
@@ -151,7 +155,7 @@ window* game::getWind() const		//returns a pointer to the graphics window
 	return pWind;
 }
 
-
+void game::setExitFlag(bool flag) { exitFlag = flag; }
 
 string game::getSrting() const
 {
@@ -180,6 +184,11 @@ string game::getSrting() const
 grid* game::getGrid() const
 {
 	return shapesGrid;
+}
+
+toolbar* game::getToolbar() const
+{
+	return gameToolbar;
 }
 
 
@@ -296,70 +305,7 @@ void game::run()
 
 		}
 
-	} while (clickedItem != ITM_EXIT && lives > 0);
-
-	do {
-		printMessage("GAME OVER!!!");
-	} while (lives == 0);
-}
-
-void game::test()
-{
-	while (true) {
-
-		//////////////////////// Basic Shapes ///////////////////////////
-
-		// // Circle
-		// Circle* C = new Circle(this, { 600, 300 }, 100);
-		// C->draw();
-
-		// // Rectangle
-		// Rect* R = new Rect(this, { 500, 300 }, 100, 50);
-		// R->draw();
-		// for (size_t i = 0; i < 10; i++)
-		// {
-		// R->move(UP);
-		// R->move(RIGHT);
-		// }
-		// R->draw();
-
-		// // Eq Tri
-		// EquilateralTriangle* EqTri = new EquilateralTriangle(this, { 600, 300 }, 50);
-		// EqTri->draw();
-		// EqTri->rotate();
-		// EqTri->draw();
-
-		// // Ri Tri
-		// RightTriangle* RiTri = new RightTriangle(this, { 200, 200 }, 100, 100);
-		// RiTri->rotate();
-		// RiTri->draw();
-
-		//////////////////////// Composite Shapes ////////////////////////
-
-		// // Cloud
-		// Cloud* Cl = new Cloud(this, { 1050, 400 });
-		// Cl->draw();
-
-		// // House
-		// House* H = new House(this, { 200, 300 });
-		// H->draw();
-
-		// // Tree
-		// Tree* T = new Tree(this, { 900, 300 });
-		// T->draw();
-
-		// // Icecream
-		// Icecream* I = new Icecream(this, { 750, 300 });
-		// I->draw();
-
-		// // Plane
-		// Plane* P = new Plane(this, { 400, 300 });
-		// P->draw();
-
-		// // Car
-		// Car* Ca = new Car(this, { 600,300 });
-		// Ca->draw();
-	}
+	} while (!exitFlag && lives > 0);
 }
 
 void game::setStartClock(time_t duration)

@@ -1,6 +1,10 @@
 #include "operations.h"
 #include "game.h"
 #include "CompositeShapes.h"
+#include <thread>
+#include <chrono>
+#include <iostream>
+#include <libxl.h>
 /////////////////////////////////// class operation  //////////////////
 operation::operation(game* r_pGame)
 {
@@ -29,11 +33,9 @@ void operAddSign::Act()
 	point signShapeRef = { xGrid,yGrid };
 
 	//create a sign shape
-	shape* psh = new Sign(pGame, signShapeRef);
 
 	//Add the shape to the grid
 	grid* pGrid = pGame->getGrid();
-	pGrid->setActiveShape(psh);
 
 }
 
@@ -86,18 +88,69 @@ void operDelete::Act()
 
 operHint::operHint(game* r_pGame) :operation(r_pGame)
 {
+	
+
 }
 
 void operHint::Act()
 {
-}
+	if (pGame->getToolbar()->get_level() < 3)
+	{
+		//std::cout << "Hint is Available from level 3: " << pGame->getToolbar()->get_level() << endl << endl << endl << endl;
+		pGame->getWind()->SetPen(BLACK);
+		pGame->getWind()->DrawString(50, 30, "Hint is available from level 3");
+		return;
+	};
+	int CurrentScore = pGame->getToolbar()->get_score();
+	pGame->getToolbar()->set_score(CurrentScore - 1);
 
-operGameLevel::operGameLevel(game* r_pGame) :operation(r_pGame)
-{
-}
+	int randomIndex = rand() % (pGame->getGrid()->getShapeCount());
+ 
+	shape* selectedShape = pGame->getGrid()->getShapeList()[randomIndex];
+	if (selectedShape)
+	{
+		grid* pGrid = pGame->getGrid();
+		pGrid->setActiveShape(selectedShape);
+		color originalColor = selectedShape->getColor();
+		selectedShape->setColor(BLACK);
+		selectedShape->draw();
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+		selectedShape->setColor(originalColor); 
+		selectedShape->draw();
+	}
+}	
+
+
+operGameLevel::operGameLevel(game * r_pGame) :operation(r_pGame){}
+
 
 void operGameLevel::Act()
 {
+
+	int gameLevel = -1;
+
+	while (gameLevel < 1 || gameLevel > 5)
+	{
+		pGame->getWind()->DrawString(config.windWidth / 2, config.windHeight / 3, "Enter Game level Between 1 - 5: "); // Prompt the user
+		char key;
+		keytype keyType = pGame->getWind()->GetKeyPress(key);
+
+		if (keyType == ASCII && key >= '1' && key <= '5') // Check if the input is between 1 - 5 & Convert the ASCII character to an integer
+		{gameLevel = key - '0';} 
+		
+	}
+
+	if (pGame->getToolbar())
+	{
+		pGame->getToolbar()->set_level(gameLevel);
+		//std::cout << "Game Level is set to: " <<pGame->getToolbar()->get_level() << endl << endl << endl << endl;
+
+	}
+
+
+
+
+	///////////////////////////////////////////////// SAVE ///////////////////////////////////////
 }
 
 operSave::operSave(game* r_pGame) :operation(r_pGame)
@@ -106,15 +159,192 @@ operSave::operSave(game* r_pGame) :operation(r_pGame)
 
 void operSave::Act()
 {
+	// Access the shapesList from the grid
+	grid* pGrid = pGame->getGrid();
+	if (!pGrid) {
+		// Handle error: grid not found
+		return;
+	}
+	shape** shapes = pGrid->getShapeList();
+	
+
+	////// For testing//////
+	/*Car* car1 = new Car(pGame, { 299, 399 });
+	Car* car2 = new Car(pGame, { 299, 399 });
+	Car* car3 = new Car(pGame, { 299, 399 });
+	shape* shapes[] = { car1, car2, car3 };
+	int numShapes = 3;
+	*/
+
+	// Create a new Excel book
+	libxl::Book* book = xlCreateXMLBook();
+	if (!book) {
+		// Handle error: unable to create book
+		return;
+	}
+
+	// Add a sheet to the book
+	libxl::Sheet* sheet = book->addSheet("Shapes");
+	if (!sheet) {
+		book->release();
+		return;
+	}
+
+	// Header Raw for Game
+	sheet->writeStr(1, 0, "level");
+	sheet->writeStr(1, 1, "score");
+	sheet->writeStr(1, 2, "lives");
+	sheet->writeStr(1, 3, "time");
+
+	// Save the game data
+	toolbar* pToolbar = pGame->getToolbar();
+	sheet->writeNum(2, 0, pToolbar->get_level());
+	sheet->writeNum(2, 1, pToolbar->get_score());
+	sheet->writeNum(2, 2, pToolbar->get_lives());
+	sheet->writeNum(2, 3, pToolbar->get_time());
+
+
+	// Header Raw for Shapes
+	sheet->writeStr(3, 0, "Type");
+	sheet->writeStr(3, 1, "Ref x");
+	sheet->writeStr(3, 2, "Ref y");
+	sheet->writeStr(3, 3, "Width");
+	sheet->writeStr(3, 4, "Height");
+	sheet->writeStr(3, 5, "par 3");
+	sheet->writeStr(3, 6, "par 4");
+	sheet->writeStr(3, 7, "par 5");
+	sheet->writeStr(3, 8, "par 6");
+
+
+	//Cloud* cloud = new Cloud(pGame, { 299, 399 });
+	//cloud->save(sheet, 4);
+
+	int row = 4; 
+	int numShapes = pGrid->getShapeCount();
+	for (int i = 0; i < numShapes; ++i) {
+		shapes[i]->save(sheet, row++);
+	}
+
+	if (!book->save("shapes.xlsx")) {
+		// Handle error: unable to save book
+		book->release();
+		return;
+	}
+
+	// Release resources
+	book->release();
 }
+
+
+
+/////////////////////////////////////////////////LOAD///////////////////////////////////////////
+
 
 operLoad::operLoad(game* r_pGame) :operation(r_pGame)
 {
 }
-
 void operLoad::Act()
 {
+	// Open the Excel book
+	libxl::Book* book = xlCreateXMLBook();
+	if (!book) {
+		return;
+	}
+
+	if (!book->load("shapes.xlsx")) {
+		book->release();
+		return;
+	}
+
+	grid* pGrid = pGame->getGrid();
+	if (!pGrid) {
+		book->release();
+		return;
+	}
+
+	// Get the sheet named "Shapes" from the book
+	libxl::Sheet* sheet = book->getSheet(0);
+	if (!sheet) {
+		book->release();
+		return;
+	}
+
+	// Get the number of rows in the sheet
+	int numRows = sheet->lastRow();
+	pGame->getToolbar()->setLevel(sheet->readNum(2, 0));
+	pGame->getToolbar()->setScore(sheet->readNum(2, 1));
+	pGame->getToolbar()->setLives(sheet->readNum(2, 2));
+	pGame->getToolbar()->setTime(sheet->readNum(2, 3));
+
+	for (int row = 4; row <= numRows; ++row) {
+		
+		std::string type = sheet->readStr(row, 0);
+
+		// Create objects of the corresponding shape classes based on the type
+		if (type == "Rectangle") {
+			Rect* rect = new Rect(pGame, { 1,2 }, 1, 1);
+			rect->load(sheet, row);
+			pGrid->addShape(rect);
+		}
+		else if (type == "Circle") {
+			Circle* circle = new Circle(pGame, { 2,3 }, 1);
+			circle->load(sheet, row);
+			pGrid->addShape(circle);
+		}
+		else if (type == "IsoscelesTriangle") {
+			IsoscelesTriangle* triangle = new IsoscelesTriangle(pGame, { 3,4 }, 1, 1);
+			triangle->load(sheet, row);
+			pGrid->addShape(triangle);
+		}
+		else if (type == "EquilateralTriangle") {
+			EquilateralTriangle* triangle = new EquilateralTriangle(pGame, { 4,5 }, 1);
+			triangle->load(sheet, row);
+			pGrid->addShape(triangle);
+		}
+		else if (type == "RightTriangle") {
+			RightTriangle* triangle = new RightTriangle(pGame, { 4,5 }, 1, 1);
+			triangle->load(sheet, row);
+			pGrid->addShape(triangle);
+		}
+		else if (type == "Car") {
+			Car* car = new Car(pGame, { 4,5 });
+			car->load(sheet, row);
+			pGrid->addShape(car);
+		}
+		else if (type == "House") {
+			House* house = new House(pGame, { 4,5 });
+			house->load(sheet, row);
+			pGrid->addShape(house);
+		}
+		else if (type == "Tree") {
+			Tree* tree = new Tree(pGame, { 4,5 });
+			tree->load(sheet, row);
+			pGrid->addShape(tree);
+		}
+		else if (type == "Cloud") {
+			Cloud* cloud = new Cloud(pGame, { 4,5 });
+			cloud->load(sheet, row);
+			pGrid->addShape(cloud);
+		}
+		else if (type == "Plane") {
+			Plane* plane = new Plane(pGame, { 4,5 });
+			plane->load(sheet, row);
+			pGrid->addShape(plane);
+		}
+		else if (type == "Icecream") {
+			Icecream* iceCream = new Icecream(pGame, { 4,5 });
+			iceCream->load(sheet, row);
+			pGrid->addShape(iceCream);
+		}
+		
+	}
+	pGrid->draw();
+
+	// Release resources
+	book->release();
+
 }
+
 
 operRefresh::operRefresh(game* r_pGame) :operation(r_pGame)
 {
@@ -122,6 +352,48 @@ operRefresh::operRefresh(game* r_pGame) :operation(r_pGame)
 
 void operRefresh::Act()
 {
+	grid* pGrid = pGame->getGrid(); 
+	toolbar* pToolbar = pGame->getToolbar(); 
+	int currentLevel = pToolbar->get_level();  //started using variables to make it easier
+	int numShapes = 2 * currentLevel + 1;
+
+	for (int i = 0; i < numShapes; ++i)
+	{	
+		pGrid->setActiveShape(pGrid->getShapeList()[i]) ;
+		pGrid->deleteShape();
+	}
+	// to be added: generate random shapes 
+	
+	for (int i = 0; i < numShapes; ++i)
+	{
+		shape* newShape = pGrid->getShapeList()[i];
+		if (pGrid)
+		{
+			pGrid->addShape(newShape);
+		}
+	}
+	pGrid->draw();
+}
+
+operExit::operExit(game* r_pGame) :operation(r_pGame)
+{
+}
+void operExit::Act()
+{
+	// Ask the user if they want to save before exiting
+	pGame->printMessage("Press 's' to save before exiting.");
+
+	pGame->getWind()->FlushKeyQueue();
+
+	char key;
+	keytype keyType = pGame->getWind()->GetKeyPress(key);
+
+	/*if (keyType == ASCII && key == 's')
+		operSave(pGame).Act();
+	}*/
+
+	// Exit the game
+	pGame->setExitFlag(true);
 }
 
 operCar::operCar(game* r_pGame) :operation(r_pGame)

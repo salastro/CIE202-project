@@ -1,4 +1,5 @@
 #include "CompositeShapes.h"
+#include <iostream>
 #include "gameConfig.h"
 
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
@@ -71,6 +72,7 @@ void Cloud::rotate() {
 	rotateAroundPoint(centerRef, RefPoint);
 	rotateAroundPoint(bottomLeftRef, RefPoint);
 	rotateAroundPoint(bottomRightRef, RefPoint);
+	orientation += 1;
 	update();
 }
 
@@ -90,6 +92,26 @@ void Cloud::resizeDown() {
 
 // Cloud is symmetric, no need to flip
 void Cloud::flip() {}
+
+void Cloud::save(libxl::Sheet* sheet, int row)
+{
+	sheet->writeStr(row, 0, "Cloud");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, rad);
+	sheet->writeNum(row, 4, orientation);
+}
+
+void Cloud::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	rad = sheet->readNum(row, 3);
+	orientation = sheet->readNum(row, 4);
+	updateRef();
+	update();
+}
+
 
 void Cloud::move(Direction direction) {
 	top->move(direction);
@@ -177,6 +199,31 @@ void House::resizeDown()
 
 // House is symmetric, no need to flip
 void House::flip() {};
+
+void House::save(libxl::Sheet* sheet, int row)
+{
+	sheet->writeStr(row, 0, "House");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, baseWidth);
+	sheet->writeNum(row, 4, baseHeight);
+	sheet->writeNum(row, 5, roofWidth);
+	sheet->writeNum(row, 6, roofHeight);
+	sheet->writeNum(row, 7, orientation);	
+}
+
+void House::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	baseWidth = sheet->readNum(row, 3);
+	baseHeight = sheet->readNum(row, 4);
+	roofWidth = sheet->readNum(row, 5);
+	roofHeight = sheet->readNum(row, 6);
+	orientation = sheet->readNum(row, 7);
+	updateRef();
+	update();
+}
 
 void House::move(Direction direction) {
 	base->move(direction);
@@ -276,6 +323,30 @@ void Tree::resizeDown()
 // Tree is symmetric, no need to flip
 void Tree::flip() {}
 
+void Tree::save(libxl::Sheet* sheet, int row) 
+{
+	sheet->writeStr(row, 0, "Tree");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, trunkWidth);
+	sheet->writeNum(row, 4, trunkHeight);
+	sheet->writeNum(row, 5, crownRad);
+	sheet->writeNum(row, 6, orientation);
+
+}
+
+void Tree::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	trunkWidth = sheet->readNum(row, 3);
+	trunkHeight = sheet->readNum(row, 4);
+	crownRad = sheet->readNum(row, 5);
+	orientation = sheet->readNum(row, 6);
+	updateRef();
+	update();
+}
+
 void Tree::move(Direction direction) {
 	trunk->move(direction);
 	crownTop->move(direction);
@@ -359,6 +430,28 @@ void Icecream::resizeDown()
 
 // Icecream is symmetric, no need to flip
 void Icecream::flip() {}
+
+void Icecream::save(libxl::Sheet* sheet, int row) 
+{
+	sheet->writeStr(row, 0, "Icecream");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, scoopRad);
+	sheet->writeNum(row, 4, coneHeight);
+	sheet->writeNum(row, 5, orientation);
+
+}
+
+void Icecream::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	scoopRad = sheet->readNum(row, 3);
+	coneHeight = sheet->readNum(row, 4);
+	orientation = sheet->readNum(row, 5);
+	updateRef();
+	update();
+}
 
 void Icecream::move(Direction direction) {
 	scoop->move(direction);
@@ -482,6 +575,36 @@ void Plane::resizeDown()
 // Plane is symmetric, no need to flip
 void Plane::flip() {}
 
+void Plane::save(libxl::Sheet* sheet, int row) 
+{
+	sheet->writeStr(row, 0, "Plane");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, bodyWidth);
+	sheet->writeNum(row, 4, bodyHeight);
+	sheet->writeNum(row, 5, wingWidth);
+	sheet->writeNum(row, 6, wingHeight);
+	sheet->writeNum(row, 7, tailWidth);
+	sheet->writeNum(row, 8, tailHeight);
+	sheet->writeNum(row, 9, orientation);
+}
+
+void Plane::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	bodyWidth = sheet->readNum(row, 3);
+	bodyHeight = sheet->readNum(row, 4);
+	wingWidth = sheet->readNum(row, 5);
+	wingHeight = sheet->readNum(row, 6);
+	tailWidth = sheet->readNum(row, 7);
+	tailHeight = sheet->readNum(row, 8);
+	orientation = sheet->readNum(row, 9);
+	updateRef();
+	update();
+}
+
+//--------------------------------- Class Car -----------------------------------//
 void Plane::move(Direction direction) {
 	body->move(direction);
 	head->move(direction);
@@ -608,6 +731,34 @@ void Car::resizeDown()
 
 // Car is symmetric, no need to flip
 void Car::flip() {}
+
+void Car::save(libxl::Sheet* sheet, int row) 
+{
+	sheet->writeStr(row, 0, "Car");
+	sheet->writeNum(row, 1, RefPoint.x);
+	sheet->writeNum(row, 2, RefPoint.y);
+	sheet->writeNum(row, 3, bodyWidth);
+	sheet->writeNum(row, 4, bodyHeight);
+	sheet->writeNum(row, 5, headWidth);
+	sheet->writeNum(row, 6, headHeight);
+	sheet->writeNum(row, 7, wheelRad);
+	sheet->writeNum(row, 8, orientation);
+	std::cout << "car is saved" << std::endl;
+}
+
+void Car::load(libxl::Sheet* sheet, int row)
+{
+	RefPoint.x = sheet->readNum(row, 1);
+	RefPoint.y = sheet->readNum(row, 2);
+	bodyWidth = sheet->readNum(row, 3);
+	bodyHeight = sheet->readNum(row, 4);
+	headWidth = sheet->readNum(row, 5);
+	headHeight = sheet->readNum(row, 6);
+	wheelRad = sheet->readNum(row, 7);
+	orientation = sheet->readNum(row, 8);
+	updateRef();
+	update();
+}
 
 void Car::move(Direction direction) {
 	body->move(direction);

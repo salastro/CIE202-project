@@ -115,3 +115,13 @@ void grid::deleteShape()
 		activeShape = nullptr;
 	}
 }
+
+int grid::getShapeCount() const
+{
+	return shapeCount; 
+}
+
+shape** grid::getShapeList()
+{
+	return shapeList;
+}

@@ -9,16 +9,17 @@
 
 
 
+
 //Main class that coordinates the game operation
 class game
 {
 
 	/// Add more members if needed
-
-	toolbar* gameToolbar;
 	
+	toolbar* gameToolbar;
 	window* pWind;	//Pointer to the CMU graphics window
 	grid* shapesGrid;
+	bool exitFlag = false;
 
 	clock_t startClock;
 	time_t countdownDuration; // in seconds
@@ -27,7 +28,7 @@ class game
 public:
 	game();
 	~game();
-
+	void setExitFlag(bool flag);
 	string getSrting() const;	 //Returns a string entered by the user
 	void createWind(int, int, int, int); //creates the game window
 	void clearStatusBar() const;	//Clears the status bar
@@ -37,6 +38,7 @@ public:
 
 	window* getWind() const;		//returns a pointer to the graphics window
 	grid* getGrid() const;		//returns a pointer to the shapes grid
+	toolbar* getToolbar() const; //returns a pointer to the shapes toolbar
 
 	//creates an operation according to the toolbar item clicked
 	operation* createRequiredOperation(toolbarItem clickedItem);
