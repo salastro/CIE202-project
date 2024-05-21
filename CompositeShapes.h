@@ -58,6 +58,7 @@ private:
 
 public:
 	Cloud(game* r_pGame, point ref);
+	~Cloud();
 
 	void update();
 	void updateRef();
@@ -92,6 +93,7 @@ private:
 
 public:
 	House(game* r_pGame, point ref);
+	~House();
 
 	void update();
 	void updateRef();
@@ -126,6 +128,8 @@ private:
 
 public:
 	Tree(game* r_pGame, point ref);
+	~Tree();
+
 	void draw() const override;
 	void update();
 	void rotate() override;
@@ -152,6 +156,7 @@ private:
 
 public:
 	Icecream(game* r_pGame, point ref);
+	~Icecream();
 
 	void update();
 
@@ -189,6 +194,7 @@ private:
 
 public:
 	Plane(game* r_pGame, point ref);
+	~Plane();
 
 	void update();
 	void updateRef();
@@ -227,6 +233,7 @@ private:
 
 public:
 	Car(game* r_pGame, point ref);
+	~Car();
 
 	void update();
 	void updateRef();

@@ -43,12 +43,17 @@ protected:
 	game* pGame;        //pointer to game object
 	color fillColor; //shape fill color
 	color borderColor; //shape border color
-	int orientation;
+	int orientation = 0;
+	int size = 0;
+	ShapeType type;
 public:
 	shape(game* r_pGame, point ref);
 	virtual void draw() const = 0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
 	point getRefPoint() const;
+	int getOrientation() const;
+	ShapeType getType() const;
+	int getSize() const;
 
 
 	//-- The following functions should be supported by the shape class

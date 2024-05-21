@@ -26,6 +26,8 @@ void Sign::move(Direction direction) {};
 //--------------------------------- class Cloud -----------------------------------//
 
 Cloud::Cloud(game* r_pGame, point ref) : shape(r_pGame, ref), rad(config.cloudShape.radius) {
+	type = CLOUD;
+
 	topRef = { ref.x, ref.y - rad / 2 };
 	centerRef = { ref.x, ref.y };
 	bottomLeftRef = { ref.x - rad, ref.y };
@@ -35,6 +37,10 @@ Cloud::Cloud(game* r_pGame, point ref) : shape(r_pGame, ref), rad(config.cloudSh
 	center = new Circle(pGame, centerRef, rad);
 	bottomLeft = new Circle(pGame, bottomLeftRef, rad);
 	bottomRight = new Circle(pGame, bottomRightRef, rad);
+}
+
+Cloud::~Cloud() {
+	delete top, center, bottomLeft, bottomRight;
 }
 
 void Cloud::update() {
@@ -69,12 +75,14 @@ void Cloud::rotate() {
 }
 
 void Cloud::resizeUp() {
+	size += 1;
 	rad *= 2;
 	updateRef();
 	update();
 }
 
 void Cloud::resizeDown() {
+	size -= 1;
 	rad /= 2;
 	updateRef();
 	update();
@@ -98,6 +106,8 @@ House::House(game* r_pGame, point ref) : shape(r_pGame, ref),
 baseHeight(config.houseShape.baseHeight), baseWidth(config.houseShape.baseWidth),
 roofHeight(config.houseShape.roofHeight), roofWidth(config.houseShape.roofWidth)
 {
+	type = HOUSE;
+
 	// Calculate positions for base and roof
 	baseRef = { ref.x, ref.y + baseHeight / 2 };
 	roofRef = { ref.x, ref.y - roofHeight / 2 };
@@ -105,6 +115,10 @@ roofHeight(config.houseShape.roofHeight), roofWidth(config.houseShape.roofWidth)
 	// Create base rectangle and roof triangle
 	base = new Rect(pGame, baseRef, baseHeight, baseWidth);
 	roof = new IsoscelesTriangle(pGame, roofRef, roofHeight, roofWidth);
+}
+
+House::~House() {
+	delete base, roof;
 }
 
 void House::update() {
@@ -141,6 +155,7 @@ void House::rotate()
 
 void House::resizeUp()
 {
+	size += 1;
 	baseHeight *= 2;
 	baseWidth *= 2;
 	roofHeight *= 2;
@@ -151,6 +166,7 @@ void House::resizeUp()
 
 void House::resizeDown()
 {
+	size -= 1;
 	baseHeight /= 2;
 	baseWidth /= 2;
 	roofHeight /= 2;
@@ -176,6 +192,8 @@ Tree::Tree(game* r_pGame, point ref) : shape(r_pGame, ref),
 trunkWidth(config.treeShape.trunkWidth),
 trunkHeight(config.treeShape.trunkHeight), crownRad(config.treeShape.crownRad)
 {
+	type = TREE;
+
 	// Calculate positions for trunk and crown
 	trunkRef = { RefPoint.x, RefPoint.y + trunkHeight / 2 };
 	crownTopRef = { RefPoint.x, RefPoint.y - crownRad };
@@ -188,6 +206,10 @@ trunkHeight(config.treeShape.trunkHeight), crownRad(config.treeShape.crownRad)
 	crownLeft = new Circle(pGame, crownLeftRef, crownRad);
 	crownRight = new Circle(pGame, crownRightRef, crownRad);
 };
+
+Tree::~Tree() {
+	delete trunk, crownTop, crownLeft, crownRight;
+}
 
 void Tree::update() {
 	delete trunk, crownTop, crownLeft, crownRight;
@@ -233,6 +255,7 @@ void Tree::rotate()
 
 void Tree::resizeUp()
 {
+	size += 1;
 	trunkHeight *= 2;
 	trunkWidth *= 2;
 	crownRad *= 2;
@@ -242,6 +265,7 @@ void Tree::resizeUp()
 
 void Tree::resizeDown()
 {
+	size -= 1;
 	trunkHeight /= 2;
 	trunkWidth /= 2;
 	crownRad /= 2;
@@ -267,6 +291,8 @@ Icecream::Icecream(game* r_pGame, point ref) : shape(r_pGame, ref),
 scoopRad(config.icecreamShape.scoopRad),
 coneHeight(config.icecreamShape.coneHeight)
 {
+	type = ICECREAM;
+
 	// Calculate positions for trunk and crown
 	scoopRef = { RefPoint.x, RefPoint.y - scoopRad / 2 };
 	coneRef = { RefPoint.x, RefPoint.y + coneHeight / 2 };
@@ -275,6 +301,10 @@ coneHeight(config.icecreamShape.coneHeight)
 	scoop = new Circle(pGame, scoopRef, scoopRad);
 	cone = new IsoscelesTriangle(pGame, coneRef, -coneHeight, 2 * scoopRad);
 };
+
+Icecream::~Icecream() {
+	delete scoop, cone;
+}
 
 void Icecream::update() {
 	delete scoop, cone;
@@ -311,6 +341,7 @@ void Icecream::rotate()
 
 void Icecream::resizeUp()
 {
+	size += 1;
 	scoopRad *= 2;
 	coneHeight *= 2;
 	updateRef();
@@ -319,6 +350,7 @@ void Icecream::resizeUp()
 
 void Icecream::resizeDown()
 {
+	size -= 1;
 	scoopRad /= 2;
 	coneHeight /= 2;
 	updateRef();
@@ -345,6 +377,8 @@ wingWidth(config.planeShape.wingWidth),
 tailHeight(config.planeShape.tailHeight),
 tailWidth(config.planeShape.tailWidth)
 {
+	type = PLANE;
+
 	// Ref Points
 	bodyRef = RefPoint;
 	headRef = { RefPoint.x, RefPoint.y - bodyHeight / 2 - bodyWidth / 2 };
@@ -361,6 +395,10 @@ tailWidth(config.planeShape.tailWidth)
 	leftTail = new RightTriangle(pGame, leftTailRef, tailHeight, -tailWidth);
 	rightTail = new RightTriangle(pGame, rightTailRef, tailHeight, tailWidth);
 };
+
+Plane::~Plane() {
+	delete body, head, leftWing, rightWing, leftTail, rightTail;
+}
 
 void Plane::update()
 {
@@ -417,6 +455,7 @@ void Plane::rotate()
 
 void Plane::resizeUp()
 {
+	size += 1;
 	bodyHeight *= 2;
 	bodyWidth *= 2;
 	wingHeight *= 2;
@@ -429,6 +468,7 @@ void Plane::resizeUp()
 
 void Plane::resizeDown()
 {
+	size -= 1;
 	bodyHeight /= 2;
 	bodyWidth /= 2;
 	wingHeight /= 2;
@@ -460,6 +500,8 @@ bodyHeight(config.carShape.bodyHeight), bodyWidth(config.carShape.bodyWidth),
 headHeight(config.carShape.headHeight), headWidth(config.carShape.headWidth),
 wheelRad(config.carShape.wheelRad)
 {
+	type = CAR;
+
 	// Variables
 	topWidth = (bodyWidth - headWidth) / 2;
 
@@ -479,6 +521,10 @@ wheelRad(config.carShape.wheelRad)
 	leftWheel = new Circle(pGame, leftWheelRef, wheelRad);
 	rightWheel = new Circle(pGame, rightWheelRef, wheelRad);
 };
+
+Car::~Car() {
+	delete body, head, topLeft, topRight, leftWheel, rightWheel;
+}
 
 void Car::update()
 {
@@ -536,6 +582,7 @@ void Car::rotate()
 
 void Car::resizeUp()
 {
+	size += 1;
 	bodyHeight *= 2;
 	bodyWidth *= 2;
 	headHeight *= 2;
@@ -548,6 +595,7 @@ void Car::resizeUp()
 
 void Car::resizeDown()
 {
+	size -= 1;
 	bodyHeight /= 2;
 	bodyWidth /= 2;
 	headHeight /= 2;

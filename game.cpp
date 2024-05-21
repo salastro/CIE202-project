@@ -199,6 +199,9 @@ void game::run()
 	pWind->FlushMouseQueue();
 	pWind->FlushKeyQueue();
 
+	// Matching boolean
+	bool isMatch = 0;
+
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	toolbarItem clickedItem = ITM_CNT;
@@ -209,6 +212,21 @@ void game::run()
 		pWind->GetMouseClick(x, y);
 
 		keyboardInput = pWind->GetKeyPress(key);
+
+		switch (key)
+		{
+		case ' ':
+			isMatch = shapesGrid->matchShape();
+			if (isMatch)
+				printMessage("Matched shape correctly.");
+			else
+				printMessage("Match incorrecty, try again.");
+			shapesGrid->draw();
+			break;
+		default:
+			break;
+		}
+
 
 		if (keyboardInput == ARROW)
 		{

@@ -29,29 +29,29 @@ void grid::draw() const
 {
 	clearGridArea();
 	window* pWind = pGame->getWind();
-	
-	pWind->SetPen(config.gridDotsColor,1);
+
+	pWind->SetPen(config.gridDotsColor, 1);
 	pWind->SetBrush(config.gridDotsColor);
 
 	//draw dots showing the grid reference points
 	for (int r = 1; r < rows; r++)
 		for (int c = 0; c < cols; c++)
 			pWind->DrawCircle(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y, 1);
-			//pWind->DrawPixel(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y);
+	//pWind->DrawPixel(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y);
 
-	//Draw ALL shapes
+//Draw ALL shapes
 	for (int i = 0; i < shapeCount; i++)
-			if (shapeList[i])
-				shapeList[i]->draw();	//draw each shape
+		if (shapeList[i])
+			shapeList[i]->draw();	//draw each shape
 
 	//Draw the active shape
-	if(activeShape)
+	if (activeShape)
 		activeShape->draw();
 }
 
 void grid::clearGridArea() const
 {
-	window* pWind = pGame->getWind();	
+	window* pWind = pGame->getWind();
 	pWind->SetPen(config.bkGrndColor, 1);
 	pWind->SetBrush(config.bkGrndColor);
 	pWind->DrawRectangle(uprLeft.x, uprLeft.y, uprLeft.x + width, uprLeft.y + height);
@@ -78,8 +78,40 @@ void grid::setActiveShape(shape* actShape)
 	activeShape = actShape;
 }
 
+bool grid::matchShape() {
+	bool isSameOrientation;
+	bool isSameRefPoint;
+	bool isSameType;
+	bool isSameSize;
+	for (int i = 0; i < shapeCount; i++)
+	{
+		shape* currentShape = shapeList[i];
+		if (currentShape && activeShape)
+		{
+			isSameOrientation = (currentShape->getOrientation() % 4) == (activeShape->getOrientation() % 4);
+			isSameRefPoint =
+				(currentShape->getRefPoint().x == activeShape->getRefPoint().x)
+				&&
+				(currentShape->getRefPoint().y == activeShape->getRefPoint().y);
+			isSameType = currentShape->getType() == activeShape->getType();
+			isSameSize = currentShape->getSize() == activeShape->getSize();
+			if (isSameRefPoint && isSameType && isSameOrientation && isSameSize)
+			{
+				delete shapeList[i];
+				shapeList[i] = nullptr;
+				deleteShape();
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 void grid::deleteShape()
 {
-	delete activeShape;
-	activeShape = nullptr;
+	if (activeShape)
+	{
+		delete activeShape;
+		activeShape = nullptr;
+	}
 }

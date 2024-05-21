@@ -18,6 +18,12 @@ void shape::setRefPoint(point p)
 
 point shape::getRefPoint() const { return RefPoint; }
 
+int shape::getOrientation() const { return orientation; }
+
+int shape::getSize() const { return size; }
+
+ShapeType shape::getType() const { return type; }
+
 void shape::move(Direction direction)
 {
 	movePoint(direction, RefPoint);

@@ -26,6 +26,7 @@ public:
 	bool addShape(shape* newShape);
 	shape* getActiveShape() const;
 	void setActiveShape(shape* actShape);
+	bool matchShape();
 	void deleteShape();
 };
 
