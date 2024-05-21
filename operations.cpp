@@ -323,7 +323,7 @@ void operLoad::Act()
 			plane->load(sheet, row);
 			pGrid->addShape(plane);
 		}
-		else if (type == "IceCream") {
+		else if (type == "Icecream") {
 			Icecream* iceCream = new Icecream(pGame, { 4,5 });
 			iceCream->load(sheet, row);
 			pGrid->addShape(iceCream);
