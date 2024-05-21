@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <libxl.h>
+#include "libxl/include_cpp/libxl.h"
 
 game::game()
 {

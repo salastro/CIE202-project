@@ -105,6 +105,11 @@ int toolbar::getScore() {
 	return score;
 }
 
+int toolbar::getTime()
+{
+	return time;
+}
+
 void toolbar::setTime(int time)
 {
 	this->time = time;

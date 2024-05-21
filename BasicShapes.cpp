@@ -172,7 +172,7 @@ void IsoscelesTriangle::save(libxl::Sheet* sheet, int row)
 	sheet->writeNum(row, 1, RefPoint.x);
 	sheet->writeNum(row, 2, RefPoint.y);
 	sheet->writeNum(row, 3, height);
-	sheet->writeNum(row, 4, base);
+	sheet->writeNum(row, 4, width);
 	sheet->writeNum(row, 5, orientation);
 }
 
@@ -181,7 +181,7 @@ void IsoscelesTriangle::load(libxl::Sheet* sheet, int row)
 	RefPoint.x = sheet->readNum(row, 1);
 	RefPoint.y = sheet->readNum(row, 2);
 	height = sheet->readNum(row, 3);
-	base = sheet->readNum(row, 4);
+	width = sheet->readNum(row, 4);
 	orientation = sheet->readNum(row, 5);
 }
 
@@ -215,8 +215,7 @@ void EquilateralTriangle::save(libxl::Sheet* sheet, int row)
 	sheet->writeStr(row, 0, "EquilateralTriangle");
 	sheet->writeNum(row, 1, RefPoint.x);
 	sheet->writeNum(row, 2, RefPoint.y);
-	sheet->writeNum(row, 3, height);
-	sheet->writeNum(row, 4, base);
+	sheet->writeNum(row, 3, side);
 	sheet->writeNum(row, 5, orientation);
 }
 
@@ -224,8 +223,7 @@ void EquilateralTriangle::load(libxl::Sheet* sheet, int row)
 {
 	RefPoint.x = sheet->readNum(row, 1);
 	RefPoint.y = sheet->readNum(row, 2);
-	height = sheet->readNum(row, 3);
-	base = sheet->readNum(row, 4);
+	side = sheet->readNum(row, 3);
 	orientation = sheet->readNum(row, 5);
 }
 

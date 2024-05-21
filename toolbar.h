@@ -21,9 +21,10 @@ public:
 	void setLevel(int level);
 	void setLives(int lives);
 	void setScore(int score);
+	void setTime(int time);
 	int getLevel();
 	int getLives();
 	int getScore();
-	void setTime(int time);
+	int getTime();
 };
 

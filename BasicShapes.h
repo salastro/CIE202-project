@@ -73,6 +73,8 @@ public:
 	IsoscelesTriangle(game* r_pGame, point ref, int r_hght, int r_wdth);
 	void resizeUp() override;
 	void resizeDown() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 
@@ -94,6 +96,8 @@ public:
 	EquilateralTriangle(game* r_pGame, point ref, int s);
 	void resizeUp() override;
 	void resizeDown() override;
+	void save(libxl::Sheet* sheet, int row) override;
+	void load(libxl::Sheet* sheet, int row) override;
 };
 
 // Right Triangle

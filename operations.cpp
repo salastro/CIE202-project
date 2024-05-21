@@ -4,7 +4,8 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include <libxl.h>
+#include "libxl/include_cpp/libxl.h"
+	
 /////////////////////////////////// class operation  //////////////////
 operation::operation(game* r_pGame)
 {
@@ -94,15 +95,15 @@ operHint::operHint(game* r_pGame) :operation(r_pGame)
 
 void operHint::Act()
 {
-	if (pGame->getToolbar()->get_level() < 3)
+	if (pGame->getToolbar()->getLevel() < 3)
 	{
-		//std::cout << "Hint is Available from level 3: " << pGame->getToolbar()->get_level() << endl << endl << endl << endl;
+		//std::cout << "Hint is Available from level 3: " << pGame->getToolbar()->getLevel() << endl << endl << endl << endl;
 		pGame->getWind()->SetPen(BLACK);
 		pGame->getWind()->DrawString(50, 30, "Hint is available from level 3");
 		return;
 	};
-	int CurrentScore = pGame->getToolbar()->get_score();
-	pGame->getToolbar()->set_score(CurrentScore - 1);
+	int CurrentScore = pGame->getToolbar()->getScore();
+	pGame->getToolbar()->setScore(CurrentScore - 1);
 
 	int randomIndex = rand() % (pGame->getGrid()->getShapeCount());
  
@@ -142,8 +143,8 @@ void operGameLevel::Act()
 
 	if (pGame->getToolbar())
 	{
-		pGame->getToolbar()->set_level(gameLevel);
-		//std::cout << "Game Level is set to: " <<pGame->getToolbar()->get_level() << endl << endl << endl << endl;
+		pGame->getToolbar()->setLevel(gameLevel);
+		//std::cout << "Game Level is set to: " <<pGame->getToolbar()->getLevel() << endl << endl << endl << endl;
 
 	}
 
@@ -198,10 +199,10 @@ void operSave::Act()
 
 	// Save the game data
 	toolbar* pToolbar = pGame->getToolbar();
-	sheet->writeNum(2, 0, pToolbar->get_level());
-	sheet->writeNum(2, 1, pToolbar->get_score());
-	sheet->writeNum(2, 2, pToolbar->get_lives());
-	sheet->writeNum(2, 3, pToolbar->get_time());
+	sheet->writeNum(2, 0, pToolbar->getLevel());
+	sheet->writeNum(2, 1, pToolbar->getScore());
+	sheet->writeNum(2, 2, pToolbar->getLives());
+	sheet->writeNum(2, 3, pToolbar->getTime());
 
 
 	// Header Raw for Shapes
@@ -354,7 +355,7 @@ void operRefresh::Act()
 {
 	grid* pGrid = pGame->getGrid(); 
 	toolbar* pToolbar = pGame->getToolbar(); 
-	int currentLevel = pToolbar->get_level();  //started using variables to make it easier
+	int currentLevel = pToolbar->getLevel();  //started using variables to make it easier
 	int numShapes = 2 * currentLevel + 1;
 
 	for (int i = 0; i < numShapes; ++i)
