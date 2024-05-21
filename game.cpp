@@ -187,8 +187,6 @@ grid* game::getGrid() const
 ////////////////////////////////////////////////////////////////////////
 void game::run()
 {
-	gameToolbar->setLevel(3);
-	generateRandomShapes();
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
@@ -202,11 +200,24 @@ void game::run()
 	// Matching boolean
 	bool isMatch = 0;
 
+	int level = 1;
+	int lives = 5;
+	int score = 0;
+	gameToolbar->setLevel(1);
+	gameToolbar->setLives(5);
+	gameToolbar->setScore(0);
+
+	int shapeCount = 0;
+	int levelShapes = 2 * level - 1;
+
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	toolbarItem clickedItem = ITM_CNT;
 	do
 	{
+		level = gameToolbar->getLevel();
+		lives = gameToolbar->getLives();
+		score = gameToolbar->getScore();
 		//printMessage("Ready...");
 		//1- Get user click
 		pWind->GetMouseClick(x, y);
@@ -218,9 +229,25 @@ void game::run()
 		case ' ':
 			isMatch = shapesGrid->matchShape();
 			if (isMatch)
+			{
 				printMessage("Matched shape correctly.");
+				score += 2;
+				gameToolbar->setScore(score);
+				shapeCount++;
+				if (shapeCount == levelShapes)
+				{
+					level += 1;
+					gameToolbar->setLevel(level);
+					shapeCount = 0;
+					levelShapes = 2 * level - 1;
+				}
+			}
 			else
+			{
 				printMessage("Match incorrecty, try again.");
+				lives--;
+				gameToolbar->setLives(lives);
+			}
 			shapesGrid->draw();
 			break;
 		default:
@@ -269,7 +296,11 @@ void game::run()
 
 		}
 
-	} while (clickedItem != ITM_EXIT);
+	} while (clickedItem != ITM_EXIT && lives > 0);
+
+	do {
+		printMessage("GAME OVER!!!");
+	} while (lives == 0);
 }
 
 void game::test()
@@ -358,7 +389,6 @@ void game::updateTime()
 	if (remainingTime <= 0) {
 		min = 0;
 		sec = 0;
-
 	}
 
 	// Update the display
@@ -376,12 +406,19 @@ void game::generateRandomShapes() {
 
 	int level = gameToolbar->getLevel();
 	int shapesCount = 2 * level - 1;
+	color shapeColor;
 
 	for (int i = 0; i < shapesCount; i++)
 	{
 		// Randomize the shape type
 		ShapeType randomShape = ShapeType((rand() % 6) + 5);
 		shape* newShape = nullptr;
+		if (level <= 3)
+			shapeColor = color(rand() % 255, rand() % 255, rand() % 255);
+		else
+			shapeColor = BLACK;
+		config.fillColor = shapeColor;
+		config.penColor = shapeColor;
 
 		// Randomize shape
 		int size = rand() % 2 - 1;

@@ -35,18 +35,26 @@ toolbar::toolbar(game* pG)
 	//Draw toolbar item one image at a time
 	for (int i = 0; i < ITM_CNT; i++)
 		pWind->DrawImage(toolbarItemImages[i], i * config.toolbarItemWidth, 0, config.toolbarItemWidth, height);
-	pWind->SetPen(config.penColor, 50);
-	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-	pWind->DrawString(config.windWidth - 300, config.toolBarHeight / 4, "Level: " + to_string(level));
-	pWind->DrawString(config.windWidth - 200, config.toolBarHeight / 4, "Lives: " + to_string(lives));
-	pWind->DrawString(config.windWidth - 100, config.toolBarHeight / 4, "Score: " + to_string(score));
+	drawState();
 
 	//Draw a line under the toolbar
 	pWind->SetPen(DARKBLUE, 3);
 	pWind->DrawLine(0, height,width , height);
 }
 
+void toolbar::drawState() const
+{
+	window* pWind = pGame->getWind();
+	pWind->SetPen(config.bkGrndColor, 50);
+	pWind->SetBrush(config.bkGrndColor);
+	pWind->DrawRectangle(config.windWidth - 300 ,0, config.windWidth, config.toolBarHeight-1);
 
+	pWind->SetPen(config.penColor, 50);
+	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+	pWind->DrawString(config.windWidth - 300, config.toolBarHeight / 4, "Level: " + to_string(level));
+	pWind->DrawString(config.windWidth - 200, config.toolBarHeight / 4, "Lives: " + to_string(lives));
+	pWind->DrawString(config.windWidth - 100, config.toolBarHeight / 4, "Score: " + to_string(score));
+}
 
 //handles clicks on toolbar icons, returns ITM_CNT if the click is not inside the toolbar
 toolbarItem toolbar::getItemClicked(int x)
@@ -68,16 +76,20 @@ toolbarItem toolbar::getItemClicked(int x)
 void toolbar::setLevel(int level)
 {
 	this->level = level;
+	pGame->generateRandomShapes();
+	drawState();
 }
 
 void toolbar::setLives(int lives)
 {
 	this->lives = lives;
+	drawState();
 }
 
 void toolbar::setScore(int score)
 {
 	this->score = score;
+	drawState();
 }
 
 int toolbar::getLevel()
