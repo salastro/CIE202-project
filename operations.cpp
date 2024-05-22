@@ -97,30 +97,45 @@ void operHint::Act()
 {
 	if (pGame->getToolbar()->getLevel() < 3)
 	{
-		//std::cout << "Hint is Available from level 3: " << pGame->getToolbar()->getLevel() << endl << endl << endl << endl;
 		pGame->getWind()->SetPen(BLACK);
-		pGame->getWind()->DrawString(50, 30, "Hint is available from level 3");
+		pGame->getWind()->DrawString(50, 50, "Hint is available from level 3");
 		return;
-	};
+	}
+
 	int CurrentScore = pGame->getToolbar()->getScore();
 	pGame->getToolbar()->setScore(CurrentScore - 1);
 
-	int randomIndex = rand() % (pGame->getGrid()->getShapeCount());
- 
-	shape* selectedShape = pGame->getGrid()->getShapeList()[randomIndex];
-	if (selectedShape)
-	{
-		grid* pGrid = pGame->getGrid();
-		pGrid->setActiveShape(selectedShape);
-		color originalColor = selectedShape->getColor();
-		selectedShape->setColor(BLACK);
-		selectedShape->draw();
-		std::this_thread::sleep_for(std::chrono::seconds(2));
-		selectedShape->setColor(originalColor); 
-		selectedShape->draw();
-	}
-}	
+	grid* pGrid = pGame->getGrid();
 
+	if (pGrid->getShapeCount() > 0) {
+		// Seed the random number generator
+		srand((time(0)));
+
+		int randomIndex = rand() % pGrid->getShapeCount();
+		shape* selectedShape = pGrid->getShapeList()[randomIndex];
+		
+		if (selectedShape)
+		{
+			pGrid->setActiveShape(selectedShape);
+			pGrid->deleteShape();
+
+			color originalColor = selectedShape->getColor();
+			selectedShape->setColor(YELLOW);
+			selectedShape->draw();
+
+			// Introduce a delay if needed for visualization
+			// pGame->getWind()->Delay(500); // Example delay function
+
+			// Restore the original color
+			selectedShape->setColor(originalColor);
+			selectedShape->draw();
+		}
+	}
+	else {
+		pGame->getWind()->SetPen(BLACK);
+		pGame->getWind()->DrawString(50, 50, "No shapes available for hint.");
+	}
+}
 
 operGameLevel::operGameLevel(game * r_pGame) :operation(r_pGame){}
 
@@ -140,6 +155,11 @@ void operGameLevel::Act()
 		{gameLevel = key - '0';} 
 		
 	}
+	
+
+	//////////////////////////////////////////// Used Clear Grid Function Again ////////////////////////////////////////////	
+
+	pGame->getGrid()->clearGrid();
 
 	if (pGame->getToolbar())
 	{
@@ -196,6 +216,7 @@ void operSave::Act()
 	sheet->writeStr(1, 1, "score");
 	sheet->writeStr(1, 2, "lives");
 	sheet->writeStr(1, 3, "time");
+	sheet->writeStr(1, 3, "ShapeCount");
 
 	// Save the game data
 	toolbar* pToolbar = pGame->getToolbar();
@@ -203,6 +224,7 @@ void operSave::Act()
 	sheet->writeNum(2, 1, pToolbar->getScore());
 	sheet->writeNum(2, 2, pToolbar->getLives());
 	sheet->writeNum(2, 3, pToolbar->getTime());
+	sheet->writeNum(2, 4, pGrid->getShapeCount());
 
 
 	// Header Raw for Shapes
@@ -215,6 +237,8 @@ void operSave::Act()
 	sheet->writeStr(3, 6, "par 4");
 	sheet->writeStr(3, 7, "par 5");
 	sheet->writeStr(3, 8, "par 6");
+	sheet->writeStr(3, 9, "par 7");
+	sheet->writeStr(3, 10, "Shape Cout");
 
 
 	//Cloud* cloud = new Cloud(pGame, { 299, 399 });
@@ -246,6 +270,7 @@ operLoad::operLoad(game* r_pGame) :operation(r_pGame)
 }
 void operLoad::Act()
 {
+
 	// Open the Excel book
 	libxl::Book* book = xlCreateXMLBook();
 	if (!book) {
@@ -262,6 +287,12 @@ void operLoad::Act()
 		book->release();
 		return;
 	}
+	
+	/////////////////////////////////// Had to wait for someone to create clearGrid() function to be used here /////////////////////////////
+
+	pGrid->clearGrid();
+	/*pGrid->clearGridArea();*/
+
 
 	// Get the sheet named "Shapes" from the book
 	libxl::Sheet* sheet = book->getSheet(0);
@@ -271,11 +302,15 @@ void operLoad::Act()
 	}
 
 	// Get the number of rows in the sheet
-	int numRows = sheet->lastRow();
+
+	//////////////////////////////// Just One line added to get the number of rows in the sheet and saved the number of shapes in the sheet  ////////////////////////////
+
+	int numRows =  (sheet->readNum(2,4))+3;
 	pGame->getToolbar()->setLevel(sheet->readNum(2, 0));
 	pGame->getToolbar()->setScore(sheet->readNum(2, 1));
 	pGame->getToolbar()->setLives(sheet->readNum(2, 2));
 	pGame->getToolbar()->setTime(sheet->readNum(2, 3));
+
 
 	for (int row = 4; row <= numRows; ++row) {
 		
@@ -358,22 +393,36 @@ void operRefresh::Act()
 	int currentLevel = pToolbar->getLevel();  //started using variables to make it easier
 	int numShapes = 2 * currentLevel + 1;
 
-	for (int i = 0; i < numShapes; ++i)
+
+	/////////////////////////////////////////////// Used The Newly Created clearGrid() Function ////////////////////////////////////////////
+
+	pGrid->clearGrid();
+
+	/*for (int i = 0; i < numShapes; ++i)
 	{	
 		pGrid->setActiveShape(pGrid->getShapeList()[i]) ;
 		pGrid->deleteShape();
-	}
+	}*/
+
+
+	/////////////////////////////////////// I left a comment here to mention that i wanted to add generaterandomshapes() function to the grid class after beeen finished //////////////////////////////
+
+
 	// to be added: generate random shapes 
 	
-	for (int i = 0; i < numShapes; ++i)
+	pGame->generateRandomShapes();
+
+	///////////////////////////////////////////// Deleted as it was a Replacement for testing generateRandomShapes() function ////////////////////////////////////////////
+
+	/*for (int i = 0; i < numShapes; ++i)
 	{
 		shape* newShape = pGrid->getShapeList()[i];
 		if (pGrid)
 		{
 			pGrid->addShape(newShape);
 		}
-	}
-	pGrid->draw();
+	}*/
+	/*pGrid->draw();*/  //GenerateRandomShapes() /////////////////function Already has draw() function///////////////////////////
 }
 
 operExit::operExit(game* r_pGame) :operation(r_pGame)

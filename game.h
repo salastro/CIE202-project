@@ -57,7 +57,7 @@ public:
 	// Assuming pWind is a pointer to a window or drawing object
 	//YourWindowType* pWind;
 
-
+	void timer();
 	void generateRandomShapes();
 
 };

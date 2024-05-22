@@ -12,7 +12,6 @@ private:
 	int level = 1;
 	int lives = 5;
 	int score = 0;
-	int time = 0;
 
 public:
 	toolbar(game* r_pGame);

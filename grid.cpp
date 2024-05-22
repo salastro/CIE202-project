@@ -125,3 +125,15 @@ shape** grid::getShapeList()
 {
 	return shapeList;
 }
+
+void grid::clearGrid()
+{
+	for (int i = 0; i < shapeCount; i++)
+	{
+		setActiveShape(shapeList[i]);
+		deleteShape();
+		shapeList[i] = nullptr;
+	}
+		
+	
+}

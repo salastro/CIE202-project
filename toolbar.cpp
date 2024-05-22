@@ -54,6 +54,7 @@ void toolbar::drawState() const
 	pWind->DrawString(config.windWidth - 300, config.toolBarHeight / 4, "Level: " + to_string(level));
 	pWind->DrawString(config.windWidth - 200, config.toolBarHeight / 4, "Lives: " + to_string(lives));
 	pWind->DrawString(config.windWidth - 100, config.toolBarHeight / 4, "Score: " + to_string(score));
+
 }
 
 //handles clicks on toolbar icons, returns ITM_CNT if the click is not inside the toolbar

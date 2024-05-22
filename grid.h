@@ -29,6 +29,7 @@ public:
 	bool matchShape();
 	void deleteShape();
 	int getShapeCount() const; 
+	void clearGrid();
 	shape** getShapeList(); 
 };
 

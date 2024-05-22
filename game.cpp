@@ -347,6 +347,15 @@ void game::updateTime()
 	pWind->DrawString(780, 5, "Timer: " + std::to_string(min) + ":" + std::to_string(sec));
 }
 
+void game::timer()
+{
+	while (1)
+	{
+		updateTime();
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+}
+
 void game::generateRandomShapes() {
 	srand(time(0));
 
