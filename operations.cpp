@@ -397,6 +397,8 @@ void operRefresh::Act()
 	toolbar* pToolbar = pGame->getToolbar(); 
 	int currentLevel = pToolbar->getLevel();  //started using variables to make it easier
 	int numShapes = 2 * currentLevel + 1;
+	int currentLives = pToolbar->getLives();
+	pToolbar->setLives(currentLives - 1); //decrement lives by 1
 
 
 	/////////////////////////////////////////////// Used The Newly Created clearGrid() Function ////////////////////////////////////////////
