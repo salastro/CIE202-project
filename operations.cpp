@@ -216,7 +216,7 @@ void operSave::Act()
 	sheet->writeStr(1, 1, "score");
 	sheet->writeStr(1, 2, "lives");
 	sheet->writeStr(1, 3, "time");
-	sheet->writeStr(1, 3, "ShapeCount");
+	sheet->writeStr(1, 4, "ShapeCount");
 
 	// Save the game data
 	toolbar* pToolbar = pGame->getToolbar();
@@ -245,8 +245,13 @@ void operSave::Act()
 	//cloud->save(sheet, 4);
 
 	int row = 4; 
+
+	/*int numShapes = pGrid->getShapeCount();*/      //////////////Shape count return garbage Value This is not my function nor my fault///////
 	int numShapes = pGrid->getShapeCount();
+
+
 	for (int i = 0; i < numShapes; ++i) {
+		if(shapes[i])
 		shapes[i]->save(sheet, row++);
 	}
 
